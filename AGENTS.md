@@ -1,0 +1,174 @@
+# ISTQB CTFL v4.0.1 Study Project
+
+This repository is a personal ISTQB CTFL v4.0.1 study system. It is used with an AI coding agent (Codex, Claude Code, etc.) to generate and continuously improve structured, self-contained study notes for every syllabus section, so the user can revise later without needing the original conversation.
+
+## Project Structure
+
+```
+prompts/
+    concept-teacher.md     # master prompt for generating concept notes
+    question-coach.md      # master prompt for generating practice questions
+
+resources/
+    ISTQB_CTFL_Syllabus_v4.0.1.pdf                    # official syllabus (source of truth)
+    istqb-ctfl-syllabus-v4.0.1.extracted.txt           # plain-text extraction of the above
+    syllabus-outline.md                                # curated outline: chapters, LOs, K-levels, keywords
+    Foundations-of-software-testing---ISTQB-Certification.pdf   # supplementary book (older edition)
+    foundations-of-software-testing.extracted.txt      # plain-text extraction of the above
+
+chapters/
+    {chapter}/              # e.g. 1.1, 1.2, 2.3 ...
+        concepts.md
+        questions.md
+        clarifications.md
+
+syllabus/
+    progress.md             # master progress tracker across all chapters
+
+revision/
+    weak-concepts.md        # concepts repeatedly misunderstood, across all chapters
+    common-confusions.md    # concept pairs the user keeps mixing up
+    final-revision.md       # condensed pre-exam revision sheet
+```
+
+## Source Material (`resources/`)
+
+Two source documents live in `resources/`:
+
+1. **`ISTQB_CTFL_Syllabus_v4.0.1.pdf`** — the official ISTQB syllabus. This is the **authoritative source for structure, scope, terminology, and learning objectives**. `resources/syllabus-outline.md` is a curated summary of it (chapters, sections, learning objectives, K-levels, keywords, exam time weighting) — read that first for a fast overview, and go to the full text for exact wording/detail.
+2. **`Foundations-of-software-testing---ISTQB-Certification.pdf`** (Graham, van Veenendaal, Evans, Black) — a supplementary textbook with extra explanations, real-world examples, and sample exam questions. It targets an **older CTFL syllabus edition**: its chapter/section numbering and some topic names differ from v4.0.1 (e.g. it has no DevOps/Shift Left/Collaboration-based Test Approaches sections, and groups things like "Test management" and "Psychology of testing" differently). **Never treat it as the syllabus structure or scope** — only use it for supplementary explanation, examples, analogies, and extra practice questions, and always frame its content in v4.0.1 terms. When the book's material doesn't map cleanly onto a v4.0.1 section, say so rather than forcing a fit.
+
+**PDF reading note:** if the Read tool's PDF support fails (e.g. `pdftoppm is not installed` — this happens when the `poppler` system dependency isn't present), do not skip the source material. Instead read/grep the corresponding `*.extracted.txt` plain-text file in `resources/` — it has the same content with `----- PAGE N -----` markers matching the original PDF page numbers, generated once via `pypdf` specifically so the syllabus stays usable without poppler. If a resource is ever added or updated and no `.extracted.txt` counterpart exists, generate one with `pypdf` (`pip install pypdf` if missing) rather than leaving the PDF unreadable to future sessions.
+
+Every chapter's `concepts.md` and `questions.md` must be consistent with `resources/syllabus-outline.md` for that section's scope and learning objectives — treat any conflict with the helper book in favor of the syllabus.
+
+## Main Study Workflow
+
+When the user requests a chapter or section such as `1.1`, or says `/study 1.1` or "Study chapter 1.1":
+
+### Step 1: Identify the Chapter
+
+Determine the requested ISTQB CTFL v4.0.1 syllabus section using `resources/syllabus-outline.md` (and `syllabus/progress.md` for its current status) as the reference. Do not mix unrelated syllabus sections into one chapter's notes.
+
+### Step 2: Generate Concept Notes
+
+Read `prompts/concept-teacher.md` and use those instructions to generate or update `chapters/{chapter}/concepts.md`, grounded in the section's learning objectives and keywords from `resources/syllabus-outline.md` and, for exact official wording, `resources/istqb-ctfl-syllabus-v4.0.1.extracted.txt`. Pull in supplementary explanations, analogies, or examples from `resources/foundations-of-software-testing.extracted.txt` where useful, but resolve any structural or terminology conflict in favor of the official syllabus.
+
+The concept file must include: topic title, learning objectives (with K-levels), big picture, complete concept explanations, official terminology, simple explanations, real-world examples, comparisons with similar concepts, synonyms and alternative wording, how the exam may describe the concept indirectly, common misunderstandings, common exam traps, must-know information, key terms, quick recap, revision summary.
+
+The content must be easy to understand when reviewed later without requiring the original conversation.
+
+### Step 3: Generate Question Notes
+
+Read `prompts/question-coach.md` and use those instructions to generate or update `chapters/{chapter}/questions.md`, scoped to that section's learning objectives in `resources/syllabus-outline.md`. Draw on `resources/foundations-of-software-testing.extracted.txt` (it has real "Sample exam questions" and a "Mock exam" section) for inspiration and extra practice material, adapting wording/terminology to v4.0.1 where the book's edition differs.
+
+Include a variety of question types (direct definition, scenario-based, comparison, tricky wording, BEST/MOST appropriate, TRUE/FALSE, NOT/EXCEPT, synonym-based, multiple-statement, technique/calculation). For each question include: question, options, correct answer, detailed explanation, explanation of incorrect options, exam trap/distractor analysis, alternative wording, related concepts that may be confused.
+
+Do not rely only on direct definitions.
+
+### Step 4: Update Progress
+
+Update `syllabus/progress.md` for the chapter just created/updated.
+
+## Clarification Workflow
+
+When the user asks for clarification about a chapter, concept, example, question, or answer (e.g. `/clarify 1.1 <question>`):
+
+1. Identify the relevant chapter.
+2. Read the existing files for that chapter.
+3. Answer the clarification clearly, in the chat.
+4. Update the relevant Markdown file (usually `concepts.md`, sometimes `questions.md`) so the clarification becomes part of the permanent study notes.
+5. Preserve existing useful information — improve the explanation instead of simply appending duplicate information.
+6. Add new examples if they help future understanding.
+7. Add comparisons when the confusion involves similar concepts.
+8. Add synonyms and alternative exam wording when relevant.
+
+If the clarification is important or represents a common confusion, also append it to `chapters/{chapter}/clarifications.md` using this structure:
+
+```markdown
+## {Concept}
+
+### My Confusion
+What was confusing.
+
+### Clear Explanation
+The improved explanation.
+
+### Example
+A practical example.
+
+### Do Not Confuse With
+Related concepts and how they differ.
+
+### Exam Wording
+Alternative ways this may appear in an ISTQB question.
+```
+
+If the confusion is a recurring pattern (the user has confused these same two concepts before, in this chapter or another), also add/update an entry in `revision/common-confusions.md`.
+
+## Practice Workflow
+
+When the user says `/practice {chapter} {mode}` (modes: `easy`, `medium`, `tricky`, `scenario`, `mixed`, or a specific technique like `calculation`):
+
+1. Read `prompts/question-coach.md` and the chapter's existing `questions.md` (to avoid repeating identical questions).
+2. Generate new questions matching the requested mode and append them to `chapters/{chapter}/questions.md` under a new dated/numbered section — do not delete prior questions.
+3. Ask questions one at a time (or in a small batch) and wait for the user's answers before revealing correct answers, per `question-coach.md` rules.
+4. After answers are given, follow the Result / Option-by-Option Analysis / Synonym Analysis format from `question-coach.md`, and update the weakness table in `questions.md`.
+5. If the user is repeatedly confusing two concepts, update `revision/weak-concepts.md` and `revision/common-confusions.md`.
+
+## Review Workflow
+
+When the user says `/review {chapter}` or `/review weak`:
+
+- `/review {chapter}`: re-read `concepts.md`, `questions.md`, and `clarifications.md` for that chapter and produce a condensed recap in chat (Quick Summary + Key Terms + Common Confusions + a short 5-question check). Do not necessarily rewrite files unless gaps are found.
+- `/review weak` (or `/revision weak`): scan all chapters' files for topics marked 🔴 Weak or `Needs Revision`, and regenerate/update `revision/weak-concepts.md` and `revision/final-revision.md` with a consolidated view: weak concepts, questions previously gotten wrong, confused concept pairs, important synonyms, tricky wording patterns, and personal clarification notes — pulled from across all chapters.
+
+## Mock Exam Workflow
+
+When the user says `/mock` or "Start Mock Exam":
+
+Follow the Mock Exam Mode rules in `prompts/question-coach.md`: generate a realistic mixed ISTQB CTFL v4.0 mock exam pulling from all chapters that have been studied so far (check `syllabus/progress.md`), mixing topics, without revealing answers during the exam. After the user submits all answers, score it, explain every answer, identify mistake patterns, and propose a personalized revision plan. Save the results as a new dated section in `revision/final-revision.md`.
+
+## File Safety Rule
+
+Before modifying an existing study file:
+
+1. Read the existing file first.
+2. Preserve useful content.
+3. Do not replace the entire file unnecessarily.
+4. Merge new knowledge into the correct section.
+5. Remove duplication if it appears.
+6. Improve unclear explanations rather than just adding more text.
+7. Add new examples rather than repeating identical examples.
+8. Maintain a clean structure for future revision.
+
+This project is a living notebook, not a one-shot generator.
+
+## Writing Rules
+
+All generated content must:
+
+- Be written in clear Markdown, with consistent heading levels
+- Use tables for comparisons
+- Use realistic examples (login, e-commerce, banking, healthcare, payment, API, etc.)
+- Clearly distinguish similar/confusable concepts
+- Include both ISTQB terminology and simple explanations
+- Include alternative exam wording and synonyms
+- Include common traps
+- Avoid unnecessary repetition
+- Be understandable by the user on their own, months later, with zero conversation context
+
+## Important Principle
+
+Do not optimize only for generating content quickly. The main goal is to create a complete, continuously improving ISTQB knowledge base that the user can revisit before the exam. Every explanation should be understandable later without requiring previous chat history.
+
+## Commands Reference
+
+| Command | Effect |
+|---|---|
+| `/study {chapter}` or "Study chapter {chapter}" | Generate/update `concepts.md` and `questions.md` for that chapter |
+| `/clarify {chapter} {question}` | Answer the question and fold the clarification into that chapter's notes |
+| `/practice {chapter} {mode}` | Add new practice questions (easy / medium / tricky / scenario / mixed / calculation) |
+| `/review {chapter}` | Condensed recap of a chapter without necessarily rewriting files |
+| `/review weak` or `/revision weak` | Rebuild the consolidated weak-areas revision sheet across all chapters |
+| `/mock` | Start a full mixed mock exam across all studied chapters |
