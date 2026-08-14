@@ -7,5 +7,6 @@ Each chapter folder contains:
 - `concepts.md` — full concept notes (generated from [prompts/concept-teacher.md](../prompts/concept-teacher.md))
 - `questions.md` — practice questions with detailed answers (generated from [prompts/question-coach.md](../prompts/question-coach.md))
 - `clarifications.md` — a log of specific confusions you asked about and how they were resolved
+- a `.html` sibling of each of the above — **open these to study**, not the `.md` files. Styled for reading, with click-to-highlight and inline notes that auto-save in your browser. See "Study Pages" in the root [README.md](../README.md).
 
 See [AGENTS.md](../AGENTS.md) for the full workflow.
