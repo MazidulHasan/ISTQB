@@ -41,17 +41,24 @@ All behavior is defined in [AGENTS.md](AGENTS.md) — the agent reads this file 
 │   └── final-revision.md     # condensed pre-exam cheat sheet + mock exam log
 │                              # (+ matching .html files, same as chapters/)
 │
+├── question-bank/
+│   ├── bank.json              # master ISTQB CTFL question bank — grows every /mock run
+│   ├── README.md               # full reference for the mock-exam system
+│   ├── exams/                   # generated exam sessions (.json snapshot + .html you take in a browser)
+│   └── results/                 # results exported from a finished exam, for scoring
+│
 ├── tools/
 │   ├── render_html.py        # turns any study .md into its paired .html
+│   ├── render_exam.py         # builds/renders question-bank/exams/*.json + *.html
 │   ├── requirements.txt      # pip install -r tools/requirements.txt
-│   └── assets/                # CSS/JS inlined into every generated page
+│   └── assets/                # CSS/JS inlined into every generated page (study pages + exam pages)
 │
-└── .claude/commands/        # /study /clarify /practice /review /mock (Claude Code)
+└── .claude/commands/        # /study /clarify /practice /review /mock /mock-studied (Claude Code)
 ```
 
 ## Study Pages (highlight, annotate, auto-save)
 
-Every `concepts.md` / `questions.md` (and `clarifications.md`, and everything in `revision/`) has a matching `.html` file, generated automatically at the end of every `/study`, `/clarify`, `/practice`, `/review`, and `/mock` run. **Open the `.html` file, not the `.md`, to actually study** — it's the same content, styled for comfortable long-form reading (serif body text, a jump-to sidebar, light/dark mode), with these built into the page itself:
+Every `concepts.md` / `questions.md` (and `clarifications.md`, and everything in `revision/`) has a matching `.html` file, generated automatically at the end of every `/study`, `/clarify`, `/practice`, `/review`, and `/mock-studied` run (and whenever a completed `/mock` exam gets scored). **Open the `.html` file, not the `.md`, to actually study** — it's the same content, styled for comfortable long-form reading (serif body text, a jump-to sidebar, light/dark mode), with these built into the page itself:
 
 - **Highlight in 5 colors**: select any text, a small toolbar appears with color swatches — click one to highlight it.
 - **Add notes anywhere**: select text and choose "📝 Note" in that same toolbar to attach a comment to it; click the marker it leaves behind to reopen, edit, or delete it. A "Notes" panel (pencil icon, top right) lists every note on the page for quick review.
@@ -73,7 +80,8 @@ These work as slash commands in Claude Code, or as plain natural-language reques
 | `/practice 1.1 tricky` | Add new practice questions (`easy`, `medium`, `tricky`, `scenario`, `mixed`, or a technique like `calculation`) |
 | `/review 1.1` | Quick recap of a chapter without necessarily rewriting files |
 | `/review weak` | Rebuild the consolidated weak-areas sheet in `revision/` from every chapter |
-| `/mock` | Full mixed mock exam across everything studied so far, scored and analyzed |
+| `/mock` | Real, timed, full-syllabus HTML mock exam (40 Q / 75 min, all 6 chapters) — opened and taken in a browser, results exported and reported back for scoring |
+| `/mock-studied` | Quick chat-based mixed mock exam across everything studied so far, scored and analyzed in-chat |
 
 ## Suggested Workflow
 
@@ -82,7 +90,8 @@ These work as slash commands in Claude Code, or as plain natural-language reques
 3. **Practice**: `/practice 1.1 tricky` → answer questions in chat; wrong answers get explained option-by-option and logged as weak areas.
 4. **Move to the next chapter**, repeating 1–3. Chapter numbers in [syllabus/progress.md](syllabus/progress.md) follow the official CTFL v4.0.1 structure, as detailed in [resources/syllabus-outline.md](resources/syllabus-outline.md).
 5. **Periodically run** `/review weak` to keep `revision/final-revision.md` current.
-6. **Before the exam**: run `/mock` for full mixed practice exams, and do a final read of `revision/final-revision.md`.
+6. **Along the way**: run `/mock-studied` for a quick, low-stakes chat-based check on what you've covered so far.
+7. **Before the exam**: run `/mock` for a real, timed, full-syllabus practice exam under real conditions, and do a final read of `revision/final-revision.md`.
 
 ## Source Material
 

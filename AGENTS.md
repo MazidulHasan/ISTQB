@@ -218,6 +218,22 @@ page's "Export Results" button, moved into `question-bank/results/`):
 5. Append a dated entry to `revision/final-revision.md` (score, weak topics, revision plan), then
    run `python tools/render_html.py revision/final-revision.md`.
 
+## Mock Exam (Studied So Far, Chat-Based) Workflow
+
+When the user says `/mock-studied` or "mock exam of what I've studied so far":
+
+This is the original, lightweight mock exam mode — a quick chat-based Q&A session, scoped only
+to chapters actually studied so far, entirely within the conversation (no HTML file, no timer,
+no permanent question bank involved). Use this for a fast progress check while studying; use
+`/mock` (see "Mock Exam Workflow" above) for the real, timed, full-syllabus exam simulation.
+
+Follow the Mock Exam Mode rules in `prompts/question-coach.md`: generate a realistic mixed
+ISTQB CTFL v4.0 mock exam pulling only from chapters that have been studied so far (check
+`syllabus/progress.md`), mixing topics, without revealing answers during the exam. After the
+user submits all answers, score it, explain every answer, identify mistake patterns, and
+propose a personalized revision plan. Save the results as a new dated section in
+`revision/final-revision.md`, then run `python tools/render_html.py revision/final-revision.md`.
+
 ## File Safety Rule
 
 Before modifying an existing study file:
@@ -263,3 +279,4 @@ Do not optimize only for generating content quickly. The main goal is to create 
 | `/review {chapter}` | Condensed recap of a chapter without necessarily rewriting files |
 | `/review weak` or `/revision weak` | Rebuild the consolidated weak-areas revision sheet across all chapters |
 | `/mock` | Generate today's real, timed, full-syllabus HTML mock exam (40 Q / 75 min); report back with exported results to have it scored and logged |
+| `/mock-studied` | Quick chat-based mixed mock exam, scoped only to chapters studied so far, scored and analyzed in-chat |
