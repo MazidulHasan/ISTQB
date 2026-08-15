@@ -34,12 +34,24 @@ revision/
     final-revision.md       # condensed pre-exam revision sheet
     (+ matching .html files for each, generated the same way)
 
+question-bank/
+    bank.json                # master ISTQB CTFL question bank — grows every /mock run; see question-bank/README.md
+    README.md                 # full reference for the mock-exam system's schema and workflow
+    exams/
+        {date}-{seq}.json        # one exam sitting's frozen snapshot (questions, order, duration, pass mark)
+        {date}-{seq}.html         # generated — the real timed exam the user opens and takes in a browser
+    results/
+        {date}-{seq}-results.json   # results exported from a finished exam, moved here for Claude to score
+
 tools/
     render_html.py           # renders any chapters/**/*.md or revision/*.md into a paired .html
+    render_exam.py            # builds/renders question-bank/exams/*.json + *.html — see question-bank/README.md
     requirements.txt          # pip install -r tools/requirements.txt (markdown, beautifulsoup4, pypdf)
     assets/
-        study-page.css         # inlined into every generated page
-        study-page.js          # inlined into every generated page — highlighting/notes/persistence engine
+        study-page.css         # inlined into every generated chapter/revision page
+        study-page.js          # inlined into every generated chapter/revision page — highlighting/notes/persistence engine
+        exam.css                # inlined into every generated mock-exam page
+        exam.js                  # inlined into every generated mock-exam page — timer/navigator/scoring/solutions engine
 ```
 
 ## Source Material (`resources/`)
@@ -159,9 +171,52 @@ When the user says `/review {chapter}` or `/review weak`:
 
 ## Mock Exam Workflow
 
-When the user says `/mock` or "Start Mock Exam":
+When the user says `/mock`, "Start Mock Exam", or asks for today's exam:
 
-Follow the Mock Exam Mode rules in `prompts/question-coach.md`: generate a realistic mixed ISTQB CTFL v4.0 mock exam pulling from all chapters that have been studied so far (check `syllabus/progress.md`), mixing topics, without revealing answers during the exam. After the user submits all answers, score it, explain every answer, identify mistake patterns, and propose a personalized revision plan. Save the results as a new dated section in `revision/final-revision.md`, then run `python tools/render_html.py revision/final-revision.md`.
+This is a **real, timed, offline HTML exam**, not a chat-based Q&A session — see
+`question-bank/README.md` for the full system reference. It uses a permanent, growing
+question bank (`question-bank/bank.json`) instead of one-off in-chat questions.
+
+**Exam scope**: unlike `/study`/`/practice`, which stay scoped to studied chapters, the mock
+exam covers the **entire syllabus from day one** (40 questions, weighted roughly by the
+official per-chapter exam-time weighting in `resources/syllabus-outline.md`), even for chapters
+not yet studied — this was an explicit user decision, since a real CTFL exam is always 40
+questions across all six chapters. For a chapter with a written `concepts.md`, ground new
+questions in that file; for a chapter without one yet, ground new questions directly in
+`resources/istqb-ctfl-syllabus-v4.0.1.extracted.txt` (do not wait for `/study` to cover a
+chapter before it can appear on a mock exam).
+
+### Step 1: Generate the exam
+
+1. Read `question-bank/bank.json` to see what questions already exist (avoid near-duplicates)
+   and check `question-bank/results/` for prior attempts to identify weak topics worth
+   re-testing with a fresh scenario/wording.
+2. Author any new questions needed (or targeted re-asks of weak topics) following the question
+   quality bar in `prompts/question-coach.md` (type rotation, distractor analysis, alternative
+   wording, etc.) and the schema in `question-bank/README.md`. Append them to `bank.json` with
+   fresh IDs — never delete or overwrite existing entries.
+3. Run `python tools/render_exam.py new` (defaults: 40 questions, 75 minutes, 65% pass mark —
+   pass `--count`/`--duration`/`--pass-mark` to override) to select the sitting and render
+   `question-bank/exams/{date}-{seq}.html`.
+4. Tell the user the file path and to open it directly in a browser. No question text is
+   revealed until they click Start inside the page; the timer, navigator, scoring, and full
+   worked solutions are all handled client-side in that file — nothing further happens in chat
+   until they report back with results.
+
+### Step 2: Score a completed exam
+
+When the user says they've finished and hands back a results file (downloaded via the exam
+page's "Export Results" button, moved into `question-bank/results/`):
+
+1. Read the results JSON: overall score/pass-fail, and per-question `chosen`/`correct`/`isCorrect`.
+2. Update `bank.json`: for each answered question, note it in that question's history (or add a
+   lightweight `stats` block if not already present) so future exam generation can prioritize
+   retesting topics the user gets wrong.
+3. Explain every incorrect answer in chat, identify mistake patterns (topic clusters, question
+   types, tricky-wording traps), and propose a personalized revision plan.
+4. Update `syllabus/progress.md` for any chapters revealed as weak.
+5. Append a dated entry to `revision/final-revision.md` (score, weak topics, revision plan), then
+   run `python tools/render_html.py revision/final-revision.md`.
 
 ## File Safety Rule
 
@@ -207,4 +262,4 @@ Do not optimize only for generating content quickly. The main goal is to create 
 | `/practice {chapter} {mode}` | Add new practice questions (easy / medium / tricky / scenario / mixed / calculation) |
 | `/review {chapter}` | Condensed recap of a chapter without necessarily rewriting files |
 | `/review weak` or `/revision weak` | Rebuild the consolidated weak-areas revision sheet across all chapters |
-| `/mock` | Start a full mixed mock exam across all studied chapters |
+| `/mock` | Generate today's real, timed, full-syllabus HTML mock exam (40 Q / 75 min); report back with exported results to have it scored and logged |
