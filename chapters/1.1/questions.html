@@ -10,19 +10,28 @@
    This file is inlined into every generated .html page at build time. */
 
 :root {
-  --bg: #faf8f3;
+  --bg: #f5f7fb;
   --bg-elevated: #ffffff;
-  --bg-sunken: #f1ede3;
-  --text: #2b2820;
-  --text-muted: #6f6a5c;
-  --border: #e4ddce;
-  --accent: #3b6ea5;
+  --bg-sunken: #e9edf5;
+  --text: #1f2530;
+  --text-muted: #606a7c;
+  --border: #d9deea;
+  --accent: #2f5fd6;
   --accent-contrast: #ffffff;
-  --code-bg: #f0ece0;
-  --shadow: 0 8px 24px rgba(40, 34, 20, 0.12);
-  --shadow-sm: 0 2px 8px rgba(40, 34, 20, 0.10);
-  --note-anchor: #3b6ea5;
+  --code-bg: #eef2f8;
+  --shadow: 0 8px 24px rgba(24, 32, 48, 0.12);
+  --shadow-sm: 0 2px 8px rgba(24, 32, 48, 0.10);
+  --note-anchor: #2f5fd6;
   --danger: #b3413a;
+  --green: #16804b;
+  --green-bg: #e6f6ec;
+  --amber: #a66500;
+  --amber-bg: #fff1d6;
+  --red: #b8322c;
+  --red-bg: #fde9e7;
+  --violet: #6b4ecf;
+  --violet-bg: #eee9ff;
+  --radius: 8px;
 
   --hl-yellow: #fdea6b;
   --hl-green: #a7e0a0;
@@ -45,6 +54,15 @@
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
   --note-anchor: #7fb2ee;
   --danger: #e28178;
+  --green: #4fd48a;
+  --green-bg: #143523;
+  --amber: #f2c069;
+  --amber-bg: #372b12;
+  --red: #f28b8b;
+  --red-bg: #3a1c1c;
+  --violet: #b7a6ff;
+  --violet-bg: #282242;
+  --radius: 8px;
 
   --hl-yellow: #8a7a1f;
   --hl-green: #3f7d43;
@@ -68,6 +86,15 @@
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
     --note-anchor: #7fb2ee;
     --danger: #e28178;
+    --green: #4fd48a;
+    --green-bg: #143523;
+    --amber: #f2c069;
+    --amber-bg: #372b12;
+    --red: #f28b8b;
+    --red-bg: #3a1c1c;
+    --violet: #b7a6ff;
+    --violet-bg: #282242;
+    --radius: 8px;
 
     --hl-yellow: #8a7a1f;
     --hl-green: #3f7d43;
@@ -85,9 +112,9 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-  font-size: 18px;
-  line-height: 1.7;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.68;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -210,7 +237,7 @@ body.toc-hidden .study-toc { display: none; }
 .study-main { flex: 1; min-width: 0; padding: 24px 28px 120px; }
 
 .study-content {
-  max-width: 760px;
+  max-width: 820px;
   margin: 0 auto;
 }
 
@@ -287,6 +314,194 @@ body.toc-hidden .study-toc { display: none; }
   color: var(--text-muted);
   background: var(--bg-sunken);
   border-radius: 0 8px 8px 0;
+}
+
+/* ---------- Concept reading upgrades ---------- */
+
+.concepts-page .study-content > p:first-of-type,
+.concepts-page .study-content > p:nth-of-type(2) {
+  color: var(--text-muted);
+}
+
+.k-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1em;
+  height: 1.55em;
+  margin: 0 0.16em;
+  padding: 0 0.42em;
+  border-radius: 999px;
+  font-size: 0.72em;
+  font-weight: 800;
+  line-height: 1;
+  vertical-align: 0.08em;
+  border: 1px solid transparent;
+}
+.k-badge.k-k1 { color: #075985; background: #e0f2fe; border-color: #bae6fd; }
+.k-badge.k-k2 { color: #166534; background: #dcfce7; border-color: #bbf7d0; }
+.k-badge.k-k3 { color: #7c2d12; background: #ffedd5; border-color: #fed7aa; }
+
+.synonyms-callout,
+.example-callout,
+.k-level-callout,
+.trap-callout {
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  padding: 10px 13px;
+  margin: 10px 0 18px;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-sm);
+}
+.synonyms-callout { border-left-color: var(--violet); background: var(--violet-bg); }
+.example-callout { border-left-color: var(--green); background: var(--green-bg); }
+.k-level-callout { border-left-color: var(--accent); background: color-mix(in srgb, var(--accent) 9%, var(--bg-elevated)); }
+.trap-callout { border-left-color: var(--amber); background: var(--amber-bg); }
+
+.concepts-page .study-content h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+.concepts-page .study-content h3::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+/* ---------- Untimed practice-question pages ---------- */
+
+.questions-page .study-layout {
+  max-width: 1240px;
+}
+
+.questions-page .study-content {
+  max-width: 860px;
+}
+
+.questions-page .study-content > h1,
+.questions-page .study-content > p,
+.questions-page .study-content > h2,
+.questions-page .study-content > .table-wrap {
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.practice-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 22px 24px;
+  margin: 22px 0;
+}
+
+.practice-card h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 0.98rem;
+}
+
+.practice-card h3::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.practice-front {
+  display: block;
+}
+
+.practice-meta {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  margin: 0 0 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--bg-sunken);
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.practice-question-text {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  margin: 2px 0 20px;
+}
+
+.practice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.practice-option-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  background: var(--bg-elevated);
+}
+.practice-option-row:hover {
+  background: var(--bg-sunken);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.practice-option-row .option-letter {
+  flex: 0 0 1.5em;
+  font-weight: 800;
+  color: var(--accent);
+}
+.practice-option-row .option-text {
+  line-height: 1.55;
+}
+
+.practice-solution {
+  border-top: 1px solid var(--border);
+  margin-top: 18px;
+  padding-top: 14px;
+}
+.practice-solution summary {
+  cursor: pointer;
+  width: fit-content;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  list-style: none;
+}
+.practice-solution summary::-webkit-details-marker { display: none; }
+.practice-solution summary:hover {
+  background: color-mix(in srgb, var(--accent) 9%, var(--bg-elevated));
+}
+.practice-solution[open] summary {
+  margin-bottom: 12px;
+}
+.practice-solution > p {
+  font-size: 0.95rem;
+  line-height: 1.58;
+}
+.practice-solution > p:has(strong:first-child) {
+  margin-top: 14px;
 }
 
 .study-content hr {
@@ -541,7 +756,7 @@ mark.hl-orange { background: var(--hl-orange); }
 
 </style>
 </head>
-<body>
+<body class="questions-page">
 <header class="study-header">
   <button class="icon-btn" id="tocToggle" title="Table of contents">☰</button>
   <div class="crumb">Chapter 1.1 › Questions</div>
@@ -562,171 +777,147 @@ mark.hl-orange { background: var(--hl-orange); }
 <p data-bid="6795c4d3a2">Each question includes the full answer and explanation inline — this file is a revision document, not a live quiz. For an interactive session where answers are withheld until you respond, use <code>/practice 1.1 &lt;mode&gt;</code> instead.</p>
 <p data-bid="afbdb34d20">Weakness table below is updated as you use <code>/practice</code> and report which of these you got wrong via <code>/clarify</code>.</p>
 <hr/>
-<h3 data-bid="ec7d8b7b7a" id="question-1-type-a-direct-definition">Question 1 — Type A: Direct Definition</h3>
-<p data-bid="4eeace9498"><strong>Difficulty:</strong> 🟢 Level 1</p>
-<p data-bid="d40ddbd868"><strong>Question:</strong> According to the ISTQB syllabus, software testing is best described as:</p>
-<p data-bid="3ddb26da33">A. The execution of software to check that it produces the correct output
-B. A set of activities to discover defects and evaluate the quality of software work products
-C. The process of finding and fixing defects in source code
-D. A quality assurance process focused on improving development procedures</p>
-<p data-bid="c9ee27a79c"><strong>Result</strong></p>
-<p data-bid="8a2e5ffbae">Correct Answer: <strong>B</strong></p>
-<p data-bid="32f333de5b"><strong>Why the Correct Answer Is Correct</strong>
-This is the ISTQB definition almost verbatim: testing is a <em>set of activities</em> — not a single activity — aimed at discovering defects and evaluating quality. It deliberately covers more than execution.</p>
-<p data-bid="032ba99362"><strong>Option-by-Option Analysis</strong>
+<section class="practice-card"><h3 data-bid="ec7d8b7b7a" id="question-1-type-a-direct-definition">Question 1 — Type A: Direct Definition</h3><div class="practice-front"><p class="practice-meta" data-bid="4eeace9498"><strong>Difficulty:</strong> 🟢 Level 1</p><p class="practice-question-text" data-bid="d40ddbd868"><strong>Question:</strong> According to the ISTQB syllabus, software testing is best described as:</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">The execution of software to check that it produces the correct output</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">A set of activities to discover defects and evaluate the quality of software work products</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">The process of finding and fixing defects in source code</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">A quality assurance process focused on improving development procedures</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae">Correct Answer: <strong>B</strong></p><p data-bid="32f333de5b"><strong>Why the Correct Answer Is Correct</strong>
+This is the ISTQB definition almost verbatim: testing is a <em>set of activities</em> — not a single activity — aimed at discovering defects and evaluating quality. It deliberately covers more than execution.</p><p data-bid="032ba99362"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. Describes only dynamic testing / test execution, which is one activity within testing, not the whole of testing. This is the "testing = only execution" misconception the syllabus explicitly warns about.
 - B: Correct — matches the official definition.
 - C: Incorrect. "Finding and fixing" conflates testing (finding, evaluating) with debugging (fixing). Testing does not fix defects.
-- D: Incorrect. This describes quality assurance (QA), a process-oriented, preventive activity — not testing, which is product-oriented and corrective in focus (see Section 1.2.2, forward reference).</p>
-<p data-bid="636d9bae37"><strong>How This Could Be Asked Differently</strong>
+- D: Incorrect. This describes quality assurance (QA), a process-oriented, preventive activity — not testing, which is product-oriented and corrective in focus (see Section 1.2.2, forward reference).</p><p data-bid="636d9bae37"><strong>How This Could Be Asked Differently</strong>
 Official Concept: Testing (the activity)
 The exam may say: "the process of activities used to assess and improve confidence in a work product's quality," "a lifecycle-wide set of activities including planning, analysis, design, execution and evaluation."
-Do Not Confuse With: Test execution (just one activity within testing); Debugging (fixing, not finding/evaluating); Quality Assurance (process-oriented and preventive, not product-oriented and corrective).</p>
-<hr/>
-<h3 data-bid="e7d9f51303" id="question-2-type-b-scenario-based">Question 2 — Type B: Scenario-Based</h3>
-<p data-bid="20531be59e"><strong>Difficulty:</strong> 🟡 Level 2</p>
-<p data-bid="987829e179"><strong>Question:</strong> A business analyst reads through a newly written set of user stories for an online banking app, before any code exists, and identifies that one story doesn't specify what should happen if a transfer amount exceeds the daily limit. What is this activity best classified as?</p>
-<p data-bid="4da356630a">A. Debugging, because a problem was identified
-B. Testing, specifically static testing
-C. Not testing, since no software was executed
-D. Quality assurance, since it improves the requirements process</p>
-<p data-bid="c9ee27a79c-2"><strong>Result</strong></p>
-<p data-bid="8a2e5ffbae-2">Correct Answer: <strong>B</strong></p>
-<p data-bid="5df3572abf"><strong>Why the Correct Answer Is Correct</strong>
-Testing includes examining any work product — including user stories — without executing code. This is static testing: a defect (an incomplete/ambiguous requirement) was found directly, without running anything.</p>
-<p data-bid="8042981bbc"><strong>Option-by-Option Analysis</strong>
+Do Not Confuse With: Test execution (just one activity within testing); Debugging (fixing, not finding/evaluating); Quality Assurance (process-oriented and preventive, not product-oriented and corrective).</p></details></section>
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="e7d9f51303" id="question-2-type-b-scenario-based">Question 2 — Type B: Scenario-Based</h3><div class="practice-front"><p class="practice-meta" data-bid="20531be59e"><strong>Difficulty:</strong> 🟡 Level 2</p><p class="practice-question-text" data-bid="987829e179"><strong>Question:</strong> A business analyst reads through a newly written set of user stories for an online banking app, before any code exists, and identifies that one story doesn't specify what should happen if a transfer amount exceeds the daily limit. What is this activity best classified as?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Debugging, because a problem was identified</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Testing, specifically static testing</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Not testing, since no software was executed</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Quality assurance, since it improves the requirements process</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-2">Correct Answer: <strong>B</strong></p><p data-bid="5df3572abf"><strong>Why the Correct Answer Is Correct</strong>
+Testing includes examining any work product — including user stories — without executing code. This is static testing: a defect (an incomplete/ambiguous requirement) was found directly, without running anything.</p><p data-bid="8042981bbc"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. Debugging is about locating and fixing a defect already confirmed to exist in code, typically done by a developer after a failure or a found defect. Here, a defect is being <em>found</em>, not diagnosed/fixed in code — that's testing's job.
 - B: Correct. Reviewing a work product (user stories) to find defects, with no execution involved, is precisely static testing.
 - C: Incorrect. This is the classic misconception the syllabus explicitly rules out — testing is not limited to execution. Static testing is testing.
-- D: Incorrect (tempting distractor). This activity is product-oriented (evaluating a specific test object — the user stories) and corrective (finding a specific defect), which is the hallmark of testing, not QA. QA would instead look at <em>why</em> the requirements process allowed this ambiguity through and improve the process itself.</p>
-<p data-bid="7b89fc26a7"><strong>Distractor Analysis</strong>
-Option D is a well-built distractor because reviews genuinely do feed into process improvement, and testing/QA are commonly (and incorrectly) used interchangeably in casual speech. The distinction hinges on product-oriented vs. process-oriented — see the Testing vs. QA comparison in the forward reference (Section 1.2.2); for now, remember: examining <em>this specific work product</em> to find <em>this specific problem</em> = testing.</p>
-<p data-bid="0d17b98250"><strong>How This Could Be Asked Differently</strong>
+- D: Incorrect (tempting distractor). This activity is product-oriented (evaluating a specific test object — the user stories) and corrective (finding a specific defect), which is the hallmark of testing, not QA. QA would instead look at <em>why</em> the requirements process allowed this ambiguity through and improve the process itself.</p><p data-bid="7b89fc26a7"><strong>Distractor Analysis</strong>
+Option D is a well-built distractor because reviews genuinely do feed into process improvement, and testing/QA are commonly (and incorrectly) used interchangeably in casual speech. The distinction hinges on product-oriented vs. process-oriented — see the Testing vs. QA comparison in the forward reference (Section 1.2.2); for now, remember: examining <em>this specific work product</em> to find <em>this specific problem</em> = testing.</p><p data-bid="0d17b98250"><strong>How This Could Be Asked Differently</strong>
 Official Concept: Static Testing
 The exam may say: "examining a document/work product without executing it," "identifying an issue in a requirement before coding begins."
-Do Not Confuse With: Dynamic testing (requires execution); Debugging (fixing a confirmed code defect); QA (process-level, not product-level).</p>
-<hr/>
-<h3 data-bid="0b1f609bd0" id="question-3-type-c-comparison">Question 3 — Type C: Comparison</h3>
-<p data-bid="20531be59e-2"><strong>Difficulty:</strong> 🟡 Level 2</p>
-<p data-bid="08aa7f551d"><strong>Question:</strong> A tester finds that a password-reset feature crashes the app when a 300-character password is submitted. A developer then spends time in a debugger tracing exactly which line of code causes the crash, and fixes it. Which statement correctly matches each role to their activity?</p>
-<p data-bid="17dded7eb2">A. Both the tester and the developer are debugging
-B. The tester is testing (dynamic testing, which triggered the failure); the developer is debugging (diagnosing and fixing the defect)
-C. The tester is debugging; the developer is testing
-D. Both the tester and the developer are testing</p>
-<p data-bid="c9ee27a79c-3"><strong>Result</strong></p>
-<p data-bid="8a2e5ffbae-3">Correct Answer: <strong>B</strong></p>
-<p data-bid="22208e22a3"><strong>Why the Correct Answer Is Correct</strong>
-The tester executed the software and triggered a failure — that's dynamic testing. The developer then located the defect causing that failure and fixed it — that's debugging (reproduction/diagnosis/fixing). This is the canonical division of labor the syllabus describes.</p>
-<p data-bid="a20aa6212a"><strong>Option-by-Option Analysis</strong>
+Do Not Confuse With: Dynamic testing (requires execution); Debugging (fixing a confirmed code defect); QA (process-level, not product-level).</p></details></section>
+
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="0b1f609bd0" id="question-3-type-c-comparison">Question 3 — Type C: Comparison</h3><div class="practice-front"><p class="practice-meta" data-bid="20531be59e-2"><strong>Difficulty:</strong> 🟡 Level 2</p><p class="practice-question-text" data-bid="08aa7f551d"><strong>Question:</strong> A tester finds that a password-reset feature crashes the app when a 300-character password is submitted. A developer then spends time in a debugger tracing exactly which line of code causes the crash, and fixes it. Which statement correctly matches each role to their activity?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Both the tester and the developer are debugging</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">The tester is testing (dynamic testing, which triggered the failure); the developer is debugging (diagnosing and fixing the defect)</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">The tester is debugging; the developer is testing</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Both the tester and the developer are testing</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-3">Correct Answer: <strong>B</strong></p><p data-bid="22208e22a3"><strong>Why the Correct Answer Is Correct</strong>
+The tester executed the software and triggered a failure — that's dynamic testing. The developer then located the defect causing that failure and fixed it — that's debugging (reproduction/diagnosis/fixing). This is the canonical division of labor the syllabus describes.</p><p data-bid="a20aa6212a"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. The tester never located or fixed anything in the code — they only ran a test that exposed a problem. That's testing, not debugging.
 - B: Correct.
 - C: Incorrect — reversed. The tester's action (running a test, observing a crash) is testing; the developer's action (tracing code to the root cause and fixing it) is debugging.
-- D: Incorrect. The developer's activity is specifically about locating/removing a known problem in code, which is debugging, not testing — even though code is being examined/run during the process.</p>
-<p data-bid="7b0c7b9507"><strong>Common Confusion Note</strong>
-If you got this wrong by picking A or D, you're likely conflating "code is being worked with" with "this is one single activity." Ask instead: is the goal to find out <em>if</em> there's a problem (testing) or to find <em>exactly where</em> a known problem is and remove it (debugging)?</p>
-<hr/>
-<h3 data-bid="df20f516c7" id="question-4-type-d-tricky-wording-best">Question 4 — Type D: Tricky Wording (BEST)</h3>
-<p data-bid="0e6281ed65"><strong>Difficulty:</strong> 🔴 Level 3</p>
-<p data-bid="41829f4908"><strong>Question:</strong> A team ships a feature that fully satisfies every acceptance criterion written in the requirements document. After release, a significant number of real users struggle to use the feature and complain it doesn't do what they expected. Which statement BEST explains this outcome?</p>
-<p data-bid="9aeeef9d8f">A. The feature failed testing because defects were found in production
-B. The feature passed verification but failed validation — the specification did not fully capture real user needs
-C. The QA process was skipped, since QA would have caught this
-D. The testers did not perform enough dynamic testing before release</p>
-<p data-bid="c9ee27a79c-4"><strong>Result</strong></p>
-<p data-bid="8a2e5ffbae-4">Correct Answer: <strong>B</strong></p>
-<p data-bid="f185cbbbea"><strong>Why the Correct Answer Is Correct</strong>
-This is exactly the verification/validation gap: the product was verified (it matches the written spec) but not validated (it doesn't match what users actually needed) — because the spec itself was incomplete or mistaken about user needs, not because testing failed to execute enough checks.</p>
-<p data-bid="25b04df553"><strong>Option-by-Option Analysis</strong>
+- D: Incorrect. The developer's activity is specifically about locating/removing a known problem in code, which is debugging, not testing — even though code is being examined/run during the process.</p><p data-bid="7b0c7b9507"><strong>Common Confusion Note</strong>
+If you got this wrong by picking A or D, you're likely conflating "code is being worked with" with "this is one single activity." Ask instead: is the goal to find out <em>if</em> there's a problem (testing) or to find <em>exactly where</em> a known problem is and remove it (debugging)?</p></details></section>
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="df20f516c7" id="question-4-type-d-tricky-wording-best">Question 4 — Type D: Tricky Wording (BEST)</h3><div class="practice-front"><p class="practice-meta" data-bid="0e6281ed65"><strong>Difficulty:</strong> 🔴 Level 3</p><p class="practice-question-text" data-bid="41829f4908"><strong>Question:</strong> A team ships a feature that fully satisfies every acceptance criterion written in the requirements document. After release, a significant number of real users struggle to use the feature and complain it doesn't do what they expected. Which statement BEST explains this outcome?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">The feature failed testing because defects were found in production</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">The feature passed verification but failed validation — the specification did not fully capture real user needs</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">The QA process was skipped, since QA would have caught this</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">The testers did not perform enough dynamic testing before release</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-4">Correct Answer: <strong>B</strong></p><p data-bid="f185cbbbea"><strong>Why the Correct Answer Is Correct</strong>
+This is exactly the verification/validation gap: the product was verified (it matches the written spec) but not validated (it doesn't match what users actually needed) — because the spec itself was incomplete or mistaken about user needs, not because testing failed to execute enough checks.</p><p data-bid="25b04df553"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. Nothing here indicates a <em>defect</em> (the software did what the spec said) — it indicates a validation gap, a different problem than "the software doesn't do what was specified."
 - B: Correct — precisely names the verification/validation distinction and identifies the root issue (the spec, not the testing execution).
 - C: Incorrect. This is a tempting but unsupported leap — the scenario says nothing about whether QA process steps were skipped; it's not the most direct explanation of the observed outcome.
-- D: Incorrect. More dynamic testing against the <em>same, incomplete</em> specification would not have caught a validation gap — dynamic testing against the spec would still have passed. This distractor assumes the problem is testing thoroughness, when it's actually a requirements/validation issue.</p>
-<p data-bid="c042660874"><strong>Why the Qualifier Word Matters</strong>
-"BEST explains" means you must choose the option that most precisely and completely accounts for the described outcome — not merely a plausible-sounding option. C and D are both superficially plausible but require assumptions the scenario doesn't support, and don't correctly diagnose the actual mechanism (verification passing, validation failing).</p>
-<p data-bid="c1839a56a1"><strong>How This Could Be Asked Differently</strong>
+- D: Incorrect. More dynamic testing against the <em>same, incomplete</em> specification would not have caught a validation gap — dynamic testing against the spec would still have passed. This distractor assumes the problem is testing thoroughness, when it's actually a requirements/validation issue.</p><p data-bid="c042660874"><strong>Why the Qualifier Word Matters</strong>
+"BEST explains" means you must choose the option that most precisely and completely accounts for the described outcome — not merely a plausible-sounding option. C and D are both superficially plausible but require assumptions the scenario doesn't support, and don't correctly diagnose the actual mechanism (verification passing, validation failing).</p><p data-bid="c1839a56a1"><strong>How This Could Be Asked Differently</strong>
 Official Concept: Validation vs. Verification
 The exam may say: "the product met every documented requirement, but users still weren't satisfied," "the specification was correct on paper but incomplete in practice."
-Do Not Confuse With: A defect / failure (verification failure) — this scenario is specifically about a validation gap, where verification actually succeeded.</p>
-<hr/>
-<h3 data-bid="3dbd065bac" id="question-5-type-e-negative-except">Question 5 — Type E: Negative (EXCEPT)</h3>
-<p data-bid="20531be59e-3"><strong>Difficulty:</strong> 🟡 Level 2</p>
-<p data-bid="55b35e7077"><strong>Question:</strong> All of the following are recognized ISTQB test objectives EXCEPT:</p>
-<p data-bid="e380452ffc">A. Building confidence in the quality of the test object
-B. Verifying that a test object complies with contractual, legal, and regulatory requirements
-C. Guaranteeing that the software contains zero defects
-D. Providing information to stakeholders to allow them to make informed decisions</p>
-<p data-bid="c9ee27a79c-5"><strong>Result</strong></p>
-<p data-bid="aaf16209e2">Correct Answer: <strong>C</strong></p>
-<p data-bid="6e08c1feb0"><strong>Why the Correct Answer Is Correct</strong>
-"Guaranteeing zero defects" is not a recognized test objective — and it isn't achievable. It contradicts one of the core testing principles (testing shows the presence of defects, not their absence). Every other option is a verbatim/paraphrased official test objective.</p>
-<p data-bid="0500bd5312"><strong>Option-by-Option Analysis</strong>
+Do Not Confuse With: A defect / failure (verification failure) — this scenario is specifically about a validation gap, where verification actually succeeded.</p></details></section>
+
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="3dbd065bac" id="question-5-type-e-negative-except">Question 5 — Type E: Negative (EXCEPT)</h3><div class="practice-front"><p class="practice-meta" data-bid="20531be59e-3"><strong>Difficulty:</strong> 🟡 Level 2</p><p class="practice-question-text" data-bid="55b35e7077"><strong>Question:</strong> All of the following are recognized ISTQB test objectives EXCEPT:</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Building confidence in the quality of the test object</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Verifying that a test object complies with contractual, legal, and regulatory requirements</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Guaranteeing that the software contains zero defects</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Providing information to stakeholders to allow them to make informed decisions</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="aaf16209e2">Correct Answer: <strong>C</strong></p><p data-bid="6e08c1feb0"><strong>Why the Correct Answer Is Correct</strong>
+"Guaranteeing zero defects" is not a recognized test objective — and it isn't achievable. It contradicts one of the core testing principles (testing shows the presence of defects, not their absence). Every other option is a verbatim/paraphrased official test objective.</p><p data-bid="0500bd5312"><strong>Option-by-Option Analysis</strong>
 - A: This IS an official test objective — not the answer to this NOT/EXCEPT question.
 - B: This IS an official test objective — not the answer.
 - C: Correct answer — this is NOT a real test objective, and it's actually impossible to achieve; testing can only reduce risk and build confidence, never <em>guarantee</em> defect-free software.
-- D: This IS an official test objective — not the answer.</p>
-<p data-bid="425f862116"><strong>Exam Trap Note</strong>
-NOT/EXCEPT questions are frequently missed not because the content is hard, but because test-takers forget the question is inverted under time pressure and pick the <em>first true statement</em> they recognize (here, A, B, or D) instead of hunting for the false one. Always re-read the question stem after evaluating each option: "am I looking for true or false here?"</p>
-<hr/>
-<h3 data-bid="828f02c5f4" id="question-6-type-f-multiple-statement">Question 6 — Type F: Multiple-Statement</h3>
-<p data-bid="0e6281ed65-2"><strong>Difficulty:</strong> 🔴 Level 3</p>
-<p data-bid="c489824b2a"><strong>Question:</strong> Consider the following two statements about static testing:</p>
-<p data-bid="60d9c23e4a">I. Static testing can identify defects without executing the software.
-II. Static testing can cause a failure if the reviewed document contains a serious error.</p>
-<p data-bid="db119ca465">Which is correct?</p>
-<p data-bid="56abfa8d7a">A. Only I is correct
-B. Only II is correct
-C. Both I and II are correct
-D. Neither I nor II is correct</p>
-<p data-bid="c9ee27a79c-6"><strong>Result</strong></p>
-<p data-bid="e95da91a3a">Correct Answer: <strong>A</strong></p>
-<p data-bid="b5baab3e9f"><strong>Why the Correct Answer Is Correct</strong>
-Statement I is directly from the syllabus: static testing finds defects directly, without executing anything. Statement II is false: by definition, a failure only occurs when software is <em>executed</em> and behaves incorrectly. Static testing never executes anything, so it can never cause a failure — no matter how serious the underlying defect is.</p>
-<p data-bid="7d9a8b3b2c"><strong>Option-by-Option Analysis</strong>
+- D: This IS an official test objective — not the answer.</p><p data-bid="425f862116"><strong>Exam Trap Note</strong>
+NOT/EXCEPT questions are frequently missed not because the content is hard, but because test-takers forget the question is inverted under time pressure and pick the <em>first true statement</em> they recognize (here, A, B, or D) instead of hunting for the false one. Always re-read the question stem after evaluating each option: "am I looking for true or false here?"</p></details></section>
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="828f02c5f4" id="question-6-type-f-multiple-statement">Question 6 — Type F: Multiple-Statement</h3><div class="practice-front"><p class="practice-meta" data-bid="0e6281ed65-2"><strong>Difficulty:</strong> 🔴 Level 3</p><p class="practice-question-text" data-bid="c489824b2a"><strong>Question:</strong> Consider the following two statements about static testing:</p><p data-bid="60d9c23e4a">I. Static testing can identify defects without executing the software.
+II. Static testing can cause a failure if the reviewed document contains a serious error.</p><p data-bid="db119ca465">Which is correct?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Only I is correct</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Only II is correct</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Both I and II are correct</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Neither I nor II is correct</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="e95da91a3a">Correct Answer: <strong>A</strong></p><p data-bid="b5baab3e9f"><strong>Why the Correct Answer Is Correct</strong>
+Statement I is directly from the syllabus: static testing finds defects directly, without executing anything. Statement II is false: by definition, a failure only occurs when software is <em>executed</em> and behaves incorrectly. Static testing never executes anything, so it can never cause a failure — no matter how serious the underlying defect is.</p><p data-bid="7d9a8b3b2c"><strong>Option-by-Option Analysis</strong>
 - A: Correct — I true, II false.
 - B: Incorrect, since I is actually true (this is one of the section's central points).
 - C: Incorrect — II is false regardless of the defect's severity; "causing a failure" requires execution, which static testing never does.
-- D: Incorrect, since I is true.</p>
-<p data-bid="6c46f085de"><strong>Distractor Analysis</strong>
-Statement II is designed to sound plausible because "serious error" primes you to think "surely that could cause a crash" — but the trap is conflating the <em>defect itself being serious</em> with the <em>act of finding it</em> causing a failure. Reviewing a document, however severe the defect found, is still just reading — nothing is running, so nothing can fail.</p>
-<hr/>
-<h3 data-bid="3d693fc78a" id="question-7-type-g-synonym-alternative-wording">Question 7 — Type G: Synonym / Alternative Wording</h3>
-<p data-bid="20531be59e-4"><strong>Difficulty:</strong> 🟡 Level 2</p>
-<p data-bid="95cc2c02a4"><strong>Question:</strong> A tester re-runs the exact same test case that previously failed, immediately after the developer reports the underlying code has been fixed, to check whether it now passes. What is this activity called, and is it testing or debugging?</p>
-<p data-bid="a64194c826">A. Debugging — it's re-checking the developer's fix
-B. Confirmation testing — a testing activity performed after debugging is complete
-C. Regression testing — checking that unrelated areas still work
-D. Static testing — since the code isn't newly executed</p>
-<p data-bid="c9ee27a79c-7"><strong>Result</strong></p>
-<p data-bid="8a2e5ffbae-5">Correct Answer: <strong>B</strong></p>
-<p data-bid="c2a8ad2ad4"><strong>Why the Correct Answer Is Correct</strong>
-Re-executing a previously failed test case specifically to check whether a reported fix resolved it is the definition of confirmation testing (full treatment in Section 2.2.3) — and it is a testing activity, performed by the tester, after the developer's debugging work is done.</p>
-<p data-bid="ab437a8f8d"><strong>Option-by-Option Analysis</strong>
+- D: Incorrect, since I is true.</p><p data-bid="6c46f085de"><strong>Distractor Analysis</strong>
+Statement II is designed to sound plausible because "serious error" primes you to think "surely that could cause a crash" — but the trap is conflating the <em>defect itself being serious</em> with the <em>act of finding it</em> causing a failure. Reviewing a document, however severe the defect found, is still just reading — nothing is running, so nothing can fail.</p></details></section>
+
+
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="3d693fc78a" id="question-7-type-g-synonym-alternative-wording">Question 7 — Type G: Synonym / Alternative Wording</h3><div class="practice-front"><p class="practice-meta" data-bid="20531be59e-4"><strong>Difficulty:</strong> 🟡 Level 2</p><p class="practice-question-text" data-bid="95cc2c02a4"><strong>Question:</strong> A tester re-runs the exact same test case that previously failed, immediately after the developer reports the underlying code has been fixed, to check whether it now passes. What is this activity called, and is it testing or debugging?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Debugging — it's re-checking the developer's fix</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Confirmation testing — a testing activity performed after debugging is complete</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Regression testing — checking that unrelated areas still work</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Static testing — since the code isn't newly executed</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-5">Correct Answer: <strong>B</strong></p><p data-bid="c2a8ad2ad4"><strong>Why the Correct Answer Is Correct</strong>
+Re-executing a previously failed test case specifically to check whether a reported fix resolved it is the definition of confirmation testing (full treatment in Section 2.2.3) — and it is a testing activity, performed by the tester, after the developer's debugging work is done.</p><p data-bid="ab437a8f8d"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. The debugging (locating and fixing the defect in code) was already done by the developer before this step. This step only checks the <em>result</em> of that debugging — that's testing.
 - B: Correct.
 - C: Incorrect but a very common trap — regression testing checks whether the fix caused <em>new</em> problems in <em>other, unrelated</em> areas, not whether the <em>original</em> failed test now passes. This question describes re-running the <em>same</em> test, which is confirmation testing.
-- D: Incorrect. Re-running a test case means executing the software again — this is dynamic testing, not static.</p>
-<p data-bid="1517fd6a59"><strong>How This Could Be Asked Differently</strong>
+- D: Incorrect. Re-running a test case means executing the software again — this is dynamic testing, not static.</p><p data-bid="1517fd6a59"><strong>How This Could Be Asked Differently</strong>
 Official Concept: Confirmation Testing
 The exam may say: "re-testing," "checking whether a specific defect has been corrected," "executing the failed test again after the fix."
-Do Not Confuse With: Regression testing (checks for unintended side effects elsewhere, not whether the original defect is fixed). This exact confusion is one of the most common ISTQB exam traps — see Section 2.2.3 when you study it for the full comparison.</p>
-<hr/>
-<h3 data-bid="c1e7df7f1d" id="question-8-type-ad-combined-direct-definition-with-a-most-appropriate-qualifier">Question 8 — Type A/D combined: Direct Definition with a MOST-appropriate qualifier</h3>
-<p data-bid="4eeace9498-2"><strong>Difficulty:</strong> 🟢 Level 1</p>
-<p data-bid="261cf495eb"><strong>Question:</strong> Which of the following is the MOST appropriate description of why test objectives can differ between projects?</p>
-<p data-bid="12ce606f39">A. Test objectives are fixed by the ISTQB syllabus and do not vary
-B. Test objectives depend on context: the work product, test level, risk, SDLC model, and business factors
-C. Test objectives only depend on which programming language is used
-D. Test objectives are determined solely by the test manager's personal preference</p>
-<p data-bid="c9ee27a79c-8"><strong>Result</strong></p>
-<p data-bid="8a2e5ffbae-6">Correct Answer: <strong>B</strong></p>
-<p data-bid="9ce59b4848"><strong>Why the Correct Answer Is Correct</strong>
-The syllabus explicitly states test objectives vary depending on context — including the work product under test, the test level, risk, the SDLC being followed, and business factors like time-to-market or contractual needs.</p>
-<p data-bid="834aaf8fef"><strong>Option-by-Option Analysis</strong>
+Do Not Confuse With: Regression testing (checks for unintended side effects elsewhere, not whether the original defect is fixed). This exact confusion is one of the most common ISTQB exam traps — see Section 2.2.3 when you study it for the full comparison.</p></details></section>
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="c1e7df7f1d" id="question-8-type-ad-combined-direct-definition-with-a-most-appropriate-qualifier">Question 8 — Type A/D combined: Direct Definition with a MOST-appropriate qualifier</h3><div class="practice-front"><p class="practice-meta" data-bid="4eeace9498-2"><strong>Difficulty:</strong> 🟢 Level 1</p><p class="practice-question-text" data-bid="261cf495eb"><strong>Question:</strong> Which of the following is the MOST appropriate description of why test objectives can differ between projects?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Test objectives are fixed by the ISTQB syllabus and do not vary</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Test objectives depend on context: the work product, test level, risk, SDLC model, and business factors</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Test objectives only depend on which programming language is used</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Test objectives are determined solely by the test manager's personal preference</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-6">Correct Answer: <strong>B</strong></p><p data-bid="9ce59b4848"><strong>Why the Correct Answer Is Correct</strong>
+The syllabus explicitly states test objectives vary depending on context — including the work product under test, the test level, risk, the SDLC being followed, and business factors like time-to-market or contractual needs.</p><p data-bid="834aaf8fef"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. The syllabus lists typical objectives, but explicitly says they vary by context — they aren't fixed per project.
 - B: Correct.
 - C: Incorrect. Programming language is not one of the context factors the syllabus lists; this is a plausible-sounding but unsupported distractor.
-- D: Incorrect. While a test manager's judgment plays into decisions, "solely personal preference" overstates and misattributes what's actually a context-driven, multi-factor decision.</p>
-<hr/>
+- D: Incorrect. While a test manager's judgment plays into decisions, "solely personal preference" overstates and misattributes what's actually a context-driven, multi-factor decision.</p></details></section>
+
+
+
+
+
+
+
+
 <h2 data-bid="50d71c5173" id="weakness-table">Weakness Table</h2>
 <p data-bid="2e03182c30">Update this after each <code>/practice 1.1</code> session or when reviewing answers above.</p>
 <div class="table-wrap"><table>
@@ -785,6 +976,99 @@ The syllabus explicitly states test objectives vary depending on context — inc
 </table></div>
 <h2 data-bid="6f171560a2" id="question-rotation-log">Question Rotation Log</h2>
 <p data-bid="361b3e85fe">Types used so far: A (Q1, Q8), B (Q2), C (Q3), D (Q4), E (Q5), F (Q6), G (Q7). Not yet used for this chapter: H (calculation — not applicable to 1.1), I (mixed mock — will appear once more chapters exist).</p>
+<hr/>
+<h2 data-bid="8dc9bc0c21" id="practice-session-2026-08-17-medium">Practice Session - 2026-08-17 - Medium</h2>
+<p data-bid="9317ba78f5">These questions were added for <code>/practice 1.1 medium</code>. In the live chat session, answer them before reading the explanations below.</p>
+<section class="practice-card"><h3 data-bid="808d155b72" id="question-9-type-b-scenario-based">Question 9 - Type B: Scenario-Based</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="f39e623a67"><strong>Question:</strong> A test analyst reviews an API design document and notices that the error response for expired authentication tokens is not defined. Which statement BEST describes this activity?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">It is debugging, because the analyst found the cause of a future failure</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">It is testing, because a work product is being evaluated to find defects</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">It is not testing, because the API has not been executed</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">It is validation only, because users may care about authentication behavior</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-7">Correct Answer: <strong>B</strong></p><p data-bid="a297007e35"><strong>Why the Correct Answer Is Correct</strong>
+Testing is a set of activities used to discover defects and evaluate the quality of test objects. A test object can be a document, design, requirement, user story, or code. Here, the API design document is the test object, and the missing error response is a defect in that work product. Because no software is executed, this is static testing.</p><p data-bid="41adbe51cd"><strong>Option-by-Option Analysis</strong>
+- A: Incorrect. Debugging means locating and fixing the cause of a known defect or failure in code. The analyst is not diagnosing or fixing code.
+- B: Correct. The analyst is evaluating a work product and finding a defect, which is testing.
+- C: Incorrect. This is the classic trap: testing is not limited to executing software. Static testing is still testing.
+- D: Incorrect. The scenario may later relate to user expectations, but the direct activity described is evaluating a design work product for a missing specification.</p><p data-bid="43c9cfaa84"><strong>How This Could Be Asked Differently</strong>
+The exam may say "reviewing a design," "checking a requirements artifact," or "inspecting a non-executable work product." These all still describe testing when the goal is to find defects or evaluate quality.</p><p data-bid="72b46acf1c"><strong>Do Not Confuse With</strong>
+Debugging: fixing or diagnosing a known problem in code. Static testing: finding issues without executing the software.</p></details></section>
+
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="f38270c468" id="question-10-type-d-best-primary-objective">Question 10 - Type D: BEST / Primary Objective</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-2"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="002e1a47cd"><strong>Question:</strong> A team performs a focused round of tests on a payment feature before release because a failed payment could lead to regulatory penalties and financial loss. What is the PRIMARY test objective in this scenario?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Reducing the risk level of inadequate software quality</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Guaranteeing that no defects remain in the payment feature</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Debugging the payment feature before release</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Replacing the need for legal and regulatory review</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="e95da91a3a-2">Correct Answer: <strong>A</strong></p><p data-bid="4fe0395967"><strong>Why the Correct Answer Is Correct</strong>
+One typical test objective is reducing the risk level of inadequate software quality. The scenario emphasizes the impact of a quality problem: regulatory penalties and financial loss. Testing cannot remove all risk, but it can reduce risk and provide information about whether the remaining risk is acceptable.</p><p data-bid="55c47bdb79"><strong>Option-by-Option Analysis</strong>
+- A: Correct. The risk focus in the scenario points directly to this objective.
+- B: Incorrect. Testing cannot guarantee that no defects remain.
+- C: Incorrect. Debugging may happen after failures or defects are found, but the testing objective is not debugging.
+- D: Incorrect. Testing may verify compliance-related behavior, but it does not replace legal, regulatory, or contractual review.</p><p data-bid="5545da8dbc"><strong>Distractor Analysis</strong>
+Option B uses an absolute word, "guaranteeing," which is usually suspicious in testing questions. Option D sounds business-relevant, but it overstates what testing can do.</p><p data-bid="51429556e5"><strong>How This Could Be Asked Differently</strong>
+The exam may use phrases such as "reduce exposure," "lower the chance or impact of poor quality," or "support a release decision for a high-risk area."</p></details></section>
+
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="16ae18483c" id="question-11-type-c-comparison">Question 11 - Type C: Comparison</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-3"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="53357ddef2"><strong>Question:</strong> During system testing, a tester executes a test case and observes that the system displays the wrong tax amount. A developer later traces the calculation logic, finds an incorrect rounding rule, changes the code, and commits the fix. Which option correctly classifies the activities?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">The tester performed debugging; the developer performed testing</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">The tester performed dynamic testing; the developer performed debugging</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Both performed testing because both worked with the software</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Both performed debugging because a defect was involved</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-8">Correct Answer: <strong>B</strong></p><p data-bid="e6a4bb72ff"><strong>Why the Correct Answer Is Correct</strong>
+The tester executed the software and observed a failure, so the tester performed dynamic testing. The developer then located the underlying defect and fixed it, so the developer performed debugging.</p><p data-bid="c104a4b343"><strong>Option-by-Option Analysis</strong>
+- A: Incorrect. The classifications are reversed.
+- B: Correct. Testing revealed the failure; debugging diagnosed and fixed the cause.
+- C: Incorrect. Working with software does not automatically mean testing. The developer's purpose was to locate and remove a known defect.
+- D: Incorrect. A defect being involved does not make every related activity debugging.</p><p data-bid="70627b9b3f"><strong>How This Could Be Asked Differently</strong>
+The exam may describe "executing a test and observing incorrect behavior" for testing, and "tracing code to find the cause" for debugging.</p><p data-bid="13fda9ebd9"><strong>Do Not Confuse With</strong>
+Confirmation testing comes after debugging, when the fixed software is tested again to check that the original failure no longer occurs.</p></details></section>
+
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="957c78e788" id="question-12-type-e-negative-question">Question 12 - Type E: Negative Question</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-4"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="60581f125c"><strong>Question:</strong> Which of the following is NOT a typical test objective in ISTQB CTFL v4.0.1?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Providing information to stakeholders so they can make informed decisions</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Validating whether the test object works as expected by stakeholders</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Ensuring required coverage of a test object</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Proving that the development process follows the best possible method</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="b8fa29e1bc">Correct Answer: <strong>D</strong></p><p data-bid="f0019cc8da"><strong>Why the Correct Answer Is Correct</strong>
+Testing has typical objectives such as providing decision-making information, validating stakeholder expectations, and ensuring required coverage. "Proving that the development process follows the best possible method" is not one of the listed test objectives. It also sounds more like process assessment or quality assurance than testing.</p><p data-bid="8a4740830f"><strong>Option-by-Option Analysis</strong>
+- A: This is a typical test objective, so it is not the answer to this negative question.
+- B: This is a typical test objective, so it is not the answer.
+- C: This is a typical test objective, so it is not the answer.
+- D: Correct. It is not a typical test objective.</p><p data-bid="28f59967e7"><strong>Exam Trap Note</strong>
+For NOT questions, mark the question as inverted before evaluating the options. Three options may be true, and the answer is the one that is not true.</p></details></section>
+
+
+
+
+
+
+
+
+
+<section class="practice-card"><h3 data-bid="6e1916ef03" id="question-13-type-f-multiple-statement">Question 13 - Type F: Multiple-Statement</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-5"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="7bb6a18493"><strong>Question:</strong> Consider these statements about testing and debugging:</p><p data-bid="850757ec7d">I. Testing can reveal failures, but debugging identifies and removes the defect that caused a known failure.<br/>
+II. After a developer fixes a defect, re-running the previously failed test is still debugging because it checks the fix.  </p><p data-bid="ac4af7f819">Which option is correct?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Only I is correct</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Only II is correct</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Both I and II are correct</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Neither I nor II is correct</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="e95da91a3a-3">Correct Answer: <strong>A</strong></p><p data-bid="5a3c990798"><strong>Why the Correct Answer Is Correct</strong>
+Statement I correctly distinguishes testing from debugging. Statement II is false because re-running a previously failed test after a fix is confirmation testing, which is a testing activity. Debugging is the developer's activity of diagnosing and fixing the defect.</p><p data-bid="106009eed1"><strong>Option-by-Option Analysis</strong>
+- A: Correct. I is true and II is false.
+- B: Incorrect. II is false because checking a fix by re-running a test is testing, not debugging.
+- C: Incorrect. II makes a common but important classification error.
+- D: Incorrect. I is correct.</p><p data-bid="c8c4912f16"><strong>How This Could Be Asked Differently</strong>
+The exam may use "re-testing," "checking whether the original problem has been fixed," or "running the failed test again after correction." These describe confirmation testing, not debugging.</p><p data-bid="264e898df8"><strong>Do Not Confuse With</strong>
+Regression testing checks whether the change broke something else. Confirmation testing checks whether the original defect was fixed. Both are testing activities.</p></details></section>
+
+
+
+
+
+
+
+
+
+
+
     </div>
   </main>
 </div>

@@ -153,6 +153,19 @@ Follow the ISTQB CTFL v4.0 syllabus chapter by chapter and learning objective by
 - Do not skip a syllabus topic because it seems obvious
 - If a concept is easy to misunderstand, explain it from multiple angles
 
+## Readability and Page Style Rules
+
+The generated `concepts.md` must feel like an easy study guide, not a textbook chapter.
+
+- Keep paragraphs short: normally 2-4 sentences, with one idea per paragraph.
+- Start each major concept with `**Level:** K1`, `**Level:** K2`, or `**Level:** K3`, matching the relevant learning objective. If a concept supports more than one objective, list all relevant levels.
+- After each major explanation paragraph, add a compact line beginning with `**Synonyms / exam wording:**` that gives alternative terms, paraphrases, and indirect wording ISTQB may use for the same idea.
+- For every important concept, include an immediately nearby `**Example:**` using a realistic system such as login, e-commerce, banking, healthcare, payment, API, registration, or role-based access.
+- Prefer friendly subheadings, small tables, and callout-style lines (`**Level:**`, `**Example:**`, `**Synonyms / exam wording:**`, `**Common exam trap:**`) over long uninterrupted prose.
+- When the syllabus keyword appears, explicitly connect it to its likely synonyms or paraphrases. Example: `defect` may appear as fault, bug, problem in the work product, incorrect implementation.
+- For K1 content, focus on recognition and recall. For K2 content, explain the difference, reasoning, and scenario classification. For K3 content, show how to apply the concept step by step.
+- Make the notes enjoyable to revise: concise, concrete, example-heavy, and visually scannable in Markdown.
+
 ## Important Instruction
 
 My goal is to fully understand the ISTQB CTFL syllabus, not just pass by memorization. If I give a wrong answer during a mini check: explain why my answer is wrong, identify what concept I misunderstood, give a simpler explanation, give another example, compare the correct concept with the concept I confused it with, and give a similar question to confirm I now understand.

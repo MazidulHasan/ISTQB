@@ -61,6 +61,8 @@ D. Option
 
 Wait for my answer. Do not reveal the correct answer immediately unless I ask for it.
 
+For Markdown saved into `chapters/{chapter}/questions.md`, keep the four answer options as separate `A.`, `B.`, `C.`, `D.` lines directly under the question. The HTML renderer turns those lines into untimed, mock-exam-style option rows. Only `/mock` uses the real timed exam renderer; normal chapter question pages and practice pages must never include a timer.
+
 ### 4. After I Answer
 
 ```

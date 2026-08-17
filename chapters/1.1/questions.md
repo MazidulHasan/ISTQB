@@ -271,3 +271,170 @@ Update this after each `/practice 1.1` session or when reviewing answers above.
 ## Question Rotation Log
 
 Types used so far: A (Q1, Q8), B (Q2), C (Q3), D (Q4), E (Q5), F (Q6), G (Q7). Not yet used for this chapter: H (calculation — not applicable to 1.1), I (mixed mock — will appear once more chapters exist).
+
+---
+
+## Practice Session - 2026-08-17 - Medium
+
+These questions were added for `/practice 1.1 medium`. In the live chat session, answer them before reading the explanations below.
+
+### Question 9 - Type B: Scenario-Based
+
+**Difficulty:** Level 2
+
+**Question:** A test analyst reviews an API design document and notices that the error response for expired authentication tokens is not defined. Which statement BEST describes this activity?
+
+A. It is debugging, because the analyst found the cause of a future failure  
+B. It is testing, because a work product is being evaluated to find defects  
+C. It is not testing, because the API has not been executed  
+D. It is validation only, because users may care about authentication behavior  
+
+**Result**
+
+Correct Answer: **B**
+
+**Why the Correct Answer Is Correct**
+Testing is a set of activities used to discover defects and evaluate the quality of test objects. A test object can be a document, design, requirement, user story, or code. Here, the API design document is the test object, and the missing error response is a defect in that work product. Because no software is executed, this is static testing.
+
+**Option-by-Option Analysis**
+- A: Incorrect. Debugging means locating and fixing the cause of a known defect or failure in code. The analyst is not diagnosing or fixing code.
+- B: Correct. The analyst is evaluating a work product and finding a defect, which is testing.
+- C: Incorrect. This is the classic trap: testing is not limited to executing software. Static testing is still testing.
+- D: Incorrect. The scenario may later relate to user expectations, but the direct activity described is evaluating a design work product for a missing specification.
+
+**How This Could Be Asked Differently**
+The exam may say "reviewing a design," "checking a requirements artifact," or "inspecting a non-executable work product." These all still describe testing when the goal is to find defects or evaluate quality.
+
+**Do Not Confuse With**
+Debugging: fixing or diagnosing a known problem in code. Static testing: finding issues without executing the software.
+
+---
+
+### Question 10 - Type D: BEST / Primary Objective
+
+**Difficulty:** Level 2
+
+**Question:** A team performs a focused round of tests on a payment feature before release because a failed payment could lead to regulatory penalties and financial loss. What is the PRIMARY test objective in this scenario?
+
+A. Reducing the risk level of inadequate software quality  
+B. Guaranteeing that no defects remain in the payment feature  
+C. Debugging the payment feature before release  
+D. Replacing the need for legal and regulatory review  
+
+**Result**
+
+Correct Answer: **A**
+
+**Why the Correct Answer Is Correct**
+One typical test objective is reducing the risk level of inadequate software quality. The scenario emphasizes the impact of a quality problem: regulatory penalties and financial loss. Testing cannot remove all risk, but it can reduce risk and provide information about whether the remaining risk is acceptable.
+
+**Option-by-Option Analysis**
+- A: Correct. The risk focus in the scenario points directly to this objective.
+- B: Incorrect. Testing cannot guarantee that no defects remain.
+- C: Incorrect. Debugging may happen after failures or defects are found, but the testing objective is not debugging.
+- D: Incorrect. Testing may verify compliance-related behavior, but it does not replace legal, regulatory, or contractual review.
+
+**Distractor Analysis**
+Option B uses an absolute word, "guaranteeing," which is usually suspicious in testing questions. Option D sounds business-relevant, but it overstates what testing can do.
+
+**How This Could Be Asked Differently**
+The exam may use phrases such as "reduce exposure," "lower the chance or impact of poor quality," or "support a release decision for a high-risk area."
+
+---
+
+### Question 11 - Type C: Comparison
+
+**Difficulty:** Level 2
+
+**Question:** During system testing, a tester executes a test case and observes that the system displays the wrong tax amount. A developer later traces the calculation logic, finds an incorrect rounding rule, changes the code, and commits the fix. Which option correctly classifies the activities?
+
+A. The tester performed debugging; the developer performed testing  
+B. The tester performed dynamic testing; the developer performed debugging  
+C. Both performed testing because both worked with the software  
+D. Both performed debugging because a defect was involved  
+
+**Result**
+
+Correct Answer: **B**
+
+**Why the Correct Answer Is Correct**
+The tester executed the software and observed a failure, so the tester performed dynamic testing. The developer then located the underlying defect and fixed it, so the developer performed debugging.
+
+**Option-by-Option Analysis**
+- A: Incorrect. The classifications are reversed.
+- B: Correct. Testing revealed the failure; debugging diagnosed and fixed the cause.
+- C: Incorrect. Working with software does not automatically mean testing. The developer's purpose was to locate and remove a known defect.
+- D: Incorrect. A defect being involved does not make every related activity debugging.
+
+**How This Could Be Asked Differently**
+The exam may describe "executing a test and observing incorrect behavior" for testing, and "tracing code to find the cause" for debugging.
+
+**Do Not Confuse With**
+Confirmation testing comes after debugging, when the fixed software is tested again to check that the original failure no longer occurs.
+
+---
+
+### Question 12 - Type E: Negative Question
+
+**Difficulty:** Level 2
+
+**Question:** Which of the following is NOT a typical test objective in ISTQB CTFL v4.0.1?
+
+A. Providing information to stakeholders so they can make informed decisions  
+B. Validating whether the test object works as expected by stakeholders  
+C. Ensuring required coverage of a test object  
+D. Proving that the development process follows the best possible method  
+
+**Result**
+
+Correct Answer: **D**
+
+**Why the Correct Answer Is Correct**
+Testing has typical objectives such as providing decision-making information, validating stakeholder expectations, and ensuring required coverage. "Proving that the development process follows the best possible method" is not one of the listed test objectives. It also sounds more like process assessment or quality assurance than testing.
+
+**Option-by-Option Analysis**
+- A: This is a typical test objective, so it is not the answer to this negative question.
+- B: This is a typical test objective, so it is not the answer.
+- C: This is a typical test objective, so it is not the answer.
+- D: Correct. It is not a typical test objective.
+
+**Exam Trap Note**
+For NOT questions, mark the question as inverted before evaluating the options. Three options may be true, and the answer is the one that is not true.
+
+---
+
+### Question 13 - Type F: Multiple-Statement
+
+**Difficulty:** Level 2
+
+**Question:** Consider these statements about testing and debugging:
+
+I. Testing can reveal failures, but debugging identifies and removes the defect that caused a known failure.  
+II. After a developer fixes a defect, re-running the previously failed test is still debugging because it checks the fix.  
+
+Which option is correct?
+
+A. Only I is correct  
+B. Only II is correct  
+C. Both I and II are correct  
+D. Neither I nor II is correct  
+
+**Result**
+
+Correct Answer: **A**
+
+**Why the Correct Answer Is Correct**
+Statement I correctly distinguishes testing from debugging. Statement II is false because re-running a previously failed test after a fix is confirmation testing, which is a testing activity. Debugging is the developer's activity of diagnosing and fixing the defect.
+
+**Option-by-Option Analysis**
+- A: Correct. I is true and II is false.
+- B: Incorrect. II is false because checking a fix by re-running a test is testing, not debugging.
+- C: Incorrect. II makes a common but important classification error.
+- D: Incorrect. I is correct.
+
+**How This Could Be Asked Differently**
+The exam may use "re-testing," "checking whether the original problem has been fixed," or "running the failed test again after correction." These describe confirmation testing, not debugging.
+
+**Do Not Confuse With**
+Regression testing checks whether the change broke something else. Confirmation testing checks whether the original defect was fixed. Both are testing activities.
+ 

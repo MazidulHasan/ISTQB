@@ -10,19 +10,28 @@
    This file is inlined into every generated .html page at build time. */
 
 :root {
-  --bg: #faf8f3;
+  --bg: #f5f7fb;
   --bg-elevated: #ffffff;
-  --bg-sunken: #f1ede3;
-  --text: #2b2820;
-  --text-muted: #6f6a5c;
-  --border: #e4ddce;
-  --accent: #3b6ea5;
+  --bg-sunken: #e9edf5;
+  --text: #1f2530;
+  --text-muted: #606a7c;
+  --border: #d9deea;
+  --accent: #2f5fd6;
   --accent-contrast: #ffffff;
-  --code-bg: #f0ece0;
-  --shadow: 0 8px 24px rgba(40, 34, 20, 0.12);
-  --shadow-sm: 0 2px 8px rgba(40, 34, 20, 0.10);
-  --note-anchor: #3b6ea5;
+  --code-bg: #eef2f8;
+  --shadow: 0 8px 24px rgba(24, 32, 48, 0.12);
+  --shadow-sm: 0 2px 8px rgba(24, 32, 48, 0.10);
+  --note-anchor: #2f5fd6;
   --danger: #b3413a;
+  --green: #16804b;
+  --green-bg: #e6f6ec;
+  --amber: #a66500;
+  --amber-bg: #fff1d6;
+  --red: #b8322c;
+  --red-bg: #fde9e7;
+  --violet: #6b4ecf;
+  --violet-bg: #eee9ff;
+  --radius: 8px;
 
   --hl-yellow: #fdea6b;
   --hl-green: #a7e0a0;
@@ -45,6 +54,15 @@
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
   --note-anchor: #7fb2ee;
   --danger: #e28178;
+  --green: #4fd48a;
+  --green-bg: #143523;
+  --amber: #f2c069;
+  --amber-bg: #372b12;
+  --red: #f28b8b;
+  --red-bg: #3a1c1c;
+  --violet: #b7a6ff;
+  --violet-bg: #282242;
+  --radius: 8px;
 
   --hl-yellow: #8a7a1f;
   --hl-green: #3f7d43;
@@ -68,6 +86,15 @@
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
     --note-anchor: #7fb2ee;
     --danger: #e28178;
+    --green: #4fd48a;
+    --green-bg: #143523;
+    --amber: #f2c069;
+    --amber-bg: #372b12;
+    --red: #f28b8b;
+    --red-bg: #3a1c1c;
+    --violet: #b7a6ff;
+    --violet-bg: #282242;
+    --radius: 8px;
 
     --hl-yellow: #8a7a1f;
     --hl-green: #3f7d43;
@@ -85,9 +112,9 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-  font-size: 18px;
-  line-height: 1.7;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.68;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -210,7 +237,7 @@ body.toc-hidden .study-toc { display: none; }
 .study-main { flex: 1; min-width: 0; padding: 24px 28px 120px; }
 
 .study-content {
-  max-width: 760px;
+  max-width: 820px;
   margin: 0 auto;
 }
 
@@ -287,6 +314,194 @@ body.toc-hidden .study-toc { display: none; }
   color: var(--text-muted);
   background: var(--bg-sunken);
   border-radius: 0 8px 8px 0;
+}
+
+/* ---------- Concept reading upgrades ---------- */
+
+.concepts-page .study-content > p:first-of-type,
+.concepts-page .study-content > p:nth-of-type(2) {
+  color: var(--text-muted);
+}
+
+.k-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1em;
+  height: 1.55em;
+  margin: 0 0.16em;
+  padding: 0 0.42em;
+  border-radius: 999px;
+  font-size: 0.72em;
+  font-weight: 800;
+  line-height: 1;
+  vertical-align: 0.08em;
+  border: 1px solid transparent;
+}
+.k-badge.k-k1 { color: #075985; background: #e0f2fe; border-color: #bae6fd; }
+.k-badge.k-k2 { color: #166534; background: #dcfce7; border-color: #bbf7d0; }
+.k-badge.k-k3 { color: #7c2d12; background: #ffedd5; border-color: #fed7aa; }
+
+.synonyms-callout,
+.example-callout,
+.k-level-callout,
+.trap-callout {
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  padding: 10px 13px;
+  margin: 10px 0 18px;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-sm);
+}
+.synonyms-callout { border-left-color: var(--violet); background: var(--violet-bg); }
+.example-callout { border-left-color: var(--green); background: var(--green-bg); }
+.k-level-callout { border-left-color: var(--accent); background: color-mix(in srgb, var(--accent) 9%, var(--bg-elevated)); }
+.trap-callout { border-left-color: var(--amber); background: var(--amber-bg); }
+
+.concepts-page .study-content h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+.concepts-page .study-content h3::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+/* ---------- Untimed practice-question pages ---------- */
+
+.questions-page .study-layout {
+  max-width: 1240px;
+}
+
+.questions-page .study-content {
+  max-width: 860px;
+}
+
+.questions-page .study-content > h1,
+.questions-page .study-content > p,
+.questions-page .study-content > h2,
+.questions-page .study-content > .table-wrap {
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.practice-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 22px 24px;
+  margin: 22px 0;
+}
+
+.practice-card h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 0.98rem;
+}
+
+.practice-card h3::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.practice-front {
+  display: block;
+}
+
+.practice-meta {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  margin: 0 0 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--bg-sunken);
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.practice-question-text {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  margin: 2px 0 20px;
+}
+
+.practice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.practice-option-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  background: var(--bg-elevated);
+}
+.practice-option-row:hover {
+  background: var(--bg-sunken);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.practice-option-row .option-letter {
+  flex: 0 0 1.5em;
+  font-weight: 800;
+  color: var(--accent);
+}
+.practice-option-row .option-text {
+  line-height: 1.55;
+}
+
+.practice-solution {
+  border-top: 1px solid var(--border);
+  margin-top: 18px;
+  padding-top: 14px;
+}
+.practice-solution summary {
+  cursor: pointer;
+  width: fit-content;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  list-style: none;
+}
+.practice-solution summary::-webkit-details-marker { display: none; }
+.practice-solution summary:hover {
+  background: color-mix(in srgb, var(--accent) 9%, var(--bg-elevated));
+}
+.practice-solution[open] summary {
+  margin-bottom: 12px;
+}
+.practice-solution > p {
+  font-size: 0.95rem;
+  line-height: 1.58;
+}
+.practice-solution > p:has(strong:first-child) {
+  margin-top: 14px;
 }
 
 .study-content hr {
@@ -541,7 +756,7 @@ mark.hl-orange { background: var(--hl-orange); }
 
 </style>
 </head>
-<body>
+<body class="final-revision-page">
 <header class="study-header">
   <button class="icon-btn" id="tocToggle" title="Table of contents">☰</button>
   <div class="crumb">Revision › Final Revision</div>

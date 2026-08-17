@@ -7,7 +7,7 @@ Chapter numbers and titles below are taken directly from the official syllabus â
 | Chapter | Topic | Concepts | Questions | Clarifications | Revision Needed | Status |
 |---|---|---|---|---|---|---|
 | 1.1 | What is Testing? | Learning | Practicing | 0 | No | Learning |
-| 1.2 | Why is Testing Necessary? | Not Started | Not Started | 0 | No | Not Started |
+| 1.2 | Why is Testing Necessary? | Learning | Learning | 0 | No | Learning |
 | 1.3 | Testing Principles | Not Started | Not Started | 0 | No | Not Started |
 | 1.4 | Test Activities, Testware and Test Roles | Not Started | Not Started | 0 | No | Not Started |
 | 1.5 | Essential Skills and Good Practices in Testing | Not Started | Not Started | 0 | No | Not Started |

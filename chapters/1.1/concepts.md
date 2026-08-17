@@ -14,6 +14,24 @@ K1 means you must be able to *recall/recognize* the list of test objectives (don
 
 ## Big Picture
 
+### Fast Study Version
+
+**Level:** K1 for recognizing test objectives; K2 for explaining testing vs. debugging.
+
+Testing is not just "running the app to see if it works." Testing means evaluating a work product, finding defects, building confidence, reducing risk, and giving stakeholders useful information.
+
+**Synonyms / exam wording:** testing, evaluation, checking a work product, assessing quality, finding defects, gaining confidence.
+
+**Example:** In a banking app, testing may include reviewing a transfer requirement before code exists, running a transfer test after code exists, and reporting whether the release looks safe enough for business approval.
+
+The exam often describes an activity and asks what it is or why it is being done. If you think testing only means execution, you will miss questions about reviews, static testing, test objectives, and confirmation testing.
+
+**Synonyms / exam wording:** purpose of testing, objective of testing, reason for testing, activity classification, testing activity vs. debugging activity.
+
+If a team treats testing as only clicking through software, defects in requirements and designs are found too late. If the team mixes up testing and debugging, it becomes unclear who found the problem, who fixed it, and who confirmed the fix.
+
+**Synonyms / exam wording:** early defect detection, review before execution, quality evaluation, defect removal, fix verification.
+
 **What this topic is about:** Before you can study any testing technique or process, you need a precise answer to a deceptively simple question: what actually *is* testing? Most people outside (and even inside) software development think testing just means "running the software and seeing if it works." This section corrects that, gives you the full list of reasons testing is done (test objectives), and draws a hard line between testing and debugging — two activities that are done by different people, at different times, for different purposes, but which get casually lumped together in everyday speech ("I'm testing my code" often really means "I'm debugging my code").
 
 **Why it exists:** The exam — and real testing work — constantly asks you to identify *why* a particular testing activity is being done, or to spot when someone has mislabeled debugging as testing (or vice versa). You cannot answer those questions without a precise mental model of what testing includes and excludes.
@@ -34,6 +52,8 @@ K1 means you must be able to *recall/recognize* the list of test objectives (don
 
 ### Concept: Software Testing (the ISTQB definition, in plain terms)
 
+**Level:** K1 recognition, with K2 scenario understanding.
+
 - **Simple definition:** Testing is everything you do to figure out whether a piece of software is good enough and to find problems in it — not just clicking through the app, but planning what to check, designing checks, running them, and judging the results.
 - **Official/exam-oriented meaning:** *"A set of activities to discover defects and evaluate the quality of software work products (test objects)."* Testing includes far more than test execution: it includes planning, analysis, design, implementation, execution, and evaluation of results (the full test process, covered in 1.4).
 - **Why it matters:** If you answer an exam question assuming "testing" means only "running tests," you will get scenario questions wrong — e.g., a question describing a requirements review is still describing *testing* (specifically, static testing).
@@ -43,7 +63,13 @@ K1 means you must be able to *recall/recognize* the list of test objectives (don
 - **Difference from similar concepts:** See the Testing vs. Debugging and Verification vs. Validation comparisons below.
 - **Important keywords:** testing, test object, test basis, defect, quality, quality assurance.
 
+**Synonyms / exam wording:** evaluate quality, assess a work product, discover defects, execute tests, review requirements, inspect a design, build confidence.
+
+**Common exam trap:** "Testing means executing software" is incomplete. Execution is only one part of testing.
+
 ### Concept: Test Object
+
+**Level:** K1 recognition.
 
 - **Simple definition:** Whatever work product is currently being tested.
 - **Official meaning:** The work product under test — this could be a requirements document, a user story, a design, a piece of code, a full system, or supporting artifacts like a build file.
@@ -51,7 +77,11 @@ K1 means you must be able to *recall/recognize* the list of test objectives (don
 - **Real-world example:** In a payment system project, test objects across the lifecycle include: the requirements spec (reviewed statically), the API design document (reviewed statically), the actual payment-processing code (tested dynamically), and the user manual (reviewed for accuracy).
 - **Common misunderstanding:** Assuming "test object" always means "the running application." It can be any work product, executable or not.
 
+**Synonyms / exam wording:** item under test, work product under test, thing being evaluated, requirements document, code, design, user story, system.
+
 ### Concept: Test Objectives (FL-1.1.1, K1 — memorize this list)
+
+**Level:** K1. You mainly need to recognize and recall these objectives.
 
 - **Simple definition:** The reasons you test something — what you're trying to accomplish by doing it.
 - **Official list (verbatim intent, ISTQB CTFL v4.0.1):**
@@ -69,14 +99,24 @@ K1 means you must be able to *recall/recognize* the list of test objectives (don
 - **🟢 Must Know:** This exact list, and the ability to recognize a paraphrase of any item in a scenario.
 - **Key nuance:** Test objectives **vary by context** — the work product being tested, the test level (component vs. system vs. acceptance — see Chapter 2), risk, the SDLC model in use, and business factors (e.g., time to market, contractual obligations). A question may ask you to identify *why* objectives differ between, say, component testing and acceptance testing — the answer is context.
 
+**Synonyms / exam wording:** purpose of testing, reason for testing, primary objective, main goal, intended outcome, why the tests are performed.
+
+**Common exam trap:** Testing can reduce risk and build confidence, but it cannot prove zero defects or guarantee perfect quality.
+
 ### Concept: Verification vs. Validation
 
 Introduced here (not a separate syllabus section in v4.0.1, but essential and heavily examined).
+
+**Level:** K2 understanding.
 
 - **Verification — simple definition:** "Did we build the thing right?" Checking that the product meets its *specified* requirements.
 - **Validation — simple definition:** "Did we build the right thing?" Checking that the product meets the *actual needs* of users and other stakeholders in its real operating environment — which the specification might have gotten wrong or left incomplete.
 - **Why both matter:** A product can pass every verification check (100% compliant with the spec) and still fail validation, if the spec itself didn't capture what users actually need.
 - **Real-world example (banking app):** Verification: the spec says "session times out after 15 minutes of inactivity," and testing confirms it does exactly that. Validation: real users find 15 minutes far too short for reviewing a mortgage application and abandon the app — the software met its spec (verification passed) but not the actual user need (validation reveals a problem the spec never anticipated).
+
+**Synonyms / exam wording:** verification = meets specified requirements, conformance to specification, building the product right. Validation = meets user needs, fitness for use, building the right product, stakeholder expectations.
+
+**Common exam trap:** A system can satisfy every written requirement and still be the wrong solution for users.
 
 ## Comparison Tables
 
