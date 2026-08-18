@@ -1012,6 +1012,312 @@
       },
       "alt_wording": "May instead describe a team underestimating the time/cost/effort to introduce and maintain a tool (a different listed risk) or ask for a genuine BENEFIT of automation as a contrast (e.g., 'more time for testers to design new, deeper tests').",
       "created": "2026-08-16"
+    },
+    {
+      "id": "Q041",
+      "chapter": "6.1",
+      "lo": "FL-6.1.1",
+      "topic": "Tool Support for Non-Functional Testing",
+      "type": "B",
+      "difficulty": "green",
+      "question": "A team needs to simulate 20,000 concurrent users placing orders through an e-commerce checkout. The behavior would be difficult and unreliable to perform manually. Which type of test tool support BEST fits this need?",
+      "options": {
+        "A": "Static testing tools",
+        "B": "Non-functional testing tools",
+        "C": "Collaboration tools",
+        "D": "Test management tools"
+      },
+      "correct": "B",
+      "why_correct": "The syllabus lists non-functional testing tools as tools that allow testers to perform non-functional testing that is difficult or impossible to perform manually. Simulating many concurrent users is a typical performance/load-testing situation, so non-functional test tool support is the best fit.",
+      "option_notes": {
+        "A": "Incorrect - static testing tools support reviews and static analysis, not dynamic load simulation.",
+        "B": "Correct.",
+        "C": "Incorrect - collaboration tools facilitate communication; they do not generate load or measure performance behavior.",
+        "D": "Incorrect - test management tools help manage requirements, tests, defects, configuration, and related test process information, but they are not the direct tool type for load simulation."
+      },
+      "alt_wording": "May ask which tool type supports performance, security, reliability, or other non-functional testing that would be hard to do manually.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q042",
+      "chapter": "6.1",
+      "lo": "FL-6.1.1",
+      "topic": "What Counts as a Test Tool",
+      "type": "E",
+      "difficulty": "yellow",
+      "question": "Which statement is FALSE according to the syllabus section on tool support for testing?",
+      "options": {
+        "A": "Test management tools can facilitate management of requirements, tests, defects, and configuration.",
+        "B": "DevOps tools can support the delivery pipeline, workflow tracking, automated build processes, and CI/CD.",
+        "C": "A spreadsheet cannot be considered a test tool because it is not a dedicated testing product.",
+        "D": "Test design and test implementation tools can facilitate generation of test cases, test data, and test procedures."
+      },
+      "correct": "C",
+      "why_correct": "The syllabus explicitly allows a broad definition: any tool that assists in testing can be considered a test tool, and it gives a spreadsheet as an example in the testing context. A tool does not need to be a dedicated commercial testing product to support testing.",
+      "option_notes": {
+        "A": "True - this matches the syllabus description of test management tools.",
+        "B": "True - this matches the syllabus description of DevOps tools.",
+        "C": "Correct answer - this statement is false.",
+        "D": "True - this matches the syllabus description of test design and implementation tools."
+      },
+      "distractor_note": "The tempting mistake is to interpret 'test tool' too narrowly. CTFL uses a functional definition: if it assists testing, it can count in that context.",
+      "alt_wording": "May be phrased as 'which of these could be a test tool in context?' with spreadsheet, checklist, collaboration board, or pipeline tool as possible examples.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q043",
+      "chapter": "4.2",
+      "lo": "FL-4.2.4",
+      "topic": "State Transition Testing - All Transitions Coverage",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Consider the following statements about state transition testing:\n\nI. All transitions coverage requires test cases to exercise all valid transitions and attempt invalid transitions shown in a state table.\nII. Testing several invalid transitions in one test case is preferred because it reduces defect masking.\n\nWhich is correct?",
+      "options": {
+        "A": "Only I is correct",
+        "B": "Only II is correct",
+        "C": "Both I and II are correct",
+        "D": "Neither I nor II is correct"
+      },
+      "correct": "A",
+      "why_correct": "Statement I matches the syllabus: all transitions coverage covers both valid and invalid transitions. Statement II is false because the syllabus recommends testing only one invalid transition in a single test case to help avoid defect masking, where one defect prevents detection of another.",
+      "option_notes": {
+        "A": "Correct - I is true and II is false.",
+        "B": "Incorrect - II reverses the syllabus guidance on invalid transitions.",
+        "C": "Incorrect - II is false.",
+        "D": "Incorrect - I is true."
+      },
+      "distractor_note": "Combining invalid transitions can sound efficient, but CTFL cares about diagnostic clarity. One invalid transition per test case makes it easier to see which transition caused the observed behavior.",
+      "alt_wording": "May ask about all states coverage, valid transitions coverage (0-switch), or all transitions coverage; read whether invalid transitions are included.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q044",
+      "chapter": "4.2",
+      "lo": "FL-4.2.2",
+      "topic": "3-Value Boundary Value Analysis",
+      "type": "H",
+      "difficulty": "red",
+      "question": "An input field accepts whole-number quantities from 1 through 10 inclusive. Using 3-value boundary value analysis, which set of values gives 100% boundary coverage for this single valid range and its adjacent invalid partitions?",
+      "options": {
+        "A": "1, 10",
+        "B": "0, 1, 10, 11",
+        "C": "0, 1, 2, 9, 10, 11",
+        "D": "1, 2, 9, 10"
+      },
+      "correct": "C",
+      "why_correct": "In 3-value BVA, each boundary has three coverage items: the boundary value and both of its closest neighbors. For the lower boundary 1, the values are 0, 1, and 2. For the upper boundary 10, the values are 9, 10, and 11. Together this gives 0, 1, 2, 9, 10, and 11.",
+      "option_notes": {
+        "A": "Incorrect - this exercises only the exact boundary values, not their neighbors.",
+        "B": "Incorrect - this is closer to 2-value BVA, not 3-value BVA.",
+        "C": "Correct.",
+        "D": "Incorrect - it omits the adjacent invalid neighbors 0 and 11."
+      },
+      "alt_wording": "May ask for 2-value BVA instead; for this same range, 2-value BVA would use the boundary values and the closest neighbors in adjacent partitions: 0, 1, 10, and 11.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q045",
+      "chapter": "4.2",
+      "lo": "FL-4.2.3",
+      "topic": "Decision Table Coverage",
+      "type": "H",
+      "difficulty": "yellow",
+      "question": "A minimized decision table has 8 feasible decision rules. During testing, test cases exercise 6 of those feasible rules. What is the decision table coverage?",
+      "options": {
+        "A": "6%",
+        "B": "25%",
+        "C": "75%",
+        "D": "100%"
+      },
+      "correct": "C",
+      "why_correct": "In decision table testing, the coverage items are the columns containing feasible combinations of conditions. Coverage is the number of exercised feasible columns divided by the total number of feasible columns. Here, 6 / 8 = 0.75 = 75%.",
+      "option_notes": {
+        "A": "Incorrect - this treats the number of exercised rules as the percentage.",
+        "B": "Incorrect - this is the uncovered portion, 2 out of 8, not the exercised coverage.",
+        "C": "Correct.",
+        "D": "Incorrect - 100% would require exercising all 8 feasible rules."
+      },
+      "alt_wording": "May ask how many additional test cases or rules are needed to reach 100% coverage, or may mention feasible columns instead of decision rules.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q046",
+      "chapter": "4.5",
+      "lo": "FL-4.5.2",
+      "topic": "Acceptance Criteria Formats",
+      "type": "C",
+      "difficulty": "yellow",
+      "question": "A user story's acceptance criteria are written as a table mapping account status and payment status to whether access should be granted. Which acceptance-criteria format is this, and how does it differ from Given/When/Then?",
+      "options": {
+        "A": "Scenario-oriented; Given/When/Then is rule-oriented",
+        "B": "Rule-oriented; Given/When/Then is scenario-oriented",
+        "C": "Exploratory; Given/When/Then is checklist-based",
+        "D": "Static analysis; Given/When/Then is dynamic testing"
+      },
+      "correct": "B",
+      "why_correct": "The syllabus gives two common acceptance criteria formats: scenario-oriented, such as Given/When/Then, and rule-oriented, such as a bullet point verification list or a tabulated input-output mapping. A table mapping inputs to expected outputs is rule-oriented.",
+      "option_notes": {
+        "A": "Incorrect - the two formats are reversed.",
+        "B": "Correct.",
+        "C": "Incorrect - exploratory and checklist-based testing are experience-based test techniques, not the two acceptance-criteria formats named here.",
+        "D": "Incorrect - these are not acceptance-criteria formats."
+      },
+      "distractor_note": "Given/When/Then often gets associated with BDD and scenarios. A table of rules may still be excellent acceptance criteria, but it is rule-oriented rather than scenario-oriented.",
+      "alt_wording": "May describe rule-oriented criteria as a verification list, decision table-like mapping, or input-output table.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q047",
+      "chapter": "4.5",
+      "lo": "FL-4.5.3",
+      "topic": "ATDD Test Case Scope",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A team uses ATDD for a user story about applying a discount code at checkout. Which test case is LEAST appropriate to include for that story?",
+      "options": {
+        "A": "A positive test showing a valid discount code reduces the order total.",
+        "B": "A negative test showing an expired discount code is rejected with a clear message.",
+        "C": "A usability-related acceptance test checking that the discount error message is understandable to the shopper.",
+        "D": "An end-to-end test of the warehouse picking workflow after the order is shipped."
+      },
+      "correct": "D",
+      "why_correct": "ATDD test cases are based on the acceptance criteria, should cover all characteristics of the user story, and should not go beyond the story. Positive, negative, and relevant non-functional characteristics may be included. A warehouse picking workflow after shipment is outside the discount-code checkout story.",
+      "option_notes": {
+        "A": "Appropriate - ATDD typically starts with positive tests for expected behavior.",
+        "B": "Appropriate - after positive tests, the team should perform negative testing.",
+        "C": "Appropriate if message understandability is part of the story or acceptance criteria; the syllabus allows relevant non-functional characteristics such as usability.",
+        "D": "Correct answer - least appropriate because it goes beyond the user story's scope."
+      },
+      "alt_wording": "May ask which ATDD test case goes beyond the story, duplicates another characteristic, or is not understandable to stakeholders.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q048",
+      "chapter": "5.1",
+      "lo": "FL-5.1.4",
+      "topic": "Estimation Based on Ratios",
+      "type": "H",
+      "difficulty": "yellow",
+      "question": "An organization has historical data showing a development-to-test effort ratio of 5:2 for similar projects. The new project is estimated at 750 person-days of development effort. Using estimation based on ratios, what is the estimated test effort?",
+      "options": {
+        "A": "150 person-days",
+        "B": "300 person-days",
+        "C": "375 person-days",
+        "D": "1,875 person-days"
+      },
+      "correct": "B",
+      "why_correct": "A development-to-test ratio of 5:2 means test effort is 2/5 of development effort. 750 x 2/5 = 300 person-days. This matches the syllabus example pattern for ratio-based estimation using historical organizational data.",
+      "option_notes": {
+        "A": "Incorrect - this uses 1/5 rather than 2/5.",
+        "B": "Correct.",
+        "C": "Incorrect - this uses 1/2 of development effort, not the 5:2 ratio.",
+        "D": "Incorrect - this multiplies by 5/2 instead of 2/5."
+      },
+      "alt_wording": "May phrase the ratio as 'for every 5 days of development, 2 days of testing were needed' or use a different historical development-to-test ratio.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q049",
+      "chapter": "5.1",
+      "lo": "FL-5.1.5",
+      "topic": "Prioritization with Dependencies and Resources",
+      "type": "B",
+      "difficulty": "red",
+      "question": "A high-priority end-to-end payment test depends on a lower-priority account setup test because the payment cannot be attempted until a verified account exists. What should the test execution schedule do?",
+      "options": {
+        "A": "Run the high-priority payment test first because priority always overrides dependencies.",
+        "B": "Run the lower-priority setup test first because the higher-priority test depends on it.",
+        "C": "Skip the setup test because it is lower priority.",
+        "D": "Run both tests randomly because dependencies are not considered in prioritization."
+      },
+      "correct": "B",
+      "why_correct": "The syllabus states that ideal priority ordering may not work when test cases or features have dependencies. If a higher-priority test case depends on a lower-priority test case, the lower-priority test case must be executed first.",
+      "option_notes": {
+        "A": "Incorrect - priority matters, but dependencies can constrain execution order.",
+        "B": "Correct.",
+        "C": "Incorrect - skipping the prerequisite would prevent the dependent test from being executed meaningfully.",
+        "D": "Incorrect - dependencies and resource availability are explicitly considered when arranging the test execution schedule."
+      },
+      "distractor_note": "This question checks whether you treat prioritization as a real schedule, not just a sorted list. Dependencies can force a lower-priority test to run earlier.",
+      "alt_wording": "May mention resource availability instead of dependencies, such as an environment or specialist tester available only during a specific time window.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q050",
+      "chapter": "5.1",
+      "lo": "FL-5.1.6",
+      "topic": "Test Pyramid",
+      "type": "C",
+      "difficulty": "yellow",
+      "question": "Which statement BEST describes the relationship between lower and higher layers in the test pyramid?",
+      "options": {
+        "A": "Lower-layer tests are usually larger, slower, and less isolated than higher-layer tests.",
+        "B": "Higher-layer tests usually have lower granularity, lower isolation, and longer execution time than lower-layer tests.",
+        "C": "The top layer should contain the largest number of small component tests.",
+        "D": "The test pyramid is only about manual testing and does not support automation decisions."
+      },
+      "correct": "B",
+      "why_correct": "The syllabus describes the test pyramid as a model showing different test granularities. Higher layers have lower granularity, lower isolation, and higher execution time. Bottom-layer tests are small, isolated, fast, and numerous; top-layer tests are complex, high-level, end-to-end, slower, and fewer.",
+      "option_notes": {
+        "A": "Incorrect - this reverses the pyramid characteristics.",
+        "B": "Correct.",
+        "C": "Incorrect - small component-level tests belong near the bottom, not the top.",
+        "D": "Incorrect - the model supports teams in test automation and test effort allocation."
+      },
+      "alt_wording": "May ask why many fast component tests and fewer end-to-end tests are generally expected in a pyramid-shaped test strategy.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q051",
+      "chapter": "5.1",
+      "lo": "FL-5.1.3",
+      "topic": "Entry Criteria vs. Exit Criteria",
+      "type": "F",
+      "difficulty": "yellow",
+      "question": "Consider the following statements:\n\nI. Availability of test data and a configured test environment are typical entry criteria.\nII. Achieved coverage level and number of unresolved defects are typical exit criteria.\nIII. Running out of time or budget can never be treated as an exit criterion.\n\nWhich statements are correct?",
+      "options": {
+        "A": "I and II only",
+        "B": "I and III only",
+        "C": "II and III only",
+        "D": "I, II, and III"
+      },
+      "correct": "A",
+      "why_correct": "Entry criteria define preconditions for starting an activity, such as availability of resources, environments, test data, budget, and testware. Exit criteria define what must be achieved to declare completion, such as achieved coverage, unresolved defect levels, or failed test counts. Statement III is false because the syllabus says running out of time or budget can also be viewed as valid exit criteria if stakeholders review and accept the release risk.",
+      "option_notes": {
+        "A": "Correct - I and II are true; III is false.",
+        "B": "Incorrect - III is false.",
+        "C": "Incorrect - I is true and III is false.",
+        "D": "Incorrect - III is false."
+      },
+      "distractor_note": "Statement III sounds like a quality-first rule, but CTFL recognizes business constraints. Ending due to time or budget is acceptable only with stakeholder risk acceptance.",
+      "alt_wording": "May use Agile terms: Definition of Ready aligns with entry criteria, while Definition of Done aligns with exit criteria.",
+      "created": "2026-08-18"
+    },
+    {
+      "id": "Q052",
+      "chapter": "4.3",
+      "lo": "FL-4.3.2",
+      "topic": "Branch Coverage Calculation",
+      "type": "H",
+      "difficulty": "red",
+      "question": "A small function has 10 executable statements and 6 branches. A test suite executes all 10 statements and 4 of the 6 branches. What can be concluded?",
+      "options": {
+        "A": "Statement coverage is 100% and branch coverage is approximately 67%.",
+        "B": "Statement coverage is approximately 67% and branch coverage is 100%.",
+        "C": "Both statement coverage and branch coverage are 100%.",
+        "D": "Branch coverage cannot be measured unless statement coverage is below 100%."
+      },
+      "correct": "A",
+      "why_correct": "Statement coverage is the number of executed statements divided by the total executable statements: 10/10 = 100%. Branch coverage is the number of executed branches divided by the total branches: 4/6 = 66.7%, approximately 67%. Achieving 100% statement coverage does not necessarily mean 100% branch coverage.",
+      "option_notes": {
+        "A": "Correct.",
+        "B": "Incorrect - the two coverage measures are reversed.",
+        "C": "Incorrect - branch coverage is not 100% because only 4 of 6 branches were exercised.",
+        "D": "Incorrect - branch coverage can be measured independently and is stronger than statement coverage."
+      },
+      "distractor_note": "The key trap is assuming that executing every statement automatically exercises every branch outcome. CTFL expects you to keep statement and branch coverage separate.",
+      "alt_wording": "May ask whether 100% branch coverage implies 100% statement coverage. In the syllabus, 100% branch coverage implies 100% statement coverage, but not the other way around.",
+      "created": "2026-08-18"
     }
   ]
 }
