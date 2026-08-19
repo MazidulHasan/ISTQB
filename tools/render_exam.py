@@ -68,6 +68,23 @@ def load_bank(bank_path: Path) -> list[dict]:
     return data["questions"]
 
 
+def used_question_ids(exams_dir: Path) -> set[str]:
+    """Return question IDs that have already appeared in an exam sitting."""
+    used: set[str] = set()
+    if not exams_dir.is_dir():
+        return used
+    for session_path in exams_dir.glob("*.json"):
+        try:
+            session = json.loads(session_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        for question in session.get("questions", []):
+            question_id = question.get("id")
+            if question_id:
+                used.add(question_id)
+    return used
+
+
 def next_exam_id(exams_dir: Path, on_date: date) -> str:
     base = on_date.isoformat()
     existing = sorted(p.stem for p in exams_dir.glob(f"{base}-*.json"))
@@ -77,13 +94,18 @@ def next_exam_id(exams_dir: Path, on_date: date) -> str:
 
 def build_session(count: int, duration: int, pass_mark: int, bank_path: Path, seed: str | None) -> dict:
     questions = load_bank(bank_path)
-    if count < len(questions):
-        rng = random.Random(seed or date.today().isoformat())
-        chosen = rng.sample(questions, count)
-    else:
-        chosen = list(questions)
-        rng = random.Random(seed or date.today().isoformat())
-        rng.shuffle(chosen)
+    used_ids = used_question_ids(EXAMS_DIR)
+    unused_questions = [q for q in questions if q.get("id") not in used_ids]
+    if len(unused_questions) < count:
+        missing = count - len(unused_questions)
+        sys.exit(
+            "Not enough fresh questions for a new sitting: "
+            f"{len(unused_questions)} never-used question(s) available, {count} requested. "
+            f"Add at least {missing} new, non-duplicate question variant(s) to question-bank/bank.json first."
+        )
+
+    rng = random.Random(seed or date.today().isoformat())
+    chosen = rng.sample(unused_questions, count)
 
     exam_id = next_exam_id(EXAMS_DIR, date.today())
     session = {

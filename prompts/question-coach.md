@@ -20,6 +20,14 @@ I do not want to simply memorize answers. I want to understand why every option 
 
 Base the practice on the ISTQB CTFL v4.0 syllabus and its learning objectives and make sure the coverage is systematic so I do not miss important areas.
 
+## Fresh Question Policy
+
+Every newly prepared question must be genuinely new. Before writing questions, check the existing relevant question history (`chapters/{chapter}/questions.md`, `question-bank/bank.json`, previous `question-bank/exams/*.json`, and recent results when applicable). Do not copy-paste or lightly re-skin an earlier question.
+
+It is fine to test the same concept again, especially weak or commonly confused topics, but the new question must use a different scenario, stem, wording, data values, and distractor design. A fresh variant should change the practical context (for example banking vs e-commerce), the task being asked, and the tempting wrong options where possible.
+
+When using sample questions from the supplementary book or any previous generated material for inspiration, adapt them into original ISTQB CTFL v4.0.1 wording. Never store or ask the exact same stem/options again unless the user explicitly requests a repeat/review of a specific question.
+
 ## Question Practice System
 
 ### 1. Generate Different Types of Questions
@@ -123,6 +131,7 @@ After I submit all answers: calculate my score, show correct and incorrect answe
 
 - Never allow me to rely only on memorization
 - Test understanding from different angles; ask the same concept later using completely different wording
+- Never repeat an already-used question stem/options; create fresh variants for every new practice, review, mock-studied, and timed mock-exam question
 - Include synonyms and indirect descriptions
 - Frequently test commonly confused concepts
 - Make distractors realistic

@@ -197,6 +197,24 @@ def enhance_question_page(soup: BeautifulSoup) -> None:
             node = next_node
 
         if len(details.contents) > 1:
+            note_key_text = h3.get_text(" ", strip=True) + "::" + front.get_text(" ", strip=True)[:700]
+            note_key = hashlib.sha1(note_key_text.encode("utf-8")).hexdigest()[:12]
+            rough = soup.new_tag("section", **{"class": "practice-rough"})
+            label = soup.new_tag("label", **{"class": "practice-rough-label"})
+            label.string = "Rough notes"
+            textarea = soup.new_tag(
+                "textarea",
+                attrs={
+                    "class": "practice-rough-input",
+                    "data-practice-note-key": note_key,
+                    "rows": "5",
+                    "spellcheck": "false",
+                    "placeholder": "Use this space for rough work, option elimination, calculations, or reminders.",
+                },
+            )
+            rough.append(label)
+            rough.append(textarea)
+            card.append(rough)
             card.append(details)
         else:
             details.decompose()

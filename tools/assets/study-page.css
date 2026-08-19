@@ -465,6 +465,40 @@ body.toc-hidden .study-toc { display: none; }
   line-height: 1.55;
 }
 
+.practice-rough {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  margin: 16px 0 18px;
+  padding: 12px 14px 14px;
+}
+.practice-rough-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.practice-rough-input {
+  display: block;
+  width: 100%;
+  min-height: 110px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  padding: 11px 12px;
+  font: 0.92rem/1.5 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+.practice-rough-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .practice-solution {
   border-top: 1px solid var(--border);
   margin-top: 18px;

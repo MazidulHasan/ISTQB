@@ -473,6 +473,40 @@ body.toc-hidden .study-toc { display: none; }
   line-height: 1.55;
 }
 
+.practice-rough {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  margin: 16px 0 18px;
+  padding: 12px 14px 14px;
+}
+.practice-rough-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.practice-rough-input {
+  display: block;
+  width: 100%;
+  min-height: 110px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  padding: 11px 12px;
+  font: 0.92rem/1.5 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+.practice-rough-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .practice-solution {
   border-top: 1px solid var(--border);
   margin-top: 18px;
@@ -776,7 +810,7 @@ mark.hl-orange { background: var(--hl-orange); }
 <p data-bid="a501173ae4">Scope: FL-1.2.1 (Why testing is necessary, K2), FL-1.2.2 (Testing and QA, K1), and FL-1.2.3 (Root cause, error, defect, failure, K2). See <a href="concepts.md">concepts.md</a> for the explanations these questions draw on.</p>
 <p data-bid="feed4766b1">Each question includes the full answer and explanation inline for revision. In the generated HTML page, answers are collapsed so you can try each question first without a timer.</p>
 <hr/>
-<section class="practice-card"><h3 data-bid="5c321f2520" id="question-1-type-a-direct-definition">Question 1 - Type A: Direct Definition</h3><div class="practice-front"><p class="practice-meta" data-bid="98463194c4"><strong>Difficulty:</strong> Level 1</p><p class="practice-question-text" data-bid="760b9006e0"><strong>Question:</strong> Which statement BEST describes the relationship between testing and quality assurance in ISTQB CTFL v4.0.1?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Testing and quality assurance are different names for the same activity</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Testing is product-oriented and corrective, while quality assurance is process-oriented and preventive</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Quality assurance is a testing activity performed only after test execution</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Testing is process-oriented, while quality assurance is product-oriented</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae">Correct Answer: <strong>B</strong></p><p data-bid="318035b16a"><strong>Why the Correct Answer Is Correct</strong>
+<section class="practice-card"><h3 data-bid="5c321f2520" id="question-1-type-a-direct-definition">Question 1 - Type A: Direct Definition</h3><div class="practice-front"><p class="practice-meta" data-bid="98463194c4"><strong>Difficulty:</strong> Level 1</p><p class="practice-question-text" data-bid="760b9006e0"><strong>Question:</strong> Which statement BEST describes the relationship between testing and quality assurance in ISTQB CTFL v4.0.1?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Testing and quality assurance are different names for the same activity</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Testing is product-oriented and corrective, while quality assurance is process-oriented and preventive</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Quality assurance is a testing activity performed only after test execution</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Testing is process-oriented, while quality assurance is product-oriented</span></div></div></div><section class="practice-rough"><label class="practice-rough-label">Rough notes</label><textarea class="practice-rough-input" data-practice-note-key="c94edf0b7aaa" placeholder="Use this space for rough work, option elimination, calculations, or reminders." rows="5" spellcheck="false"></textarea></section><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae">Correct Answer: <strong>B</strong></p><p data-bid="318035b16a"><strong>Why the Correct Answer Is Correct</strong>
 ISTQB distinguishes testing from QA. Testing focuses on evaluating the product or work product and finding defects, so it is product-oriented and corrective. QA focuses on improving processes so defects are less likely to be introduced, so it is process-oriented and preventive.</p><p data-bid="89af1f1478"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. People often use the terms interchangeably, but ISTQB says they are not the same.
 - B: Correct. This is the key distinction.
@@ -794,7 +828,7 @@ Quality control checks products. Quality assurance improves processes.</p></deta
 
 
 
-<section class="practice-card"><h3 data-bid="923a0e776d" id="question-2-type-b-scenario-based">Question 2 - Type B: Scenario-Based</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="3702e6acf7"><strong>Question:</strong> A tester executes a payment test and observes that the application charges customers twice for the same order. What is the observed double charge best classified as?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Error</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Defect</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Failure</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Root cause</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="aaf16209e2">Correct Answer: <strong>C</strong></p><p data-bid="248a5662f1"><strong>Why the Correct Answer Is Correct</strong>
+<section class="practice-card"><h3 data-bid="923a0e776d" id="question-2-type-b-scenario-based">Question 2 - Type B: Scenario-Based</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="3702e6acf7"><strong>Question:</strong> A tester executes a payment test and observes that the application charges customers twice for the same order. What is the observed double charge best classified as?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Error</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Defect</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Failure</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Root cause</span></div></div></div><section class="practice-rough"><label class="practice-rough-label">Rough notes</label><textarea class="practice-rough-input" data-practice-note-key="e5ea647a0a20" placeholder="Use this space for rough work, option elimination, calculations, or reminders." rows="5" spellcheck="false"></textarea></section><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="aaf16209e2">Correct Answer: <strong>C</strong></p><p data-bid="248a5662f1"><strong>Why the Correct Answer Is Correct</strong>
 The observed incorrect behavior during execution is a failure. The underlying problem in the code, design, or requirements would be a defect, but the visible effect experienced during execution is the failure.</p><p data-bid="c8d7ca66a2"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. An error is a human mistake, such as a developer misunderstanding a payment rule.
 - B: Incorrect. A defect is the flaw in a work product that may cause the failure.
@@ -812,7 +846,7 @@ The exam may say "wrong output," "crash," "unexpected behavior," or "system does
 
 
 
-<section class="practice-card"><h3 data-bid="e042dba8fe" id="question-3-type-c-comparison">Question 3 - Type C: Comparison</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-2"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="2f0fb7c08e"><strong>Question:</strong> A developer misunderstands a requirement and writes a wrong validation rule in the code. Later, a user sees that valid registrations are rejected. Which option correctly maps the terms?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Error: wrong code; Defect: user sees rejection; Failure: developer misunderstood</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Error: developer misunderstood; Defect: wrong validation rule in code; Failure: valid registrations are rejected</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Error: valid registrations are rejected; Defect: developer misunderstood; Failure: wrong validation rule</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Error: user reports the problem; Defect: tester repeats the test; Failure: developer fixes the code</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-2">Correct Answer: <strong>B</strong></p><p data-bid="5fb7a9ed6e"><strong>Why the Correct Answer Is Correct</strong>
+<section class="practice-card"><h3 data-bid="e042dba8fe" id="question-3-type-c-comparison">Question 3 - Type C: Comparison</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-2"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="2f0fb7c08e"><strong>Question:</strong> A developer misunderstands a requirement and writes a wrong validation rule in the code. Later, a user sees that valid registrations are rejected. Which option correctly maps the terms?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Error: wrong code; Defect: user sees rejection; Failure: developer misunderstood</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Error: developer misunderstood; Defect: wrong validation rule in code; Failure: valid registrations are rejected</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Error: valid registrations are rejected; Defect: developer misunderstood; Failure: wrong validation rule</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Error: user reports the problem; Defect: tester repeats the test; Failure: developer fixes the code</span></div></div></div><section class="practice-rough"><label class="practice-rough-label">Rough notes</label><textarea class="practice-rough-input" data-practice-note-key="0deb56c9d5e9" placeholder="Use this space for rough work, option elimination, calculations, or reminders." rows="5" spellcheck="false"></textarea></section><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-2">Correct Answer: <strong>B</strong></p><p data-bid="5fb7a9ed6e"><strong>Why the Correct Answer Is Correct</strong>
 The human misunderstanding is the error. The wrong rule in the code is the defect. The visible rejection of valid registrations during execution is the failure.</p><p data-bid="9d407a0480"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. It confuses defect, failure, and error.
 - B: Correct. It follows the error -&gt; defect -&gt; failure chain.
@@ -830,7 +864,7 @@ Root cause. The root cause may be deeper, such as poor requirements communicatio
 
 
 
-<section class="practice-card"><h3 data-bid="03138d4b5d" id="question-4-type-d-best-primary-contribution">Question 4 - Type D: BEST / Primary Contribution</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-3"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="87e4110742"><strong>Question:</strong> A project manager reviews test results showing that all high-risk safety tests passed, two medium-risk usability defects remain, and one legal compliance test is blocked. What is the MAIN contribution of testing in this situation?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Testing has guaranteed that the system is ready for release</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Testing has provided information to support a project or release decision</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Testing has performed quality assurance by improving the team's process</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Testing has removed all remaining defects from the test object</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-3">Correct Answer: <strong>B</strong></p><p data-bid="cf05606856"><strong>Why the Correct Answer Is Correct</strong>
+<section class="practice-card"><h3 data-bid="03138d4b5d" id="question-4-type-d-best-primary-contribution">Question 4 - Type D: BEST / Primary Contribution</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-3"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="87e4110742"><strong>Question:</strong> A project manager reviews test results showing that all high-risk safety tests passed, two medium-risk usability defects remain, and one legal compliance test is blocked. What is the MAIN contribution of testing in this situation?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Testing has guaranteed that the system is ready for release</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Testing has provided information to support a project or release decision</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Testing has performed quality assurance by improving the team's process</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Testing has removed all remaining defects from the test object</span></div></div></div><section class="practice-rough"><label class="practice-rough-label">Rough notes</label><textarea class="practice-rough-input" data-practice-note-key="daef693a87c3" placeholder="Use this space for rough work, option elimination, calculations, or reminders." rows="5" spellcheck="false"></textarea></section><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-3">Correct Answer: <strong>B</strong></p><p data-bid="cf05606856"><strong>Why the Correct Answer Is Correct</strong>
 Testing provides information about quality and risk so stakeholders can make decisions. The test results do not guarantee readiness and do not remove defects by themselves.</p><p data-bid="23c2249226"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. Testing cannot guarantee release readiness or absence of defects.
 - B: Correct. The scenario is about using test results for decision-making.
@@ -846,7 +880,7 @@ Option A is an absolute-word trap. "Guaranteed" is too strong for testing.</p></
 
 
 
-<section class="practice-card"><h3 data-bid="8d4fa18dde" id="question-5-type-e-negative-question">Question 5 - Type E: Negative Question</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-4"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="7b4e566473"><strong>Question:</strong> Which of the following is NOT a reason testing may be necessary?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">To detect defects cost-effectively</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">To provide information for release decisions</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">To prove that the software has no remaining defects</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">To help meet contractual, legal, or regulatory requirements</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="aaf16209e2-2">Correct Answer: <strong>C</strong></p><p data-bid="1ad52c159b"><strong>Why the Correct Answer Is Correct</strong>
+<section class="practice-card"><h3 data-bid="8d4fa18dde" id="question-5-type-e-negative-question">Question 5 - Type E: Negative Question</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-4"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="7b4e566473"><strong>Question:</strong> Which of the following is NOT a reason testing may be necessary?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">To detect defects cost-effectively</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">To provide information for release decisions</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">To prove that the software has no remaining defects</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">To help meet contractual, legal, or regulatory requirements</span></div></div></div><section class="practice-rough"><label class="practice-rough-label">Rough notes</label><textarea class="practice-rough-input" data-practice-note-key="68c70317a573" placeholder="Use this space for rough work, option elimination, calculations, or reminders." rows="5" spellcheck="false"></textarea></section><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="aaf16209e2-2">Correct Answer: <strong>C</strong></p><p data-bid="1ad52c159b"><strong>Why the Correct Answer Is Correct</strong>
 Testing cannot prove that no defects remain. It can detect defects, provide confidence, reduce risk, support decisions, and help demonstrate compliance with required checks.</p><p data-bid="9add87f92a"><strong>Option-by-Option Analysis</strong>
 - A: This is a valid reason testing is necessary.
 - B: This is a valid contribution of testing.
@@ -863,7 +897,7 @@ For NOT questions, look for the false statement. A, B, and D are true.</p></deta
 
 
 <section class="practice-card"><h3 data-bid="8e797242fc" id="question-6-type-f-multiple-statement">Question 6 - Type F: Multiple-Statement</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-5"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="8508f677bb"><strong>Question:</strong> Consider these statements:</p><p data-bid="8599682bd8">I. A defect may exist in a requirements document before any code is written.<br/>
-II. Every defect always causes a failure whenever the software is executed.  </p><p data-bid="ac4af7f819">Which option is correct?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Only I is correct</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Only II is correct</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Both I and II are correct</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Neither I nor II is correct</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="e95da91a3a">Correct Answer: <strong>A</strong></p><p data-bid="f83f5e6721"><strong>Why the Correct Answer Is Correct</strong>
+II. Every defect always causes a failure whenever the software is executed.  </p><p data-bid="ac4af7f819">Which option is correct?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Only I is correct</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Only II is correct</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Both I and II are correct</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Neither I nor II is correct</span></div></div></div><section class="practice-rough"><label class="practice-rough-label">Rough notes</label><textarea class="practice-rough-input" data-practice-note-key="95000d4ec079" placeholder="Use this space for rough work, option elimination, calculations, or reminders." rows="5" spellcheck="false"></textarea></section><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="e95da91a3a">Correct Answer: <strong>A</strong></p><p data-bid="f83f5e6721"><strong>Why the Correct Answer Is Correct</strong>
 Statement I is true because defects can exist in requirements, designs, test scripts, code, build files, or other work products. Statement II is false because some defects only fail under specific conditions, and some may never be observed as failures.</p><p data-bid="59701bae4c"><strong>Option-by-Option Analysis</strong>
 - A: Correct. I is true and II is false.
 - B: Incorrect. II is false.
@@ -881,7 +915,7 @@ The exam may say "Can non-code work products contain defects?" or "Can a bug rem
 
 
 
-<section class="practice-card"><h3 data-bid="295837a018" id="question-7-type-g-synonym-alternative-wording">Question 7 - Type G: Synonym / Alternative Wording</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-6"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="b5170efb22"><strong>Question:</strong> A team performs root cause analysis after several similar defects are found in tax calculations. Which outcome would BEST match the purpose of root cause analysis?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Identifying the exact test case that detected each failure</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Finding the fundamental reason the similar defects were introduced so future ones can be prevented or reduced</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Proving that the tax calculation feature now has no defects</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Re-running the failed tests after developers fix the code</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-4">Correct Answer: <strong>B</strong></p><p data-bid="60a7f7ea86"><strong>Why the Correct Answer Is Correct</strong>
+<section class="practice-card"><h3 data-bid="295837a018" id="question-7-type-g-synonym-alternative-wording">Question 7 - Type G: Synonym / Alternative Wording</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-6"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="b5170efb22"><strong>Question:</strong> A team performs root cause analysis after several similar defects are found in tax calculations. Which outcome would BEST match the purpose of root cause analysis?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Identifying the exact test case that detected each failure</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Finding the fundamental reason the similar defects were introduced so future ones can be prevented or reduced</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Proving that the tax calculation feature now has no defects</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Re-running the failed tests after developers fix the code</span></div></div></div><section class="practice-rough"><label class="practice-rough-label">Rough notes</label><textarea class="practice-rough-input" data-practice-note-key="ed020396a4fd" placeholder="Use this space for rough work, option elimination, calculations, or reminders." rows="5" spellcheck="false"></textarea></section><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-4">Correct Answer: <strong>B</strong></p><p data-bid="60a7f7ea86"><strong>Why the Correct Answer Is Correct</strong>
 Root cause analysis looks for the fundamental reason a problem occurred. Addressing the root cause can prevent similar defects or reduce their frequency.</p><p data-bid="183fa269e2"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. This may help traceability, but it is not the purpose of root cause analysis.
 - B: Correct. It focuses on the deeper reason and prevention.
@@ -897,7 +931,7 @@ The exam may use "underlying cause," "fundamental reason," "why similar failures
 
 
 
-<section class="practice-card"><h3 data-bid="0519fed387" id="question-8-type-bd-scenario-with-best-answer">Question 8 - Type B/D: Scenario with BEST Answer</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-7"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="f4d7701865"><strong>Question:</strong> A hospital appointment system passes all tests against its written requirements. After release, doctors complain that the workflow is too slow for emergency situations. Which statement BEST explains why testing was still necessary, and what it revealed?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Testing was unnecessary because the written requirements were satisfied</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Testing can help evaluate whether stakeholder needs are considered, not only whether the product matches written requirements</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Testing proved that quality assurance failed completely</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Testing should have focused only on debugging the code</span></div></div></div><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-5">Correct Answer: <strong>B</strong></p><p data-bid="76dcac686b"><strong>Why the Correct Answer Is Correct</strong>
+<section class="practice-card"><h3 data-bid="0519fed387" id="question-8-type-bd-scenario-with-best-answer">Question 8 - Type B/D: Scenario with BEST Answer</h3><div class="practice-front"><p class="practice-meta" data-bid="50259d06fd-7"><strong>Difficulty:</strong> Level 2</p><p class="practice-question-text" data-bid="f4d7701865"><strong>Question:</strong> A hospital appointment system passes all tests against its written requirements. After release, doctors complain that the workflow is too slow for emergency situations. Which statement BEST explains why testing was still necessary, and what it revealed?</p><div class="practice-options"><div class="practice-option-row"><span class="option-letter">A.</span><span class="option-text">Testing was unnecessary because the written requirements were satisfied</span></div><div class="practice-option-row"><span class="option-letter">B.</span><span class="option-text">Testing can help evaluate whether stakeholder needs are considered, not only whether the product matches written requirements</span></div><div class="practice-option-row"><span class="option-letter">C.</span><span class="option-text">Testing proved that quality assurance failed completely</span></div><div class="practice-option-row"><span class="option-letter">D.</span><span class="option-text">Testing should have focused only on debugging the code</span></div></div></div><section class="practice-rough"><label class="practice-rough-label">Rough notes</label><textarea class="practice-rough-input" data-practice-note-key="5304f4fee501" placeholder="Use this space for rough work, option elimination, calculations, or reminders." rows="5" spellcheck="false"></textarea></section><details class="practice-solution"><summary>Show answer and explanation</summary><p data-bid="8a2e5ffbae-5">Correct Answer: <strong>B</strong></p><p data-bid="76dcac686b"><strong>Why the Correct Answer Is Correct</strong>
 Testing can provide indirect representation of users and evaluate quality from the stakeholder perspective. Passing written requirements does not always mean the product satisfies real user needs.</p><p data-bid="80cc3f46f8"><strong>Option-by-Option Analysis</strong>
 - A: Incorrect. Requirements may be incomplete or wrong, so testing is still valuable.
 - B: Correct. This captures user/stakeholder needs and validation-oriented thinking.
@@ -1018,7 +1052,7 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary? - Practice Questions";
   var storageKey = "istqb:doc:" + docId;
 
   var els = {};
-  var store = { version: 1, annotations: [] };
+  var store = { version: 1, annotations: [], practiceNotes: {} };
   var currentRange = null;
   var currentRemoveTarget = null;
   var saveTimer = null;
@@ -1096,7 +1130,12 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary? - Practice Questions";
       var raw = localStorage.getItem(storageKey);
       if (raw) {
         var parsed = JSON.parse(raw);
-        if (parsed && Array.isArray(parsed.annotations)) store = parsed;
+        if (parsed && Array.isArray(parsed.annotations)) {
+          store = Object.assign({ version: 1, annotations: [], practiceNotes: {} }, parsed);
+          if (!store.practiceNotes || typeof store.practiceNotes !== "object" || Array.isArray(store.practiceNotes)) {
+            store.practiceNotes = {};
+          }
+        }
       }
     } catch (e) { /* corrupt storage — start fresh rather than crash the page */ }
   }
@@ -1539,6 +1578,28 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary? - Practice Questions";
     });
   }
 
+  /* ---------------- practice rough notes ---------------- */
+
+  function wirePracticeRoughNotes() {
+    var inputs = els.content.querySelectorAll(".practice-rough-input[data-practice-note-key]");
+    if (!inputs.length) return;
+    if (!store.practiceNotes || typeof store.practiceNotes !== "object" || Array.isArray(store.practiceNotes)) {
+      store.practiceNotes = {};
+    }
+    Array.prototype.forEach.call(inputs, function (input) {
+      var key = input.dataset.practiceNoteKey;
+      input.value = store.practiceNotes[key] || "";
+      input.addEventListener("input", debounce(function () {
+        var value = input.value;
+        if (value.trim()) store.practiceNotes[key] = value;
+        else delete store.practiceNotes[key];
+        saveStore();
+      }, 250));
+      input.addEventListener("mousedown", function (e) { e.stopPropagation(); });
+      input.addEventListener("mouseup", function (e) { e.stopPropagation(); });
+    });
+  }
+
   /* ---------------- notes panel ---------------- */
 
   function wireNotesPanel() {
@@ -1608,7 +1669,12 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary? - Practice Questions";
   }
 
   function exportAnnotations() {
-    var blob = new Blob([JSON.stringify({ docId: docId, exportedAt: new Date().toISOString(), annotations: store.annotations }, null, 2)],
+    var blob = new Blob([JSON.stringify({
+      docId: docId,
+      exportedAt: new Date().toISOString(),
+      annotations: store.annotations,
+      practiceNotes: store.practiceNotes || {}
+    }, null, 2)],
       { type: "application/json" });
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
@@ -1635,6 +1701,9 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary? - Practice Questions";
         incoming.forEach(function (rec) {
           if (!existingIds.has(rec.id)) { store.annotations.push(rec); added++; }
         });
+        if (data.practiceNotes && typeof data.practiceNotes === "object" && !Array.isArray(data.practiceNotes)) {
+          store.practiceNotes = Object.assign({}, store.practiceNotes || {}, data.practiceNotes);
+        }
         saveStoreNow();
         toast("Imported " + added + " item(s). Reloading…");
         setTimeout(function () { location.reload(); }, 700);
@@ -1717,6 +1786,7 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary? - Practice Questions";
     wireNotesPanel();
     buildTOC();
     loadStore();
+    wirePracticeRoughNotes();
     applyAllStored();
     refreshNotesUI();
     document.addEventListener("mousedown", globalDismiss);

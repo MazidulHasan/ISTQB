@@ -19,6 +19,7 @@
       phase: "not_started", // not_started | in_progress | submitted
       answers: {},          // { questionId: "A" }
       flags: {},             // { questionId: true }
+      notes: {},             // { questionId: "rough work typed while solving" }
       currentIndex: 0,
       deadline: null,        // ms epoch timestamp — remaining time is derived from this, not decremented,
       startedAt: null,       // so the clock keeps real wall-clock time even if the tab is closed and reopened
@@ -106,6 +107,9 @@
 
   function answeredCount() { return Object.keys(state.answers).length; }
   function flaggedCount() { return Object.keys(state.flags).filter(function (k) { return state.flags[k]; }).length; }
+  function noteFor(questionId) {
+    return state.notes && state.notes[questionId] ? state.notes[questionId] : "";
+  }
 
   // ---------------------------------------------------------------- render dispatch
   function render() {
@@ -147,6 +151,7 @@
       el("li", {}, ["Every question has a single best answer. No answers or explanations are shown until you submit."]),
       el("li", {}, ["A countdown timer starts the moment you click Start and cannot be paused. The exam auto-submits at 00:00."]),
       el("li", {}, ["Use the question navigator to jump to any question in any order, and flag questions to revisit."]),
+      el("li", {}, ["Each question has a rough-notes area for scratch work; it auto-saves with your local exam progress."]),
       el("li", {}, ["Your progress is saved in this browser automatically — closing the tab and reopening this file will resume where you left off."]),
       el("li", {}, ["After submitting, you can review the full solutions with explanations and export your results as a file."])
     ]);
@@ -257,6 +262,24 @@
       optionsWrap.appendChild(row);
     });
     main.appendChild(optionsWrap);
+
+    main.appendChild(el("section", { class: "scratch-panel" }, [
+      el("label", { class: "scratch-label", for: "scratch_" + q.id }, ["Rough notes"]),
+      el("textarea", {
+        id: "scratch_" + q.id,
+        class: "scratch-input",
+        rows: "7",
+        spellcheck: "false",
+        placeholder: "Use this space for rough work, calculations, eliminations, or reminders. Auto-saved in this browser.",
+        oninput: function (e) {
+          if (!state.notes) state.notes = {};
+          var value = e.target.value;
+          if (value.trim()) state.notes[q.id] = value;
+          else delete state.notes[q.id];
+          saveState();
+        }
+      }, [noteFor(q.id)])
+    ]));
     layout.appendChild(main);
 
     var footer = el("div", { class: "exam-footer" }, [
@@ -459,7 +482,8 @@
           chosen: state.answers[q.id] || null,
           correct: q.correct,
           isCorrect: state.answers[q.id] === q.correct,
-          flagged: !!state.flags[q.id]
+          flagged: !!state.flags[q.id],
+          roughNote: noteFor(q.id) || null
         };
       })
     };
@@ -508,6 +532,12 @@
       ]);
       item.appendChild(head);
       item.appendChild(el("p", { class: "sol-q" }, ["Q" + (i + 1) + ". " + q.question]));
+      if (noteFor(q.id)) {
+        item.appendChild(el("div", { class: "sol-note" }, [
+          el("strong", {}, ["Your rough note"]),
+          el("p", {}, [noteFor(q.id)])
+        ]));
+      }
 
       ["A", "B", "C", "D"].forEach(function (letter) {
         if (!q.options[letter]) return;

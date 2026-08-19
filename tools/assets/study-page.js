@@ -10,7 +10,7 @@
   var storageKey = "istqb:doc:" + docId;
 
   var els = {};
-  var store = { version: 1, annotations: [] };
+  var store = { version: 1, annotations: [], practiceNotes: {} };
   var currentRange = null;
   var currentRemoveTarget = null;
   var saveTimer = null;
@@ -88,7 +88,12 @@
       var raw = localStorage.getItem(storageKey);
       if (raw) {
         var parsed = JSON.parse(raw);
-        if (parsed && Array.isArray(parsed.annotations)) store = parsed;
+        if (parsed && Array.isArray(parsed.annotations)) {
+          store = Object.assign({ version: 1, annotations: [], practiceNotes: {} }, parsed);
+          if (!store.practiceNotes || typeof store.practiceNotes !== "object" || Array.isArray(store.practiceNotes)) {
+            store.practiceNotes = {};
+          }
+        }
       }
     } catch (e) { /* corrupt storage — start fresh rather than crash the page */ }
   }
@@ -531,6 +536,28 @@
     });
   }
 
+  /* ---------------- practice rough notes ---------------- */
+
+  function wirePracticeRoughNotes() {
+    var inputs = els.content.querySelectorAll(".practice-rough-input[data-practice-note-key]");
+    if (!inputs.length) return;
+    if (!store.practiceNotes || typeof store.practiceNotes !== "object" || Array.isArray(store.practiceNotes)) {
+      store.practiceNotes = {};
+    }
+    Array.prototype.forEach.call(inputs, function (input) {
+      var key = input.dataset.practiceNoteKey;
+      input.value = store.practiceNotes[key] || "";
+      input.addEventListener("input", debounce(function () {
+        var value = input.value;
+        if (value.trim()) store.practiceNotes[key] = value;
+        else delete store.practiceNotes[key];
+        saveStore();
+      }, 250));
+      input.addEventListener("mousedown", function (e) { e.stopPropagation(); });
+      input.addEventListener("mouseup", function (e) { e.stopPropagation(); });
+    });
+  }
+
   /* ---------------- notes panel ---------------- */
 
   function wireNotesPanel() {
@@ -600,7 +627,12 @@
   }
 
   function exportAnnotations() {
-    var blob = new Blob([JSON.stringify({ docId: docId, exportedAt: new Date().toISOString(), annotations: store.annotations }, null, 2)],
+    var blob = new Blob([JSON.stringify({
+      docId: docId,
+      exportedAt: new Date().toISOString(),
+      annotations: store.annotations,
+      practiceNotes: store.practiceNotes || {}
+    }, null, 2)],
       { type: "application/json" });
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
@@ -627,6 +659,9 @@
         incoming.forEach(function (rec) {
           if (!existingIds.has(rec.id)) { store.annotations.push(rec); added++; }
         });
+        if (data.practiceNotes && typeof data.practiceNotes === "object" && !Array.isArray(data.practiceNotes)) {
+          store.practiceNotes = Object.assign({}, store.practiceNotes || {}, data.practiceNotes);
+        }
         saveStoreNow();
         toast("Imported " + added + " item(s). Reloading…");
         setTimeout(function () { location.reload(); }, 700);
@@ -709,6 +744,7 @@
     wireNotesPanel();
     buildTOC();
     loadStore();
+    wirePracticeRoughNotes();
     applyAllStored();
     refreshNotesUI();
     document.addEventListener("mousedown", globalDismiss);

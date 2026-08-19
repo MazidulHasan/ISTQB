@@ -290,7 +290,7 @@ button { font-family: inherit; }
   white-space: pre-line;
 }
 
-.options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+.options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
 .option-row {
   display: flex;
   align-items: flex-start;
@@ -306,6 +306,38 @@ button { font-family: inherit; }
 .option-row input { margin-top: 3px; flex-shrink: 0; }
 .option-letter { font-weight: 700; flex-shrink: 0; width: 1.2em; }
 .option-text { line-height: 1.55; }
+
+.scratch-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 14px 16px 16px;
+}
+.scratch-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.scratch-input {
+  display: block;
+  width: 100%;
+  min-height: 130px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 12px;
+  font: 0.95rem/1.5 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+.scratch-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 .exam-footer {
   position: fixed;
@@ -424,6 +456,28 @@ button { font-family: inherit; }
 .sol-badge.unanswered { background: var(--surface-2); color: var(--text-muted); }
 .sol-tag { font-size: 0.76rem; color: var(--text-muted); }
 .sol-q { font-weight: 600; margin: 0 0 14px; white-space: pre-line; line-height: 1.55; }
+.sol-note {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+}
+.sol-note strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.sol-note p {
+  margin: 0;
+  white-space: pre-line;
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
 .sol-option {
   display: flex; gap: 10px; padding: 8px 12px; border-radius: 6px; margin-bottom: 6px; font-size: 0.92rem; line-height: 1.5;
   border: 1px solid transparent;
@@ -475,6 +529,7 @@ window.__EXAM__ = {"examId": "2026-08-18-01", "title": "ISTQB CTFL v4.0.1 \u2014
       phase: "not_started", // not_started | in_progress | submitted
       answers: {},          // { questionId: "A" }
       flags: {},             // { questionId: true }
+      notes: {},             // { questionId: "rough work typed while solving" }
       currentIndex: 0,
       deadline: null,        // ms epoch timestamp — remaining time is derived from this, not decremented,
       startedAt: null,       // so the clock keeps real wall-clock time even if the tab is closed and reopened
@@ -562,6 +617,9 @@ window.__EXAM__ = {"examId": "2026-08-18-01", "title": "ISTQB CTFL v4.0.1 \u2014
 
   function answeredCount() { return Object.keys(state.answers).length; }
   function flaggedCount() { return Object.keys(state.flags).filter(function (k) { return state.flags[k]; }).length; }
+  function noteFor(questionId) {
+    return state.notes && state.notes[questionId] ? state.notes[questionId] : "";
+  }
 
   // ---------------------------------------------------------------- render dispatch
   function render() {
@@ -603,6 +661,7 @@ window.__EXAM__ = {"examId": "2026-08-18-01", "title": "ISTQB CTFL v4.0.1 \u2014
       el("li", {}, ["Every question has a single best answer. No answers or explanations are shown until you submit."]),
       el("li", {}, ["A countdown timer starts the moment you click Start and cannot be paused. The exam auto-submits at 00:00."]),
       el("li", {}, ["Use the question navigator to jump to any question in any order, and flag questions to revisit."]),
+      el("li", {}, ["Each question has a rough-notes area for scratch work; it auto-saves with your local exam progress."]),
       el("li", {}, ["Your progress is saved in this browser automatically — closing the tab and reopening this file will resume where you left off."]),
       el("li", {}, ["After submitting, you can review the full solutions with explanations and export your results as a file."])
     ]);
@@ -713,6 +772,24 @@ window.__EXAM__ = {"examId": "2026-08-18-01", "title": "ISTQB CTFL v4.0.1 \u2014
       optionsWrap.appendChild(row);
     });
     main.appendChild(optionsWrap);
+
+    main.appendChild(el("section", { class: "scratch-panel" }, [
+      el("label", { class: "scratch-label", for: "scratch_" + q.id }, ["Rough notes"]),
+      el("textarea", {
+        id: "scratch_" + q.id,
+        class: "scratch-input",
+        rows: "7",
+        spellcheck: "false",
+        placeholder: "Use this space for rough work, calculations, eliminations, or reminders. Auto-saved in this browser.",
+        oninput: function (e) {
+          if (!state.notes) state.notes = {};
+          var value = e.target.value;
+          if (value.trim()) state.notes[q.id] = value;
+          else delete state.notes[q.id];
+          saveState();
+        }
+      }, [noteFor(q.id)])
+    ]));
     layout.appendChild(main);
 
     var footer = el("div", { class: "exam-footer" }, [
@@ -915,7 +992,8 @@ window.__EXAM__ = {"examId": "2026-08-18-01", "title": "ISTQB CTFL v4.0.1 \u2014
           chosen: state.answers[q.id] || null,
           correct: q.correct,
           isCorrect: state.answers[q.id] === q.correct,
-          flagged: !!state.flags[q.id]
+          flagged: !!state.flags[q.id],
+          roughNote: noteFor(q.id) || null
         };
       })
     };
@@ -964,6 +1042,12 @@ window.__EXAM__ = {"examId": "2026-08-18-01", "title": "ISTQB CTFL v4.0.1 \u2014
       ]);
       item.appendChild(head);
       item.appendChild(el("p", { class: "sol-q" }, ["Q" + (i + 1) + ". " + q.question]));
+      if (noteFor(q.id)) {
+        item.appendChild(el("div", { class: "sol-note" }, [
+          el("strong", {}, ["Your rough note"]),
+          el("p", {}, [noteFor(q.id)])
+        ]));
+      }
 
       ["A", "B", "C", "D"].forEach(function (letter) {
         if (!q.options[letter]) return;

@@ -4,6 +4,8 @@ A personal, continuously-improving study notebook for the **ISTQB Certified Test
 
 The core idea: give the agent a chapter number, get two Markdown study outputs (concept notes + practice questions) that live in this repo permanently, each paired with a styled, offline HTML reading page you can highlight and add notes on. Ask for clarification any time and the notes themselves get smarter — so revision later never depends on remembering the original chat.
 
+Question practice is no-repeat by default: every newly generated study, practice, mock-studied, or timed mock-exam question should be a fresh variant. The same concept can come back, but not the same stem/options copied from an earlier sitting.
+
 ## How It Works
 
 All behavior is defined in [AGENTS.md](AGENTS.md) — the agent reads this file to know what to do. `CLAUDE.md` just points Claude Code at it, and `.claude/commands/` wraps the same workflows as real slash commands for Claude Code users. Codex (or any other agent) can use the same commands as plain instructions, since `AGENTS.md` is the shared source of truth.
@@ -82,6 +84,8 @@ These work as slash commands in Claude Code, or as plain natural-language reques
 | `/review weak` | Rebuild the consolidated weak-areas sheet in `revision/` from every chapter |
 | `/mock` | Real, timed, full-syllabus HTML mock exam (40 Q / 75 min, all 6 chapters) — opened and taken in a browser, results exported and reported back for scoring |
 | `/mock-studied` | Quick chat-based mixed mock exam across everything studied so far, scored and analyzed in-chat |
+
+Timed mock exam pages also include a per-question **Rough notes** area for scratch work while solving; it auto-saves with your local exam progress and is included in the exported results JSON.
 
 ## Suggested Workflow
 

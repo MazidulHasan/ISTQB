@@ -473,6 +473,40 @@ body.toc-hidden .study-toc { display: none; }
   line-height: 1.55;
 }
 
+.practice-rough {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  margin: 16px 0 18px;
+  padding: 12px 14px 14px;
+}
+.practice-rough-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.practice-rough-input {
+  display: block;
+  width: 100%;
+  min-height: 110px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  padding: 11px 12px;
+  font: 0.92rem/1.5 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+.practice-rough-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .practice-solution {
   border-top: 1px solid var(--border);
   margin-top: 18px;
@@ -1188,7 +1222,7 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary?";
   var storageKey = "istqb:doc:" + docId;
 
   var els = {};
-  var store = { version: 1, annotations: [] };
+  var store = { version: 1, annotations: [], practiceNotes: {} };
   var currentRange = null;
   var currentRemoveTarget = null;
   var saveTimer = null;
@@ -1266,7 +1300,12 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary?";
       var raw = localStorage.getItem(storageKey);
       if (raw) {
         var parsed = JSON.parse(raw);
-        if (parsed && Array.isArray(parsed.annotations)) store = parsed;
+        if (parsed && Array.isArray(parsed.annotations)) {
+          store = Object.assign({ version: 1, annotations: [], practiceNotes: {} }, parsed);
+          if (!store.practiceNotes || typeof store.practiceNotes !== "object" || Array.isArray(store.practiceNotes)) {
+            store.practiceNotes = {};
+          }
+        }
       }
     } catch (e) { /* corrupt storage — start fresh rather than crash the page */ }
   }
@@ -1709,6 +1748,28 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary?";
     });
   }
 
+  /* ---------------- practice rough notes ---------------- */
+
+  function wirePracticeRoughNotes() {
+    var inputs = els.content.querySelectorAll(".practice-rough-input[data-practice-note-key]");
+    if (!inputs.length) return;
+    if (!store.practiceNotes || typeof store.practiceNotes !== "object" || Array.isArray(store.practiceNotes)) {
+      store.practiceNotes = {};
+    }
+    Array.prototype.forEach.call(inputs, function (input) {
+      var key = input.dataset.practiceNoteKey;
+      input.value = store.practiceNotes[key] || "";
+      input.addEventListener("input", debounce(function () {
+        var value = input.value;
+        if (value.trim()) store.practiceNotes[key] = value;
+        else delete store.practiceNotes[key];
+        saveStore();
+      }, 250));
+      input.addEventListener("mousedown", function (e) { e.stopPropagation(); });
+      input.addEventListener("mouseup", function (e) { e.stopPropagation(); });
+    });
+  }
+
   /* ---------------- notes panel ---------------- */
 
   function wireNotesPanel() {
@@ -1778,7 +1839,12 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary?";
   }
 
   function exportAnnotations() {
-    var blob = new Blob([JSON.stringify({ docId: docId, exportedAt: new Date().toISOString(), annotations: store.annotations }, null, 2)],
+    var blob = new Blob([JSON.stringify({
+      docId: docId,
+      exportedAt: new Date().toISOString(),
+      annotations: store.annotations,
+      practiceNotes: store.practiceNotes || {}
+    }, null, 2)],
       { type: "application/json" });
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
@@ -1805,6 +1871,9 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary?";
         incoming.forEach(function (rec) {
           if (!existingIds.has(rec.id)) { store.annotations.push(rec); added++; }
         });
+        if (data.practiceNotes && typeof data.practiceNotes === "object" && !Array.isArray(data.practiceNotes)) {
+          store.practiceNotes = Object.assign({}, store.practiceNotes || {}, data.practiceNotes);
+        }
         saveStoreNow();
         toast("Imported " + added + " item(s). Reloading…");
         setTimeout(function () { location.reload(); }, 700);
@@ -1887,6 +1956,7 @@ window.__DOC_TITLE__ = "1.2 Why is Testing Necessary?";
     wireNotesPanel();
     buildTOC();
     loadStore();
+    wirePracticeRoughNotes();
     applyAllStored();
     refreshNotesUI();
     document.addEventListener("mousedown", globalDismiss);
