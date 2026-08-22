@@ -24,7 +24,8 @@
       deadline: null,        // ms epoch timestamp — remaining time is derived from this, not decremented,
       startedAt: null,       // so the clock keeps real wall-clock time even if the tab is closed and reopened
       submittedAt: null,
-      timeUsedSeconds: null
+      timeUsedSeconds: null,
+      exported: false     // whether "Export Results" has been clicked this attempt — used to warn before a retake discards an unexported score
     };
   }
 
@@ -53,6 +54,114 @@
   }
 
   var state = loadState();
+
+  // ---------------------------------------------------------------- rough-notes panel position
+  // A display preference, not exam progress — stored separately so it persists across
+  // different exam sittings (unlike `state`, which is keyed per exam id).
+  var NOTES_UI_KEY = "istqb-exam-notes-ui";
+
+  function freshNotesUI() {
+    return { position: "bottom", x: null, y: null, w: null, h: null }; // position: bottom | right | float
+  }
+  function loadNotesUI() {
+    try {
+      var raw = localStorage.getItem(NOTES_UI_KEY);
+      if (!raw) return freshNotesUI();
+      return Object.assign(freshNotesUI(), JSON.parse(raw));
+    } catch (e) { return freshNotesUI(); }
+  }
+  function saveNotesUI() {
+    try { localStorage.setItem(NOTES_UI_KEY, JSON.stringify(notesUI)); } catch (e) { /* ignore */ }
+  }
+  var notesUI = loadNotesUI();
+
+  function setNotesPosition(pos) {
+    if (notesUI.position === pos) return;
+    notesUI.position = pos;
+    saveNotesUI();
+    render();
+  }
+
+  function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
+
+  // Only relevant in float mode. Applies the last dragged coordinates, if any —
+  // otherwise the CSS default (bottom-right corner) is left in place.
+  function applyFloatPosition(panel) {
+    if (notesUI.x === null || notesUI.y === null) return;
+    var maxLeft = Math.max(4, window.innerWidth - 40);
+    var maxTop = Math.max(4, window.innerHeight - 40);
+    panel.style.left = clamp(notesUI.x, 4, maxLeft) + "px";
+    panel.style.top = clamp(notesUI.y, 4, maxTop) + "px";
+    panel.style.right = "auto";
+    panel.style.bottom = "auto";
+  }
+
+  function makeDraggable(panel, handle) {
+    var dragging = false;
+    var startX = 0, startY = 0, startLeft = 0, startTop = 0;
+    handle.addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".postoggle-btn")) return; // let the dock/float buttons handle their own clicks
+      dragging = true;
+      handle.setPointerCapture(e.pointerId);
+      var rect = panel.getBoundingClientRect();
+      startX = e.clientX; startY = e.clientY;
+      startLeft = rect.left; startTop = rect.top;
+      panel.classList.add("dragging");
+    });
+    handle.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      var newLeft = clamp(startLeft + (e.clientX - startX), 4, window.innerWidth - panel.offsetWidth - 4);
+      var newTop = clamp(startTop + (e.clientY - startY), 4, window.innerHeight - panel.offsetHeight - 4);
+      panel.style.left = newLeft + "px";
+      panel.style.top = newTop + "px";
+      panel.style.right = "auto";
+      panel.style.bottom = "auto";
+    });
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      panel.classList.remove("dragging");
+      notesUI.x = parseInt(panel.style.left, 10);
+      notesUI.y = parseInt(panel.style.top, 10);
+      saveNotesUI();
+    }
+    handle.addEventListener("pointerup", endDrag);
+    handle.addEventListener("pointercancel", endDrag);
+  }
+
+  // Applies the last manually-resized width/height, if any — otherwise the panel keeps
+  // its CSS default size. The same saved size is reused across bottom/right/float, since
+  // it's a general "how big do I like my notes box" preference, not a per-mode setting.
+  function applyStoredSize(panel) {
+    if (notesUI.w) panel.style.width = notesUI.w + "px";
+    if (notesUI.h) panel.style.height = notesUI.h + "px";
+  }
+
+  // The panel is fully rebuilt on every question change, so a plain CSS `resize` drag
+  // would otherwise be forgotten the moment the candidate clicks Next. There's no
+  // resize-start/resize-end event for the native corner grip, so we arm a flag when a
+  // mousedown lands in that ~18px corner hit-region, then compare the panel's size on
+  // the next mouseup (wherever it ends) and persist it if it actually changed.
+  var currentScratchPanel = null;
+  var scratchResizeArmed = false;
+  function scratchPanelMouseDown(e) {
+    var rect = e.currentTarget.getBoundingClientRect();
+    var nearRight = rect.right - e.clientX <= 18;
+    var nearBottom = rect.bottom - e.clientY <= 18;
+    scratchResizeArmed = nearRight && nearBottom;
+  }
+  document.addEventListener("mouseup", function () {
+    if (!scratchResizeArmed) return;
+    scratchResizeArmed = false;
+    if (!currentScratchPanel || !currentScratchPanel.isConnected) return;
+    var rect = currentScratchPanel.getBoundingClientRect();
+    var w = Math.round(rect.width), h = Math.round(rect.height);
+    if (w !== notesUI.w || h !== notesUI.h) {
+      notesUI.w = w;
+      notesUI.h = h;
+      saveNotesUI();
+    }
+  });
 
   // ---------------------------------------------------------------- theme
   function applyTheme() {
@@ -151,7 +260,7 @@
       el("li", {}, ["Every question has a single best answer. No answers or explanations are shown until you submit."]),
       el("li", {}, ["A countdown timer starts the moment you click Start and cannot be paused. The exam auto-submits at 00:00."]),
       el("li", {}, ["Use the question navigator to jump to any question in any order, and flag questions to revisit."]),
-      el("li", {}, ["Each question has a rough-notes area for scratch work; it auto-saves with your local exam progress."]),
+      el("li", {}, ["Each question has a rough-notes area for scratch work; it auto-saves with your local exam progress. Use the small buttons above it to dock the notes to the bottom, dock them to the right, or float them anywhere on screen — and drag its bottom-right corner to resize it to whatever size you like."]),
       el("li", {}, ["Your progress is saved in this browser automatically — closing the tab and reopening this file will resume where you left off."]),
       el("li", {}, ["After submitting, you can review the full solutions with explanations and export your results as a file."])
     ]);
@@ -197,6 +306,17 @@
     render();
   }
 
+  // Replays this exact sitting (same 40 questions, same order) with a clean timer and
+  // blank answers/flags/notes. Warns first, since an unexported attempt's score/answers
+  // have no other record once cleared.
+  function retakeExam() {
+    var msg = state.exported
+      ? "Retake this exam with the same 40 questions? Your answers, flags, and rough notes will be cleared and the timer will restart."
+      : "You haven't exported this attempt's results yet, so retaking now will permanently lose your answers and score for it. Retake anyway?";
+    if (!confirm(msg)) return;
+    startOrResume(false);
+  }
+
   // ---------------------------------------------------------------- top bar
   function topbar(showTimer) {
     var bar = el("div", { class: "exam-topbar" }, [
@@ -211,6 +331,57 @@
     }
     bar.appendChild(el("button", { class: "icon-btn", title: "Toggle theme", onclick: toggleTheme }, ["\u{1F319}"]));
     return bar;
+  }
+
+  // ---------------------------------------------------------------- rough-notes panel
+  function renderScratchPanel(q) {
+    function posBtn(pos, icon, title) {
+      return el("button", {
+        type: "button",
+        class: "postoggle-btn" + (notesUI.position === pos ? " active" : ""),
+        title: title,
+        onclick: function () { setNotesPosition(pos); }
+      }, [icon]);
+    }
+
+    var header = el("div", { class: "scratch-header" }, [
+      el("span", { class: "scratch-label" }, ["Rough notes"]),
+      el("div", { class: "scratch-postoggle" }, [
+        posBtn("bottom", "⬇", "Dock to bottom"),
+        posBtn("right", "▶", "Dock to right"),
+        posBtn("float", "✦", "Float — drag anywhere")
+      ])
+    ]);
+
+    var panel = el("section", {
+      class: "scratch-panel pos-" + notesUI.position,
+      onmousedown: scratchPanelMouseDown
+    }, [
+      header,
+      el("textarea", {
+        id: "scratch_" + q.id,
+        class: "scratch-input",
+        rows: "7",
+        spellcheck: "false",
+        placeholder: "Use this space for rough work, calculations, eliminations, or reminders. Auto-saved in this browser.",
+        oninput: function (e) {
+          if (!state.notes) state.notes = {};
+          var value = e.target.value;
+          if (value.trim()) state.notes[q.id] = value;
+          else delete state.notes[q.id];
+          saveState();
+        }
+      }, [noteFor(q.id)])
+    ]);
+
+    applyStoredSize(panel);
+    currentScratchPanel = panel;
+
+    if (notesUI.position === "float") {
+      applyFloatPosition(panel);
+      makeDraggable(panel, header);
+    }
+    return panel;
   }
 
   // ---------------------------------------------------------------- exam screen
@@ -263,26 +434,12 @@
     });
     main.appendChild(optionsWrap);
 
-    main.appendChild(el("section", { class: "scratch-panel" }, [
-      el("label", { class: "scratch-label", for: "scratch_" + q.id }, ["Rough notes"]),
-      el("textarea", {
-        id: "scratch_" + q.id,
-        class: "scratch-input",
-        rows: "7",
-        spellcheck: "false",
-        placeholder: "Use this space for rough work, calculations, eliminations, or reminders. Auto-saved in this browser.",
-        oninput: function (e) {
-          if (!state.notes) state.notes = {};
-          var value = e.target.value;
-          if (value.trim()) state.notes[q.id] = value;
-          else delete state.notes[q.id];
-          saveState();
-        }
-      }, [noteFor(q.id)])
-    ]));
+    var notesDocked = notesUI.position === "bottom";
+    if (notesDocked) main.appendChild(renderScratchPanel(q));
+    layout.className = "exam-layout" + (notesUI.position === "right" ? " notes-right-open" : "");
     layout.appendChild(main);
 
-    var footer = el("div", { class: "exam-footer" }, [
+    var footer = el("div", { class: "exam-footer" + (notesUI.position === "right" ? " notes-right-open" : "") }, [
       el("button", {
         class: "nav-action-btn", disabled: state.currentIndex === 0 ? "disabled" : null,
         onclick: function () { state.currentIndex = Math.max(0, state.currentIndex - 1); saveState(); render(); }
@@ -297,6 +454,20 @@
     root.appendChild(topbar(true));
     root.appendChild(layout);
     root.appendChild(footer);
+    if (!notesDocked) {
+      var notesPanel = renderScratchPanel(q);
+      root.appendChild(notesPanel);
+      // The right-docked panel is user-resizable, so its width can no longer be assumed
+      // to match the CSS default (340px) reserved on .exam-main — keep the reserved space
+      // in sync with its live width so a wide panel never covers the question content.
+      if (notesUI.position === "right" && window.ResizeObserver) {
+        var syncRightPadding = function () {
+          main.style.paddingRight = Math.round(notesPanel.getBoundingClientRect().width + 20) + "px";
+        };
+        syncRightPadding();
+        new ResizeObserver(syncRightPadding).observe(notesPanel);
+      }
+    }
     startTimer();
     updateTimerDisplay();
   }
@@ -444,9 +615,14 @@
 
     var actions = el("div", { class: "results-actions" }, [
       el("button", { class: "big-btn", onclick: function () { renderSolutionsScreen(score); } }, ["View Full Solutions"]),
-      el("button", { class: "big-btn secondary", onclick: exportResults }, ["Export Results (JSON)"])
+      el("button", { class: "big-btn secondary", onclick: exportResults }, ["Export Results (JSON)"]),
+      el("button", { class: "big-btn secondary", onclick: retakeExam }, ["Retake Exam"])
     ]);
     card.appendChild(actions);
+
+    card.appendChild(el("p", { class: "footer-note" }, [
+      "Retake replays this exact set of " + score.total + " questions. For a fresh mix, ask Claude to generate a new mock exam."
+    ]));
 
     if (flaggedCount() > 0) {
       var flaggedIds = Object.keys(state.flags).filter(function (k) { return state.flags[k]; });
@@ -496,6 +672,8 @@
     a.click();
     document.body.removeChild(a);
     setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    state.exported = true;
+    saveState();
   }
 
   // ---------------------------------------------------------------- solutions
@@ -504,9 +682,12 @@
     root.appendChild(topbar(false));
     var wrap = el("div", { class: "solutions-wrap" });
 
-    wrap.appendChild(el("button", {
-      class: "nav-action-btn", style: "margin-bottom:18px;", onclick: function () { render(); }
-    }, ["← Back to Results"]));
+    wrap.appendChild(el("div", { class: "solutions-top-actions" }, [
+      el("button", {
+        class: "nav-action-btn", onclick: function () { render(); }
+      }, ["← Back to Results"]),
+      el("button", { class: "nav-action-btn", onclick: retakeExam }, ["Retake Exam"])
+    ]));
 
     wrap.appendChild(el("h2", {}, ["Full Solutions"]));
     wrap.appendChild(el("p", { class: "start-sub" }, [
