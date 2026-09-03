@@ -4,7 +4,7 @@ A personal, continuously-improving study notebook for the **ISTQB Certified Test
 
 The core idea: give the agent a chapter number, get two Markdown study outputs (concept notes + practice questions) that live in this repo permanently, each paired with a styled, offline HTML reading page you can highlight and add notes on. Ask for clarification any time and the notes themselves get smarter — so revision later never depends on remembering the original chat.
 
-Question practice is no-repeat by default: every newly generated study, practice, mock-studied, or timed mock-exam question should be a fresh variant. The same concept can come back, but not the same stem/options copied from an earlier sitting.
+Question practice is no-repeat by default: every newly generated study, practice, mock-studied, timed mock-exam, or hard timed mock-exam question should be a fresh variant. The same concept can come back, but not the same stem/options copied from an earlier sitting. When you ask for `mock hard`, the agent creates a harder timed exam from fresh red-difficulty questions with closer distractors and saves it with a separate `YYYY-MM-DD-hard-##.html` filename.
 
 ## How It Works
 
@@ -40,6 +40,7 @@ All behavior is defined in [AGENTS.md](AGENTS.md) — the agent reads this file 
 ├── revision/
 │   ├── weak-concepts.md      # concepts you keep getting wrong, across all chapters
 │   ├── common-confusions.md  # concept pairs you keep mixing up
+│   ├── marked-topics.md      # A-Z explanations from mock-exam learning markers
 │   └── final-revision.md     # condensed pre-exam cheat sheet + mock exam log
 │                              # (+ matching .html files, same as chapters/)
 │
@@ -55,7 +56,7 @@ All behavior is defined in [AGENTS.md](AGENTS.md) — the agent reads this file 
 │   ├── requirements.txt      # pip install -r tools/requirements.txt
 │   └── assets/                # CSS/JS inlined into every generated page (study pages + exam pages)
 │
-└── .claude/commands/        # /study /clarify /practice /review /mock /mock-studied (Claude Code)
+└── .claude/commands/        # /study /clarify /practice /review /mock /mock hard /mock-studied (Claude Code)
 ```
 
 ## Study Pages (highlight, annotate, auto-save)
@@ -83,9 +84,10 @@ These work as slash commands in Claude Code, or as plain natural-language reques
 | `/review 1.1` | Quick recap of a chapter without necessarily rewriting files |
 | `/review weak` | Rebuild the consolidated weak-areas sheet in `revision/` from every chapter |
 | `/mock` | Real, timed, full-syllabus HTML mock exam (40 Q / 75 min, all 6 chapters) — opened and taken in a browser, results exported and reported back for scoring |
+| `/mock hard` | Harder timed full-syllabus HTML mock exam using fresh red-difficulty questions, close distractors, tricky wording, and separate `YYYY-MM-DD-hard-##.html` filenames |
 | `/mock-studied` | Quick chat-based mixed mock exam across everything studied so far, scored and analyzed in-chat |
 
-Timed mock exam pages also include a per-question **Rough notes** area for scratch work while solving; it auto-saves with your local exam progress and is included in the exported results JSON.
+Timed mock exam pages also include a per-question **Rough notes** area for scratch work while solving and a **Mark learning gap** control for unclear terms/topics. Both normal `/mock` and harder `/mock hard` exams use the same offline HTML exam interface; hard exams are marked in the filename as `question-bank/exams/{date}-hard-{seq}.html` so you can identify them later. Both auto-save with your local exam progress and are included in the exported results JSON. When you later ask the agent to score/log the exam, any learning markers are merged into `revision/marked-topics.md` and rendered as `revision/marked-topics.html`, an A-Z review page with the same left contents bar as the other study pages.
 
 ## Suggested Workflow
 
@@ -95,7 +97,8 @@ Timed mock exam pages also include a per-question **Rough notes** area for scrat
 4. **Move to the next chapter**, repeating 1–3. Chapter numbers in [syllabus/progress.md](syllabus/progress.md) follow the official CTFL v4.0.1 structure, as detailed in [resources/syllabus-outline.md](resources/syllabus-outline.md).
 5. **Periodically run** `/review weak` to keep `revision/final-revision.md` current.
 6. **Along the way**: run `/mock-studied` for a quick, low-stakes chat-based check on what you've covered so far.
-7. **Before the exam**: run `/mock` for a real, timed, full-syllabus practice exam under real conditions, and do a final read of `revision/final-revision.md`.
+7. **During timed mocks**: use **Mark learning gap** for any term, option phrase, or topic that feels unclear; after scoring, review the accumulated explanations in `revision/marked-topics.html`.
+8. **Before the exam**: run `/mock` for a real, timed, full-syllabus practice exam under real conditions; use `/mock hard` when you want a tougher sitting with close options and more trap-heavy wording. Do a final read of `revision/final-revision.md`.
 
 ## Source Material
 

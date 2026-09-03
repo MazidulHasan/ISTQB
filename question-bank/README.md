@@ -22,27 +22,38 @@ question-bank/
 1. Ask Claude to generate today's exam ("give me today's mock exam", "/mock", "start a mock exam").
    Claude authors/selects 40 fresh questions from `bank.json` (adding new ones grounded in the syllabus
    where needed) and runs `python tools/render_exam.py new` to produce a session JSON + HTML.
+   For a harder/trickier sitting, ask for `mock hard`; Claude authors fresh red-difficulty
+   questions and runs `python tools/render_exam.py new --variant hard`, producing files named
+   `question-bank/exams/{date}-hard-{seq}.json` and `.html`.
 2. Open the generated `question-bank/exams/{date}-{seq}.html` file directly in a browser
    (double-click it, or drag it into a browser window — no server needed).
 3. Read the instructions on the start screen, then click **Start Exam**. No question text is
    part of the visible page before this click. A 75-minute countdown timer begins immediately
-   and cannot be paused; the exam auto-submits at 00:00 even if the tab was closed and reopened
-   (the deadline is a real timestamp, not a pausable counter).
+   and cannot be paused. The deadline is a real timestamp, not a pausable counter, so reopening
+   the file after time expires will continue from the correct end state.
 4. Answer questions in any order using the question navigator (left sidebar). Flag any question
-   for later review. Use the rough-notes box under each question for scratch work, calculations,
-   option elimination, or reminders. Progress (answers, flags, rough notes, current question,
-   remaining time) is saved to the
+   for later review. Use **Mark learning gap** when a term, topic, option phrase, or question
+   wording feels unclear and should become a future explanation. Use the rough-notes box under
+   each question for scratch work, calculations, option elimination, or reminders. Progress
+   (answers, flags, learning markers, rough notes, current question, remaining time) is saved to the
    browser's `localStorage` automatically — closing the file and reopening it resumes exactly
    where you left off, after an explicit "Resume Exam" click.
-5. Click **Submit Exam** (or let the timer expire) to see your score, pass/fail against the 65%
-   pass mark, and a per-chapter breakdown.
-6. Click **View Full Solutions** to see every question with your answer, the correct answer, and
+5. Click **Submit Exam** when ready. If the main timer expires while questions are still
+   unanswered or flagged, the page offers **Answer Remaining Questions** before final scoring.
+   That extra round contains only the unanswered/flagged questions and gives 1 minute per
+   question, so 5 remaining questions gives a 5-minute timer. If no questions are left, or after
+   the remaining-question round ends, the exam auto-submits.
+6. After final submission, see your score, pass/fail against the 65% pass mark, and a per-chapter
+   breakdown.
+7. Click **View Full Solutions** to see every question with your answer, the correct answer, and
    the full explanation (why it's correct, option-by-option analysis, distractor analysis, and
    alternative exam wording).
-7. Click **Export Results (JSON)** to download a small results file. Move it into
+8. Click **Export Results (JSON)** to download a small results file. Learning markers are included
+   both under the relevant answer and in a top-level `learningMarkers` list. Move it into
    `question-bank/results/` and tell Claude ("score my exam", "log my results") — Claude reads it,
-   updates `bank.json`'s per-question stats, and appends a dated entry with a personalized
-   revision plan to `revision/final-revision.md`, per the Mock Exam Workflow in `AGENTS.md`.
+   updates `bank.json`'s per-question stats, merges marker explanations into
+   `revision/marked-topics.md`, and appends a dated entry with a personalized revision plan to
+   `revision/final-revision.md`, per the Mock Exam Workflow in `AGENTS.md`.
 
 Nothing is scored or logged automatically by the HTML file itself — it's a self-contained static
 page with no server, so the results export + hand-back-to-Claude step is what closes the loop.
@@ -54,7 +65,8 @@ Every new timed mock sitting should contain question IDs that have not appeared 
 result, but it must be authored as a new question with a fresh scenario, stem, wording, data values,
 and distractor design.
 
-`tools/render_exam.py new` enforces this by selecting only never-used question IDs. If there are not
+`tools/render_exam.py new` enforces this by selecting only never-used question IDs. For
+`--variant hard`, it also requires unused questions with `difficulty: "red"`. If there are not
 enough fresh questions available, it exits with a message telling Claude how many new variants must
 be added to `bank.json` before rendering the exam.
 
@@ -87,7 +99,7 @@ be added to `bank.json` before rendering the exam.
 
 An exam session file (`exams/{id}.json`) has the same question objects denormalized into it
 (a snapshot, so it stays valid even if `bank.json` questions are later edited), plus
-`exam_id`, `title`, `generated`, `duration_minutes`, `pass_mark_pct`, `bank_version`.
+`exam_id`, `title`, `variant`, `generated`, `duration_minutes`, `pass_mark_pct`, `bank_version`.
 
 ## Growing the bank
 
@@ -104,7 +116,8 @@ Each time a mock exam is generated, Claude should:
 3. Author enough new questions (or targeted variants of weak-topic questions using different
    scenarios and wording) so the next sitting has 40 never-used question IDs available. Follow the
    question quality bar in `prompts/question-coach.md`, and append them to `bank.json` with fresh,
-   never-reused IDs.
+   never-reused IDs. For `mock hard`, author `difficulty: "red"` questions with closer distractors,
+   more comparison traps, subtler wording, and fair but demanding reasoning.
 4. Run `python tools/render_exam.py new` to select today's 40 (weighted roughly by the official
    per-chapter exam-time weighting in `resources/syllabus-outline.md`) and render the HTML.
 
@@ -124,6 +137,8 @@ python tools/render_exam.py question-bank/exams/2026-08-16-01.json   # re-render
 | Command | Effect |
 |---|---|
 | `python tools/render_exam.py new` | Select today's exam from never-used questions in `bank.json` (default 40 Q / 75 min / 65% pass mark), write a session JSON, render its HTML |
+| `python tools/render_exam.py new --variant hard` | Select today's hard exam from never-used red-difficulty questions and write `YYYY-MM-DD-hard-##` session/HTML files |
+| `python tools/render_exam.py new hard` | Shortcut for `--variant hard` |
 | `python tools/render_exam.py new --count N --duration M --pass-mark P` | Override the defaults |
 | `python tools/render_exam.py <session.json>` | Re-render one session's HTML from its frozen snapshot |
 | `python tools/render_exam.py` | Re-render every session under `question-bank/exams/` |

@@ -31,6 +31,7 @@ syllabus/
 revision/
     weak-concepts.md        # concepts repeatedly misunderstood, across all chapters
     common-confusions.md    # concept pairs the user keeps mixing up
+    marked-topics.md        # A-Z explanations generated from mock-exam learning markers
     final-revision.md       # condensed pre-exam revision sheet
     (+ matching .html files for each, generated the same way)
 
@@ -67,7 +68,7 @@ Every chapter's `concepts.md` and `questions.md` must be consistent with `resour
 
 ## Fresh Question Rule
 
-All question generation in this repo must create genuinely new questions. This applies to `/study`, `/practice`, `/review` check questions, `/mock-studied`, `/mock`, mistake revision questions, and targeted weak-topic re-asks.
+All question generation in this repo must create genuinely new questions. This applies to `/study`, `/practice`, `/review` check questions, `/mock-studied`, `/mock`, `/mock hard`, mistake revision questions, and targeted weak-topic re-asks.
 
 Before preparing new questions, read the relevant existing question history: the current chapter's `questions.md`, `question-bank/bank.json`, previous `question-bank/exams/*.json` when working on timed mocks, and recent results when available. Do not copy-paste an old question or make a shallow duplicate by only changing a name or one number.
 
@@ -88,6 +89,23 @@ python tools/render_html.py <path/to/the/file.md>
 **How the reader's highlights/notes survive regeneration:** annotations are never written into the HTML file itself — they live in the browser's `localStorage`, keyed by the file's repo-relative path (e.g. `chapters/1.1/concepts.md`). `render_html.py` tags every paragraph/list-item/table-cell/heading with a `data-bid` attribute derived from a hash of *that block's own text*. So re-running the script after `/clarify` edits one paragraph only changes that paragraph's id — every other block's id, and therefore every highlight/note anchored to it, is untouched. If a block's text does change, its old annotations become "orphaned": the page detects this on load, never deletes them, and surfaces them in a dismissible banner plus the Notes panel so nothing is silently lost.
 
 **Never hand-edit a generated `.html` file** — it's a build artifact. Edit the `.md` source and re-run the script. Never hand-edit `tools/assets/study-page.css`/`.js` as part of a normal `/study`/`/clarify`/etc. request either — those are the shared rendering engine, not per-chapter content; only touch them if the user explicitly asks to change how the study pages themselves look or behave, and after doing so, re-run `tools/render_html.py` with no arguments to refresh every existing page with the update.
+
+## Learning Marker Workflow
+
+Timed mock exam pages include a per-question **Mark learning gap** control. The user can mark an unclear term, topic, option phrase, or question wording while solving. These are different from flags: a flag means "come back during the exam"; a learning marker means "explain this after the exam and grow my knowledge base."
+
+Learning markers are stored in the browser with the exam attempt and exported inside the results JSON as both per-answer `learningMarkers` and top-level `learningMarkers`.
+
+When scoring/logging an exam result that contains learning markers:
+
+1. Read all markers from the results JSON, including term/topic, marker type, note, selected text, chapter, question ID, exam ID, and question context.
+2. Normalize duplicate topics case-insensitively and by obvious ISTQB synonyms (for example "confirmation test" and "confirmation testing").
+3. Read existing `revision/marked-topics.md` before editing it.
+4. For each marker, create or update one A-Z topic entry. If an entry already exists, improve the explanation and append the new marked-history context instead of duplicating the topic.
+5. Ground each explanation in `resources/syllabus-outline.md`, `resources/istqb-ctfl-syllabus-v4.0.1.extracted.txt`, and existing chapter notes when available. Use the supplementary book only for examples or analogies, and only where it fits CTFL v4.0.1.
+6. Each topic entry should include: simple meaning, ISTQB meaning, why the user marked it, exam example, do-not-confuse-with, memory hook, and marked history.
+7. Keep topic headings sorted alphabetically under `## A-Z Topics` so the generated HTML left contents bar is easy to navigate.
+8. Finish by running `python tools/render_html.py revision/marked-topics.md` (or `python tools/render_html.py revision` if other revision files were touched).
 
 ## Main Study Workflow
 
@@ -213,6 +231,26 @@ chapter before it can appear on a mock exam).
    worked solutions are all handled client-side in that file — nothing further happens in chat
    until they report back with results.
 
+### Hard mock variant
+
+When the user says `/mock hard`, `mock hard`, or asks for a harder/trickier timed mock, keep the
+same full-syllabus, 40-question, 75-minute HTML exam workflow, but make the sitting deliberately
+harder:
+
+1. Author new bank questions with `difficulty: "red"` only. They should test subtle distinctions,
+   close concept pairs, multi-statement reasoning, BEST/MOST/NOT wording, calculations with
+   tempting off-by-one or coverage traps, and distractors that are plausible because they describe
+   related ISTQB concepts.
+2. Keep every hard question fair and syllabus-grounded: the correct answer must still be clearly
+   defensible from CTFL v4.0.1, and the explanations must identify why the close wrong options are
+   wrong.
+3. Append the questions to `question-bank/bank.json` with fresh IDs, following the same no-repeat
+   rule as normal mocks.
+4. Run `python tools/render_exam.py new --variant hard` (or `python tools/render_exam.py new hard`).
+   This selects only never-used `red` questions and writes files named
+   `question-bank/exams/{date}-hard-{seq}.json` and `.html`, so hard sittings are easy to identify
+   later.
+
 ### Step 2: Score a completed exam
 
 When the user says they've finished and hands back a results file (downloaded via the exam
@@ -224,9 +262,13 @@ page's "Export Results" button, moved into `question-bank/results/`):
    retesting topics the user gets wrong.
 3. Explain every incorrect answer in chat, identify mistake patterns (topic clusters, question
    types, tricky-wording traps), and propose a personalized revision plan.
-4. Update `syllabus/progress.md` for any chapters revealed as weak.
-5. Append a dated entry to `revision/final-revision.md` (score, weak topics, revision plan), then
-   run `python tools/render_html.py revision/final-revision.md`.
+4. If the results JSON contains `learningMarkers`, update `revision/marked-topics.md` using the
+   Learning Marker Workflow above so each marked term/topic receives or improves a permanent
+   alphabetized explanation.
+5. Update `syllabus/progress.md` for any chapters revealed as weak.
+6. Append a dated entry to `revision/final-revision.md` (score, weak topics, revision plan), then
+   run `python tools/render_html.py revision` if marked topics were touched, otherwise run
+   `python tools/render_html.py revision/final-revision.md`.
 
 ## Mock Exam (Studied So Far, Chat-Based) Workflow
 
@@ -290,4 +332,5 @@ Do not optimize only for generating content quickly. The main goal is to create 
 | `/review {chapter}` | Condensed recap of a chapter without necessarily rewriting files |
 | `/review weak` or `/revision weak` | Rebuild the consolidated weak-areas revision sheet across all chapters |
 | `/mock` | Generate today's real, timed, full-syllabus HTML mock exam (40 Q / 75 min); report back with exported results to have it scored and logged |
+| `/mock hard` or `mock hard` | Generate a harder timed full-syllabus HTML mock using fresh red-difficulty questions and `YYYY-MM-DD-hard-##` filenames |
 | `/mock-studied` | Quick chat-based mixed mock exam, scoped only to chapters studied so far, scored and analyzed in-chat |

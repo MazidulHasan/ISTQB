@@ -16,13 +16,20 @@
   // ---------------------------------------------------------------- state
   function freshState() {
     return {
-      phase: "not_started", // not_started | in_progress | submitted
+      phase: "not_started", // not_started | in_progress | cleanup_offer | cleanup | submitted
       answers: {},          // { questionId: "A" }
       flags: {},             // { questionId: true }
       notes: {},             // { questionId: "rough work typed while solving" }
+      markers: {},           // { questionId: [{ id, term, note, source, selectedText, ... }] }
       currentIndex: 0,
       deadline: null,        // ms epoch timestamp — remaining time is derived from this, not decremented,
       startedAt: null,       // so the clock keeps real wall-clock time even if the tab is closed and reopened
+      cleanupQuestionIds: [], // fixed list of flagged/unanswered questions offered after the main timer expires
+      cleanupDeadline: null,
+      cleanupStartedAt: null,
+      cleanupOfferedAt: null,
+      cleanupTimeUsedSeconds: null,
+      cleanupUsed: false,
       submittedAt: null,
       timeUsedSeconds: null,
       exported: false     // whether "Export Results" has been clicked this attempt — used to warn before a retake discards an unexported score
@@ -32,6 +39,10 @@
   // Remaining seconds, computed from the stored deadline so it reflects real elapsed time
   // even across a closed tab / reloaded file, matching how a real proctored exam timer behaves.
   function computeRemaining() {
+    if (state.phase === "cleanup") {
+      if (!state.cleanupDeadline) return cleanupDurationSeconds();
+      return Math.round((state.cleanupDeadline - Date.now()) / 1000);
+    }
     if (!state.deadline) return EXAM.durationMinutes * 60;
     return Math.round((state.deadline - Date.now()) / 1000);
   }
@@ -201,6 +212,12 @@
     return String(m).padStart(2, "0") + ":" + String(sec).padStart(2, "0");
   }
 
+  function timeLimitLabel() {
+    var base = EXAM.durationMinutes + ":00";
+    if (!state.cleanupQuestionIds || !state.cleanupQuestionIds.length) return base;
+    return base + " + " + formatTime(cleanupDurationSeconds()) + " extra";
+  }
+
   function chapterNum(chapterCode) {
     return chapterCode.split(".")[0];
   }
@@ -216,30 +233,68 @@
 
   function answeredCount() { return Object.keys(state.answers).length; }
   function flaggedCount() { return Object.keys(state.flags).filter(function (k) { return state.flags[k]; }).length; }
+  function markersFor(questionId) {
+    return state.markers && Array.isArray(state.markers[questionId]) ? state.markers[questionId] : [];
+  }
+  function markerCount() {
+    if (!state.markers) return 0;
+    return Object.keys(state.markers).reduce(function (n, questionId) {
+      return n + markersFor(questionId).length;
+    }, 0);
+  }
   function noteFor(questionId) {
     return state.notes && state.notes[questionId] ? state.notes[questionId] : "";
+  }
+  function questionById(questionId) {
+    return EXAM.questions.find(function (q) { return q.id === questionId; }) || null;
+  }
+  function originalQuestionNumber(questionId) {
+    var idx = EXAM.questions.findIndex(function (q) { return q.id === questionId; });
+    return idx >= 0 ? idx + 1 : "?";
+  }
+  function remainingQuestionIds() {
+    return EXAM.questions
+      .filter(function (q) { return !state.answers[q.id] || !!state.flags[q.id]; })
+      .map(function (q) { return q.id; });
+  }
+  function cleanupDurationSeconds() {
+    return (state.cleanupQuestionIds || []).length * 60;
+  }
+  function activeQuestions() {
+    if (state.phase !== "cleanup") return EXAM.questions;
+    return (state.cleanupQuestionIds || []).map(questionById).filter(Boolean);
+  }
+  function activeQuestionCount() {
+    return activeQuestions().length;
   }
 
   // ---------------------------------------------------------------- render dispatch
   function render() {
     root.innerHTML = "";
     if (state.phase === "submitted") { renderResults(); return; }
-    if (state.phase === "in_progress" && resumedThisSession) { renderExam(); return; }
+    if (state.phase === "cleanup_offer") { renderCleanupOffer(); return; }
+    if ((state.phase === "in_progress" || state.phase === "cleanup") && resumedThisSession) { renderExam(); return; }
     renderStart(); // covers not_started, and in_progress before the candidate has clicked Resume
   }
 
   // ---------------------------------------------------------------- start screen
   function renderStart() {
     stopTimer();
-    var inProgress = state.phase === "in_progress";
+    var inProgress = state.phase === "in_progress" || state.phase === "cleanup";
+    var inCleanup = state.phase === "cleanup";
 
     var shell = el("div", { class: "center-shell" });
     var card = el("div", { class: "card" });
 
     if (inProgress) {
+      var total = inCleanup ? activeQuestionCount() : EXAM.questions.length;
+      var answered = inCleanup
+        ? activeQuestions().filter(function (q) { return !!state.answers[q.id]; }).length
+        : answeredCount();
       card.appendChild(el("div", { class: "resume-banner" }, [
-        "An exam is already in progress (" + answeredCount() + "/" + EXAM.questions.length + " answered, " +
-        formatTime(computeRemaining()) + " remaining). Starting over will discard that progress."
+        (inCleanup ? "A remaining-question round is already in progress (" : "An exam is already in progress (") +
+        answered + "/" + total + " answered, " + formatTime(computeRemaining()) +
+        " remaining). Starting over will discard that progress."
       ]));
     }
 
@@ -258,8 +313,10 @@
 
     var rules = el("ul", { class: "rules-list" }, [
       el("li", {}, ["Every question has a single best answer. No answers or explanations are shown until you submit."]),
-      el("li", {}, ["A countdown timer starts the moment you click Start and cannot be paused. The exam auto-submits at 00:00."]),
+      el("li", {}, ["A countdown timer starts the moment you click Start and cannot be paused. When it reaches 00:00, the exam either submits or offers a remaining-question round."]),
+      el("li", {}, ["If the main timer ends while questions are still unanswered or flagged, you can start a remaining-question round with 1 minute for each of those questions."]),
       el("li", {}, ["Use the question navigator to jump to any question in any order, and flag questions to revisit."]),
+      el("li", {}, ["Use Learning Marker when a term, topic, option, or phrase feels unclear. Markers are exported with your results so they can be turned into a permanent A-Z review page after the exam."]),
       el("li", {}, ["Each question has a rough-notes area for scratch work; it auto-saves with your local exam progress. Use the small buttons above it to dock the notes to the bottom, dock them to the right, or float them anywhere on screen — and drag its bottom-right corner to resize it to whatever size you like."]),
       el("li", {}, ["Your progress is saved in this browser automatically — closing the tab and reopening this file will resume where you left off."]),
       el("li", {}, ["After submitting, you can review the full solutions with explanations and export your results as a file."])
@@ -268,7 +325,7 @@
 
     card.appendChild(el("button", {
       class: "big-btn", onclick: function () { startOrResume(inProgress); }
-    }, [inProgress ? "Resume Exam" : "Start Exam"]));
+    }, [inProgress ? (inCleanup ? "Resume Remaining Round" : "Resume Exam") : "Start Exam"]));
 
     if (inProgress) {
       card.appendChild(el("button", {
@@ -325,7 +382,7 @@
     bar.appendChild(el("span", { class: "spacer" }));
     if (showTimer) {
       bar.appendChild(el("span", { class: "q-counter", id: "qCounter" }, [
-        "Question " + (state.currentIndex + 1) + " of " + EXAM.questions.length
+        (state.phase === "cleanup" ? "Remaining " : "Question ") + (state.currentIndex + 1) + " of " + activeQuestionCount()
       ]));
       bar.appendChild(el("span", { class: "timer", id: "timerEl" }, [formatTime(computeRemaining())]));
     }
@@ -386,21 +443,33 @@
 
   // ---------------------------------------------------------------- exam screen
   function renderExam() {
-    var q = EXAM.questions[state.currentIndex];
+    var questions = activeQuestions();
+    if (!questions.length) { submitExam(false); return; }
+    if (state.currentIndex >= questions.length) state.currentIndex = questions.length - 1;
+    if (state.currentIndex < 0) state.currentIndex = 0;
+    var q = questions[state.currentIndex];
+    var originalNum = originalQuestionNumber(q.id);
+    var inCleanup = state.phase === "cleanup";
 
     var layout = el("div", { class: "exam-layout" });
     layout.appendChild(renderNavigator());
 
     var main = el("div", { class: "exam-main" });
-    var pct = ((state.currentIndex + 1) / EXAM.questions.length) * 100;
+    var pct = ((state.currentIndex + 1) / questions.length) * 100;
     main.appendChild(el("div", { class: "q-progress-bar" }, [
       el("div", { class: "q-progress-fill", style: "width:" + pct + "%" })
     ]));
 
     var headerRow = el("div", { class: "q-header-row" }, [
-      el("span", { class: "q-num-badge" }, ["Q" + (state.currentIndex + 1)])
+      el("span", { class: "q-num-badge" }, [inCleanup ? "Q" + originalNum + " · Remaining" : "Q" + (state.currentIndex + 1)])
     ]);
     var isFlagged = !!state.flags[q.id];
+    var hasMarkers = markersFor(q.id).length > 0;
+    headerRow.appendChild(el("button", {
+      class: "learn-btn" + (hasMarkers ? " active" : ""),
+      title: "Mark an unclear term or topic for post-exam learning",
+      onclick: function () { openMarkerModal(q); }
+    }, [hasMarkers ? "Learning gap marked" : "Mark learning gap"]));
     headerRow.appendChild(el("button", {
       class: "flag-btn" + (isFlagged ? " active" : ""),
       onclick: function () {
@@ -412,7 +481,8 @@
     }, [(isFlagged ? "\u{1F6A9} Flagged" : "\u{1F6A9} Flag for review")]));
     main.appendChild(headerRow);
 
-    main.appendChild(el("p", { class: "q-text" }, [q.question]));
+    var questionArea = el("div", { class: "question-area", id: "questionArea" });
+    questionArea.appendChild(el("p", { class: "q-text" }, [q.question]));
 
     var optionsWrap = el("div", { class: "options" });
     ["A", "B", "C", "D"].forEach(function (letter) {
@@ -432,7 +502,9 @@
       ]);
       optionsWrap.appendChild(row);
     });
-    main.appendChild(optionsWrap);
+    questionArea.appendChild(optionsWrap);
+    main.appendChild(questionArea);
+    main.appendChild(renderMarkerPanel(q));
 
     var notesDocked = notesUI.position === "bottom";
     if (notesDocked) main.appendChild(renderScratchPanel(q));
@@ -445,8 +517,8 @@
         onclick: function () { state.currentIndex = Math.max(0, state.currentIndex - 1); saveState(); render(); }
       }, ["← Previous"]),
       el("button", {
-        class: "nav-action-btn", disabled: state.currentIndex === EXAM.questions.length - 1 ? "disabled" : null,
-        onclick: function () { state.currentIndex = Math.min(EXAM.questions.length - 1, state.currentIndex + 1); saveState(); render(); }
+        class: "nav-action-btn", disabled: state.currentIndex === questions.length - 1 ? "disabled" : null,
+        onclick: function () { state.currentIndex = Math.min(questions.length - 1, state.currentIndex + 1); saveState(); render(); }
       }, ["Next →"]),
       el("button", { class: "submit-btn", onclick: openSubmitModal }, ["Submit Exam"])
     ]);
@@ -473,26 +545,267 @@
   }
 
   function renderNavigator() {
+    var questions = activeQuestions();
+    var inCleanup = state.phase === "cleanup";
     var nav = el("div", { class: "navigator" });
-    nav.appendChild(el("h4", {}, ["Questions"]));
+    nav.appendChild(el("h4", {}, [inCleanup ? "Remaining" : "Questions"]));
     var grid = el("div", { class: "nav-grid" });
-    EXAM.questions.forEach(function (q, i) {
+    questions.forEach(function (q, i) {
       var classes = ["nav-btn"];
       if (state.answers[q.id]) classes.push("answered");
       if (state.flags[q.id]) classes.push("flagged");
+      if (markersFor(q.id).length) classes.push("marked");
       if (i === state.currentIndex) classes.push("current");
       grid.appendChild(el("button", {
         class: classes.join(" "),
         onclick: function () { state.currentIndex = i; saveState(); render(); }
-      }, [String(i + 1)]));
+      }, [String(inCleanup ? originalQuestionNumber(q.id) : i + 1)]));
     });
     nav.appendChild(grid);
     nav.appendChild(el("div", { class: "nav-legend" }, [
       el("div", {}, [el("span", { class: "dot answered" }), "Answered"]),
       el("div", {}, [el("span", { class: "dot flagged" }), "Flagged"]),
+      el("div", {}, [el("span", { class: "dot marked" }), "Learning marker"]),
       el("div", {}, [el("span", { class: "dot unanswered" }), "Unanswered"])
     ]));
     return nav;
+  }
+
+  // ---------------------------------------------------------------- learning markers
+  function selectedExamText() {
+    var area = document.getElementById("questionArea");
+    var sel = window.getSelection && window.getSelection();
+    if (!area || !sel || sel.isCollapsed || sel.rangeCount === 0) return "";
+    var range = sel.getRangeAt(0);
+    var common = range.commonAncestorContainer.nodeType === 1
+      ? range.commonAncestorContainer
+      : range.commonAncestorContainer.parentElement;
+    if (!common || !area.contains(common)) return "";
+    return sel.toString().replace(/\s+/g, " ").trim().slice(0, 120);
+  }
+
+  function normalizeMarkerTerm(term) {
+    return String(term || "").replace(/\s+/g, " ").trim();
+  }
+
+  function renderMarkerPanel(q) {
+    var items = markersFor(q.id);
+    var panel = el("section", { class: "marker-panel" + (items.length ? " has-items" : "") });
+    var head = el("div", { class: "marker-head" }, [
+      el("div", {}, [
+        el("span", { class: "marker-title" }, ["Learning markers"]),
+        el("span", { class: "marker-sub" }, [items.length ? items.length + " saved for this question" : "Save unclear terms for later explanation"])
+      ]),
+      el("button", {
+        type: "button",
+        class: "marker-add-btn",
+        onclick: function () { openMarkerModal(q); }
+      }, ["+ Add"])
+    ]);
+    panel.appendChild(head);
+    if (items.length) {
+      var list = el("div", { class: "marker-list" });
+      items.forEach(function (m) {
+        list.appendChild(el("div", { class: "marker-chip" }, [
+          el("div", { class: "marker-chip-text" }, [
+            el("strong", {}, [m.term || "Unnamed marker"]),
+            el("span", {}, [m.note ? m.note : ((m.source || "Topic") + " marker")])
+          ]),
+          el("button", {
+            type: "button",
+            class: "marker-mini-btn",
+            title: "Edit marker",
+            onclick: function () { openMarkerModal(q, m); }
+          }, ["Edit"]),
+          el("button", {
+            type: "button",
+            class: "marker-mini-btn danger",
+            title: "Delete marker",
+            onclick: function () { deleteMarker(q.id, m.id); }
+          }, ["Delete"])
+        ]));
+      });
+      panel.appendChild(list);
+    }
+    return panel;
+  }
+
+  function openMarkerModal(q, existing) {
+    var selected = selectedExamText();
+    var isEdit = !!existing;
+    var overlay = el("div", { class: "modal-overlay", onclick: function (e) { if (e.target === overlay) overlay.remove(); } });
+    var termInput = el("input", {
+      class: "marker-field",
+      type: "text",
+      maxlength: "80",
+      placeholder: "Term or topic, e.g. confirmation testing",
+      value: isEdit ? existing.term : (selected || q.topic || "")
+    });
+    var sourceSelect = el("select", { class: "marker-field" }, [
+      el("option", { value: "term" }, ["Term"]),
+      el("option", { value: "concept" }, ["Concept"]),
+      el("option", { value: "question wording" }, ["Question wording"]),
+      el("option", { value: "option wording" }, ["Option wording"]),
+      el("option", { value: "other" }, ["Other"])
+    ]);
+    sourceSelect.value = isEdit ? (existing.source || "term") : (selected ? "question wording" : "concept");
+    var noteInput = el("textarea", {
+      class: "marker-textarea",
+      rows: "4",
+      placeholder: "What exactly felt unclear? A short note helps the later explanation target the confusion."
+    }, [isEdit ? (existing.note || "") : ""]);
+
+    var modal = el("div", { class: "modal marker-modal" }, [
+      el("h3", {}, [isEdit ? "Edit learning marker" : "Add learning marker"]),
+      el("p", {}, ["Use this for anything you want explained after the exam. It will be exported with your result file."]),
+      el("label", { class: "marker-label" }, ["Term or topic", termInput]),
+      el("label", { class: "marker-label" }, ["Marker type", sourceSelect]),
+      el("label", { class: "marker-label" }, ["What was unclear?", noteInput]),
+      selected && !isEdit ? el("p", { class: "marker-selected" }, ["Selected text: " + selected]) : null,
+      el("div", { class: "modal-actions" }, [
+        el("button", { class: "nav-action-btn", onclick: function () { overlay.remove(); } }, ["Cancel"]),
+        el("button", {
+          class: "submit-btn",
+          onclick: function () {
+            if (saveMarker(q, existing, termInput.value, sourceSelect.value, noteInput.value, selected)) {
+              overlay.remove();
+            }
+          }
+        }, [isEdit ? "Save Marker" : "Add Marker"])
+      ])
+    ]);
+    overlay.appendChild(modal);
+    root.appendChild(overlay);
+    termInput.focus();
+    termInput.select();
+  }
+
+  function saveMarker(q, existing, term, source, note, selected) {
+    var cleanTerm = normalizeMarkerTerm(term);
+    if (!cleanTerm) {
+      alert("Add a term or topic before saving the marker.");
+      return false;
+    }
+    if (!state.markers) state.markers = {};
+    var list = markersFor(q.id).slice();
+    var now = new Date().toISOString();
+    if (existing) {
+      list = list.map(function (m) {
+        if (m.id !== existing.id) return m;
+        return Object.assign({}, m, {
+          term: cleanTerm,
+          source: source,
+          note: note.trim(),
+          updatedAt: now
+        });
+      });
+    } else {
+      list.push({
+        id: "mk_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+        term: cleanTerm,
+        source: source,
+        note: note.trim(),
+        selectedText: selected || "",
+        questionId: q.id,
+        chapter: q.chapter,
+        topic: q.topic,
+        question: q.question,
+        createdAt: now
+      });
+    }
+    state.markers[q.id] = list;
+    saveState();
+    render();
+    return true;
+  }
+
+  function deleteMarker(questionId, markerId) {
+    if (!confirm("Delete this learning marker?")) return;
+    if (!state.markers) return;
+    var list = markersFor(questionId).filter(function (m) { return m.id !== markerId; });
+    if (list.length) state.markers[questionId] = list;
+    else delete state.markers[questionId];
+    saveState();
+    render();
+  }
+
+  // ---------------------------------------------------------------- remaining-question round
+  function handleTimerExpired() {
+    if (state.phase === "cleanup") {
+      submitExam(true);
+      return;
+    }
+    if (state.phase !== "in_progress") return;
+
+    var ids = remainingQuestionIds();
+    if (!ids.length || state.cleanupUsed) {
+      submitExam(true);
+      return;
+    }
+
+    stopTimer();
+    state.phase = "cleanup_offer";
+    state.cleanupQuestionIds = ids;
+    state.cleanupOfferedAt = Date.now();
+    state.currentIndex = 0;
+    saveState();
+    render();
+  }
+
+  function startCleanupRound() {
+    var ids = (state.cleanupQuestionIds && state.cleanupQuestionIds.length)
+      ? state.cleanupQuestionIds
+      : remainingQuestionIds();
+    if (!ids.length) {
+      submitExam(false);
+      return;
+    }
+    state.phase = "cleanup";
+    state.cleanupUsed = true;
+    state.cleanupQuestionIds = ids;
+    state.cleanupStartedAt = Date.now();
+    state.cleanupDeadline = state.cleanupStartedAt + ids.length * 60000;
+    state.cleanupTimeUsedSeconds = null;
+    state.currentIndex = 0;
+    resumedThisSession = true;
+    saveState();
+    render();
+  }
+
+  function renderCleanupOffer() {
+    stopTimer();
+    var ids = state.cleanupQuestionIds || [];
+    var unanswered = ids.filter(function (id) { return !state.answers[id]; }).length;
+    var flagged = ids.filter(function (id) { return !!state.flags[id]; }).length;
+    var minutes = ids.length;
+
+    var shell = el("div", { class: "center-shell" });
+    var card = el("div", { class: "card" });
+    card.appendChild(el("div", { class: "resume-banner" }, [
+      "The main exam timer has ended. You still have unanswered or flagged questions."
+    ]));
+    card.appendChild(el("h1", { class: "start-title" }, ["Finish Remaining Questions"]));
+    card.appendChild(el("p", { class: "start-sub" }, [
+      "You can take one extra round for only those questions. The timer will be " +
+      minutes + " minute" + (minutes === 1 ? "" : "s") + "."
+    ]));
+    card.appendChild(el("div", { class: "meta-grid" }, [
+      metaTile(String(ids.length), "Remaining"),
+      metaTile(String(unanswered), "Unanswered"),
+      metaTile(String(flagged), "Flagged"),
+      metaTile(minutes + " min", "Extra Time")
+    ]));
+    card.appendChild(el("p", { class: "footer-note" }, [
+      "The remaining round uses the same question view. Your existing answers, notes, flags, and learning markers are kept."
+    ]));
+    card.appendChild(el("div", { class: "results-actions" }, [
+      el("button", { class: "big-btn", onclick: startCleanupRound }, ["Answer Remaining Questions"]),
+      el("button", { class: "big-btn secondary", onclick: function () { submitExam(false); } }, ["Submit Exam Now"])
+    ]));
+
+    shell.appendChild(card);
+    root.appendChild(topbar(false));
+    root.appendChild(shell);
   }
 
   // ---------------------------------------------------------------- timer
@@ -500,7 +813,7 @@
     if (timerInterval) return;
     timerInterval = setInterval(function () {
       if (computeRemaining() <= 0) {
-        submitExam(true);
+        handleTimerExpired();
         return;
       }
       updateTimerDisplay();
@@ -518,7 +831,7 @@
     if (remaining <= 300) timerEl.classList.add("critical");
     else if (remaining <= 600) timerEl.classList.add("warn");
     var counter = document.getElementById("qCounter");
-    if (counter) counter.textContent = "Question " + (state.currentIndex + 1) + " of " + EXAM.questions.length;
+    if (counter) counter.textContent = (state.phase === "cleanup" ? "Remaining " : "Question ") + (state.currentIndex + 1) + " of " + activeQuestionCount();
   }
 
   // ---------------------------------------------------------------- submit
@@ -527,6 +840,7 @@
     var answered = answeredCount();
     var unanswered = total - answered;
     var flagged = flaggedCount();
+    var marked = markerCount();
 
     var overlay = el("div", { class: "modal-overlay", onclick: function (e) { if (e.target === overlay) overlay.remove(); } });
     var modal = el("div", { class: "modal" }, [
@@ -535,7 +849,8 @@
       el("div", { class: "modal-stats" }, [
         modalStat(String(answered), "Answered"),
         modalStat(String(unanswered), "Unanswered"),
-        modalStat(String(flagged), "Flagged")
+        modalStat(String(flagged), "Flagged"),
+        modalStat(String(marked), "Learning Markers")
       ]),
       el("div", { class: "modal-actions" }, [
         el("button", { class: "nav-action-btn", onclick: function () { overlay.remove(); } }, ["Keep Working"]),
@@ -551,15 +866,29 @@
 
   function submitExam(auto) {
     stopTimer();
+    var phaseAtSubmit = state.phase;
     state.phase = "submitted";
     state.submittedAt = Date.now();
     var maxSeconds = EXAM.durationMinutes * 60;
     var usedSeconds = state.startedAt ? Math.round((state.submittedAt - state.startedAt) / 1000) : maxSeconds;
-    state.timeUsedSeconds = Math.min(maxSeconds, Math.max(0, usedSeconds));
+    var mainUsedSeconds = Math.min(maxSeconds, Math.max(0, usedSeconds));
+    var cleanupUsedSeconds = null;
+    if (state.cleanupStartedAt) {
+      cleanupUsedSeconds = Math.round((state.submittedAt - state.cleanupStartedAt) / 1000);
+      cleanupUsedSeconds = Math.min(cleanupDurationSeconds(), Math.max(0, cleanupUsedSeconds));
+      mainUsedSeconds = maxSeconds;
+    } else if (phaseAtSubmit === "cleanup_offer") {
+      mainUsedSeconds = maxSeconds;
+    }
+    state.cleanupTimeUsedSeconds = cleanupUsedSeconds;
+    state.timeUsedSeconds = mainUsedSeconds + (cleanupUsedSeconds || 0);
     saveState();
     render();
     if (auto) {
-      setTimeout(function () { alert("Time's up — your exam was submitted automatically."); }, 50);
+      var msg = phaseAtSubmit === "cleanup"
+        ? "The remaining-question round is over. Your exam was submitted automatically."
+        : "Time's up — your exam was submitted automatically.";
+      setTimeout(function () { alert(msg); }, 50);
     }
   }
 
@@ -594,7 +923,7 @@
     wrap.appendChild(el("div", { class: "pass-banner " + (pass ? "pass" : "fail") }, [pass ? "PASS" : "FAIL"]));
     wrap.appendChild(el("div", { class: "pass-mark-note" }, [
       "Pass mark: " + EXAM.passMarkPct + "% (" + Math.round(score.total * EXAM.passMarkPct / 100) + "/" + score.total + "). " +
-      "Time used: " + (state.timeUsedSeconds !== null ? formatTime(state.timeUsedSeconds) : "—") + " of " + EXAM.durationMinutes + ":00."
+      "Time used: " + (state.timeUsedSeconds !== null ? formatTime(state.timeUsedSeconds) : "—") + " of " + timeLimitLabel() + "."
     ]));
     card.appendChild(wrap);
 
@@ -630,6 +959,17 @@
         flaggedIds.length + " question(s) were flagged for review during the exam — see the solutions view for details."
       ]));
     }
+    if (state.cleanupQuestionIds && state.cleanupQuestionIds.length) {
+      card.appendChild(el("p", { class: "footer-note" }, [
+        "Remaining-question round: " + state.cleanupQuestionIds.length + " question(s), " +
+        (state.cleanupStartedAt ? "used " + formatTime(state.cleanupTimeUsedSeconds || 0) + "." : "not used.")
+      ]));
+    }
+    if (markerCount() > 0) {
+      card.appendChild(el("p", { class: "footer-note" }, [
+        markerCount() + " learning marker(s) will be included in the exported results so they can be merged into revision/marked-topics.md."
+      ]));
+    }
 
     shell.appendChild(card);
     root.appendChild(topbar(false));
@@ -638,6 +978,7 @@
 
   function exportResults() {
     var score = scoreExam();
+    var allMarkers = [];
     var payload = {
       examId: EXAM.examId,
       title: EXAM.title,
@@ -645,12 +986,28 @@
       completedAt: new Date(state.submittedAt || Date.now()).toISOString(),
       durationMinutes: EXAM.durationMinutes,
       timeUsedSeconds: state.timeUsedSeconds,
+      cleanupRound: state.cleanupQuestionIds && state.cleanupQuestionIds.length ? {
+        questionIds: state.cleanupQuestionIds,
+        durationSeconds: cleanupDurationSeconds(),
+        startedAt: state.cleanupStartedAt ? new Date(state.cleanupStartedAt).toISOString() : null,
+        timeUsedSeconds: state.cleanupTimeUsedSeconds,
+        used: !!state.cleanupStartedAt
+      } : null,
       passMarkPct: EXAM.passMarkPct,
       score: score.correct,
       total: score.total,
       pct: score.pct,
       pass: score.pct >= EXAM.passMarkPct,
       answers: EXAM.questions.map(function (q) {
+        var qMarkers = markersFor(q.id).map(function (m) {
+          return Object.assign({}, m, {
+            questionId: q.id,
+            chapter: q.chapter,
+            topic: q.topic,
+            question: q.question
+          });
+        });
+        Array.prototype.push.apply(allMarkers, qMarkers);
         return {
           id: q.id,
           chapter: q.chapter,
@@ -659,9 +1016,11 @@
           correct: q.correct,
           isCorrect: state.answers[q.id] === q.correct,
           flagged: !!state.flags[q.id],
-          roughNote: noteFor(q.id) || null
+          roughNote: noteFor(q.id) || null,
+          learningMarkers: qMarkers
         };
-      })
+      }),
+      learningMarkers: allMarkers
     };
     var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     var url = URL.createObjectURL(blob);
@@ -719,6 +1078,19 @@
           el("p", {}, [noteFor(q.id)])
         ]));
       }
+      var qMarkers = markersFor(q.id);
+      if (qMarkers.length) {
+        var markerBox = el("div", { class: "sol-marker-box" }, [
+          el("strong", {}, ["Learning markers"])
+        ]);
+        qMarkers.forEach(function (m) {
+          markerBox.appendChild(el("div", { class: "sol-marker-item" }, [
+            el("span", { class: "sol-marker-term" }, [m.term || "Unnamed marker"]),
+            el("span", { class: "sol-marker-note" }, [m.note || (m.source || "Marked for later explanation")])
+          ]));
+        });
+        item.appendChild(markerBox);
+      }
 
       ["A", "B", "C", "D"].forEach(function (letter) {
         if (!q.options[letter]) return;
@@ -757,10 +1129,10 @@
   }
 
   // ---------------------------------------------------------------- boot
-  // If time already expired while the tab was closed, submit immediately rather than
-  // showing a resume screen for a dead clock.
-  if (state.phase === "in_progress" && computeRemaining() <= 0) {
-    submitExam(true);
+  // If a deadline expired while the tab was closed, resume from the correct state:
+  // offer the remaining-question round after the main timer, or submit after the extra round.
+  if ((state.phase === "in_progress" || state.phase === "cleanup") && computeRemaining() <= 0) {
+    handleTimerExpired();
   } else {
     render();
   }

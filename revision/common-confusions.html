@@ -222,6 +222,7 @@ body {
   text-overflow: ellipsis;
 }
 .study-toc a:hover { background: var(--bg-sunken); color: var(--text); }
+.study-toc a.active { background: var(--accent); color: var(--accent-contrast); }
 .study-toc a.level-3 { padding-left: 20px; font-size: 12.5px; }
 .study-toc .toc-title {
   font-weight: 700;
@@ -807,32 +808,528 @@ mark.hl-orange { background: var(--hl-orange); }
   <main class="study-main">
     <div class="study-content" id="studyContent">
 <h1 data-bid="84b8a66065" id="common-confusions">Common Confusions</h1>
-<p data-bid="701f5083b4">Concept pairs (or groups) the user has repeatedly mixed up, gathered from across all chapters. Each entry should be self-contained: a future reader must be able to understand the distinction without re-reading the source chapter.</p>
-<p data-bid="237aedcac1">Rebuilt/updated whenever a clarification or practice session reveals a recurring confusion (see the Clarification and Practice workflows in <a href="../AGENTS.md">AGENTS.md</a>).</p>
-<p data-bid="ebf245b667">Template for each entry:</p>
-<pre><code class="language-markdown">## {Concept A} vs {Concept B}
-
-**Chapters:** where this comes up
-
-### Core Difference
-One or two sentences.
-
-### Comparison Table
-
-| Aspect | {Concept A} | {Concept B} |
-|---|---|---|
-
-### Memory Trick
-
-
-### Real-World Example
-
-
-### Exam Wording Trap
-How ISTQB phrases questions to exploit this confusion.
-</code></pre>
+<p data-bid="9989b235b6">Concepts, concept pairs, and topic groups that are easy to mix up while preparing for ISTQB CTFL v4.0.1. Each <code>##</code> heading is a main sidebar entry in the generated HTML. Subsections inside a topic use bold labels, not child headings, so the HTML contents bar stays clean.</p>
+<p data-bid="2ad92f185e">Rebuilt/updated whenever a clarification, practice session, or mock exam reveals a recurring confusion.</p>
 <hr/>
-<p data-bid="dfefef0fa6"><em>No confusions recorded yet — this fills in as you study and practice.</em></p>
+<h2 data-bid="1dd0e22851" id="atdd">ATDD</h2>
+<p data-bid="1d6b498da4"><strong>Meaning:</strong> ATDD means <strong>Acceptance Test-Driven Development</strong>. It is a test-first approach where acceptance tests are created before the user story is implemented.</p>
+<p data-bid="dd943f5118"><strong>Clear explanation:</strong> In ATDD, the team first discusses the user story, clarifies acceptance criteria, and creates acceptance test cases. Then development happens. The acceptance tests guide what "done" means.</p>
+<p data-bid="9495db69bc"><strong>Example:</strong> A user story says: "As a customer, I want to reset my password so that I can regain access." Before coding, the team writes acceptance tests such as: valid reset link allows password change, expired link is rejected, and used link cannot be reused.</p>
+<p data-bid="ba437c328d"><strong>Do not confuse with:</strong> TDD and BDD. TDD is often developer-focused and code/unit-test oriented. BDD often emphasizes behavior examples in business-readable language. ATDD focuses on acceptance tests for the story from the user's/business perspective.</p>
+<p data-bid="5a2ff7dd23"><strong>Exam trap:</strong> If the tests are written <strong>after</strong> the feature is implemented, it is not test-first ATDD. Look for "before implementation" and "acceptance tests".</p>
+<h2 data-bid="eeaae4cd9b" id="branch-coverage-vs-statement-coverage">Branch Coverage vs Statement Coverage</h2>
+<p data-bid="174e14b601"><strong>Meaning:</strong> Statement coverage checks whether executable statements ran. Branch coverage checks whether branches from decisions were exercised.</p>
+<p data-bid="55ae56019d"><strong>Clear explanation:</strong> Branch coverage is stronger. 100% branch coverage implies 100% statement coverage, but 100% statement coverage does not imply 100% branch coverage.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="f87b939ee6">Aspect</th>
+<th data-bid="59397bb566">Statement Coverage</th>
+<th data-bid="7113100bf8">Branch Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="41f869ac08">Measures</td>
+<td data-bid="30b75b634c">Executed statements</td>
+<td data-bid="b558ea31f0">Executed branches/outcomes</td>
+</tr>
+<tr>
+<td data-bid="b69d33fdc1">Stronger?</td>
+<td data-bid="d58e9558a8">Weaker</td>
+<td data-bid="756722b836">Stronger</td>
+</tr>
+<tr>
+<td data-bid="2c2f3d4599">Example target</td>
+<td data-bid="4a46a6fe4b">Run line 10 at least once</td>
+<td data-bid="c61e725858">Run both true and false outcomes of an <code>if</code></td>
+</tr>
+<tr>
+<td data-bid="d697199a3d">Common trap</td>
+<td data-bid="a35c292f66">Every line ran, so every decision was tested</td>
+<td data-bid="3efab58e53">This is closer, but still does not prove no defects</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="3270a89a67"><strong>Example:</strong> Code says <code>if customerIsPremium then applyDiscount</code>. One test with a premium customer may execute all statements inside the true path, but the false branch for non-premium customers may never be tested.</p>
+<p data-bid="94e607aa1e"><strong>Do not confuse with:</strong> General "coverage". Coverage always needs a coverage item: statements, branches, equivalence partitions, decision table rules, states, transitions, and so on.</p>
+<p data-bid="2ea3152dac"><strong>Exam trap:</strong> "100% statement coverage guarantees 100% branch coverage" is false. The correct direction is: 100% branch coverage guarantees 100% statement coverage.</p>
+<h2 data-bid="725b2f079e" id="checklist-based-testing">Checklist-Based Testing</h2>
+<p data-bid="e56349e612"><strong>Meaning:</strong> Checklist-based testing uses a checklist of test conditions, rules, or experience-based reminders to guide testing.</p>
+<p data-bid="b975bb6fcd"><strong>Clear explanation:</strong> It is an experience-based technique. The tester does not necessarily follow detailed step-by-step test cases. Instead, the checklist says what areas or risks should be covered.</p>
+<p data-bid="d3bbabbd8c"><strong>Example:</strong> For login testing, a checklist may include valid login, invalid password, locked account, expired password, password reset, remember-me option, and session timeout.</p>
+<p data-bid="897be529fe"><strong>Do not confuse with:</strong> Exploratory testing. Exploratory testing is simultaneous learning, design, and execution. Checklist-based testing can be more guided because the checklist gives known areas to cover.</p>
+<p data-bid="458a11844c"><strong>Exam trap:</strong> A checklist is not the same as a detailed test procedure. It provides guidance, not always exact steps and exact expected results.</p>
+<h2 data-bid="b333f1c4e7" id="ctfl">CTFL</h2>
+<p data-bid="80b308a29b"><strong>Meaning:</strong> CTFL means <strong>Certified Tester Foundation Level</strong>.</p>
+<p data-bid="23256e361e"><strong>Clear explanation:</strong> It is the foundation-level ISTQB certification. CTFL v4.0.1 covers testing fundamentals, testing across the SDLC, static testing, test techniques, test management, and test tools.</p>
+<p data-bid="2588527b83"><strong>Example:</strong> A CTFL question may ask you to distinguish error, defect, and failure, calculate 2-value BVA test cases, identify review types, or explain risk-based testing.</p>
+<p data-bid="79c2522d3f"><strong>Do not confuse with:</strong> ISTQB itself. ISTQB is the certification body/framework. CTFL is one certification level inside that framework.</p>
+<p data-bid="5c998c8109"><strong>Exam trap:</strong> CTFL questions often test exact distinctions rather than broad common industry wording. For example, "QA" and "testing" are not interchangeable in CTFL wording.</p>
+<h2 data-bid="7eb10b7480" id="decision-table-testing">Decision Table Testing</h2>
+<p data-bid="6fc67525ae"><strong>Meaning:</strong> Decision table testing is a black-box technique for testing combinations of conditions and their resulting actions.</p>
+<p data-bid="8e2134f436"><strong>Clear explanation:</strong> Use it when business rules depend on several conditions. Each column is a rule. Each feasible rule should be covered by at least one test.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="5950f0639c">Condition</th>
+<th data-bid="e7fef8e2e8">Rule 1</th>
+<th data-bid="77ae321c91">Rule 2</th>
+<th data-bid="1ef444caf2">Rule 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="b4721c59db">Customer is logged in</td>
+<td data-bid="a54648c401">Yes</td>
+<td data-bid="a54648c401-2">Yes</td>
+<td data-bid="1a28b4e3cf">No</td>
+</tr>
+<tr>
+<td data-bid="25eaa3b317">Cart total &gt;= $100</td>
+<td data-bid="a54648c401-3">Yes</td>
+<td data-bid="1a28b4e3cf-2">No</td>
+<td data-bid="a54648c401-4">Yes</td>
+</tr>
+<tr>
+<td data-bid="c9954176e6">Action</td>
+<td data-bid="51299a3d69">Free shipping</td>
+<td data-bid="1dffef38c0">Paid shipping</td>
+<td data-bid="1e75555d22">Ask customer to log in</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="376c4c3159"><strong>Example:</strong> In insurance, discount eligibility may depend on age, policy type, accident history, and payment method. A decision table helps avoid missing combinations.</p>
+<p data-bid="7cf498f637"><strong>Do not confuse with:</strong> Equivalence partitioning. EP groups similar inputs. Decision tables test combinations of conditions.</p>
+<p data-bid="2825b157d4"><strong>Exam trap:</strong> The coverage items are the decision table columns with feasible condition/action combinations.</p>
+<h2 data-bid="76bd80abc7" id="equivalence-partition-vs-equivalence-partitioning">Equivalence Partition vs Equivalence Partitioning</h2>
+<p data-bid="252c419b5c"><strong>Meaning:</strong> An <strong>equivalence partition</strong> is one group of values expected to be treated the same. <strong>Equivalence partitioning</strong> is the technique of dividing data into those groups and selecting representatives.</p>
+<p data-bid="d62b09e711"><strong>Clear explanation:</strong> The partition is the bucket. Partitioning is the act of making the buckets.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="acc13eefef">Term</th>
+<th data-bid="65e570dcdf">Meaning</th>
+<th data-bid="cc250b438b">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="d28d435d8d">Equivalence partition</td>
+<td data-bid="68c10868ec">A group of equivalent values</td>
+<td data-bid="2f8f383f30">Ages 18 to 60 are valid</td>
+</tr>
+<tr>
+<td data-bid="fdcad6024e">Equivalence partitioning</td>
+<td data-bid="8a0a8d9c1a">The test design technique</td>
+<td data-bid="efea57e7d0">Split age into under 18, 18 to 60, over 60</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="cd0c7058ff"><strong>Example:</strong> A ticket site accepts ages 18 to 60. The partitions are: age &lt; 18 invalid, 18 to 60 valid, age &gt; 60 invalid. A representative could be 17, 30, and 61.</p>
+<p data-bid="c578f6736f"><strong>Do not confuse with:</strong> Boundary value analysis. EP chooses one representative from each partition. BVA focuses on values at and near boundaries.</p>
+<p data-bid="0c3c232f79"><strong>Exam trap:</strong> For 100% EP coverage, every identified equivalence partition must be exercised at least once.</p>
+<h2 data-bid="890a3beab4" id="error-vs-defect-vs-failure-vs-root-cause">Error vs Defect vs Failure vs Root Cause</h2>
+<p data-bid="27b487704e"><strong>Meaning:</strong> A root cause creates the conditions for a human error. The error introduces a defect. If the defect is triggered during execution, a failure may be observed.</p>
+<p data-bid="9d215a8bdd"><strong>Clear explanation:</strong> Root cause is the deeper reason. Error is the human mistake. Defect is the flaw in a work product. Failure is the running system behaving incorrectly.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="f87b939ee6-2">Aspect</th>
+<th data-bid="de8de5865d">Root Cause</th>
+<th data-bid="9d42b80f94">Error</th>
+<th data-bid="80bd279543">Defect</th>
+<th data-bid="35ee5af3fb">Failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="db716a4c05">Simple meaning</td>
+<td data-bid="4b6aa28081">Deeper reason</td>
+<td data-bid="fa8f370975">Human mistake</td>
+<td data-bid="13f53d077c">Flaw in a work product</td>
+<td data-bid="07cdb8d4e0">Visible wrong behavior</td>
+</tr>
+<tr>
+<td data-bid="1399976d44">Where it lives</td>
+<td data-bid="f1e625ddca">Process, situation, pressure, skill gap</td>
+<td data-bid="34e76d2983">Person's action or decision</td>
+<td data-bid="c83d1bb3d6">Requirement, design, code, testware</td>
+<td data-bid="e999376ce9">Executing system</td>
+</tr>
+<tr>
+<td data-bid="a7ed2cc5bc">Example</td>
+<td data-bid="8dacd6a233">No review checklist for tax rules</td>
+<td data-bid="bd9c3d1651">Analyst uses old tax rule</td>
+<td data-bid="87fef0e60d">Requirement says 5% tax instead of 7%</td>
+<td data-bid="843c04971e">Customer is charged the wrong amount</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="05ecd79b1d"><strong>Example:</strong> In a banking app, the team has no process for confirming regulatory threshold changes. The analyst uses the old threshold. The requirement contains the wrong threshold. The user is incorrectly blocked during transfer.</p>
+<p data-bid="56bc7d99e3"><strong>Do not confuse with:</strong> Defect and failure. The defect is inside the artifact. The failure is what you observe when the defect is triggered.</p>
+<p data-bid="8df7757b18"><strong>Exam trap:</strong> "Developer misunderstood" usually points to error. "Code contains wrong formula" points to defect. "System displays wrong result" points to failure. "Lack of training" points to root cause.</p>
+<h2 data-bid="ba1385a0fe" id="pesticide-paradox">Pesticide Paradox</h2>
+<p data-bid="00d6d88c0c"><strong>Meaning:</strong> If the same tests are repeated again and again, they eventually become less effective at finding new defects.</p>
+<p data-bid="24753c19c4"><strong>Clear explanation:</strong> Existing tests are still useful for regression, but they may stop discovering new problems because they only check the same paths, data, and assumptions. Tests need review and updates.</p>
+<p data-bid="84a98520e0"><strong>Example:</strong> A login suite always tests only one valid username and one invalid password. After many releases, those tests still pass, but they may miss defects in locked accounts, expired passwords, social login, and password reset.</p>
+<p data-bid="d4e3055f97"><strong>Do not confuse with:</strong> Regression testing. Regression testing repeats useful tests to check side effects. Pesticide paradox warns that the test set also needs fresh ideas and new coverage.</p>
+<p data-bid="fe4da7d073"><strong>Exam trap:</strong> The solution is not to throw away all old tests. The solution is to review, vary, and add tests.</p>
+<h2 data-bid="c5c2848a9d" id="quantitative-vs-qualitative-risk-assessment">Quantitative vs Qualitative Risk Assessment</h2>
+<p data-bid="bc0a11dcfa"><strong>Meaning:</strong> Quantitative risk assessment uses numbers. Qualitative risk assessment uses categories or expert judgment.</p>
+<p data-bid="80bad9d189"><strong>Clear explanation:</strong> Both can assess risk likelihood and impact. Quantitative is numeric, such as expected financial loss or probability. Qualitative is descriptive, such as high/medium/low.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="f87b939ee6-3">Aspect</th>
+<th data-bid="ebb2013bef">Quantitative</th>
+<th data-bid="6ffddb18a3">Qualitative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="b56a723ddb">Uses</td>
+<td data-bid="d4d313dbfd">Numbers</td>
+<td data-bid="4f6bd366ee">Categories or judgment</td>
+</tr>
+<tr>
+<td data-bid="a7ed2cc5bc-2">Example</td>
+<td data-bid="6780cb1ce3">20% probability, $50,000 impact</td>
+<td data-bid="ff56492e48">High likelihood, medium impact</td>
+</tr>
+<tr>
+<td data-bid="e84cf441f8">Strength</td>
+<td data-bid="6e7cf8742c">More measurable</td>
+<td data-bid="766e80fecd">Easier when exact numbers are unavailable</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="4386da9082"><strong>Example:</strong> For a payment outage risk, quantitative analysis says "10% chance of $100,000 daily loss." Qualitative analysis says "high business impact, medium likelihood."</p>
+<p data-bid="9367a5dff8"><strong>Do not confuse with:</strong> Risk-based testing itself. Risk assessment analyzes risk. Risk-based testing uses risk information to guide testing.</p>
+<p data-bid="482d944db1"><strong>Exam trap:</strong> If the option uses measurable probabilities, money, counts, or percentages, think quantitative.</p>
+<h2 data-bid="0658bdd290" id="risk-based-testing">Risk-Based Testing</h2>
+<p data-bid="0c94f9d272"><strong>Meaning:</strong> Risk-based testing uses risk analysis to guide test planning, test design, prioritization, and control.</p>
+<p data-bid="bf67e71596"><strong>Clear explanation:</strong> High-risk areas get more attention, earlier execution, deeper testing, or more experienced testers. Lower-risk areas may get lighter coverage.</p>
+<p data-bid="6c2d77cd1e"><strong>Example:</strong> In a hospital system, medication dosage calculation is high impact and high likelihood if rules are complex. It should be tested earlier and more thoroughly than changing the color of a profile icon.</p>
+<p data-bid="df311e2589"><strong>Do not confuse with:</strong> Risk-based prioritization only. Prioritization is one use. Risk-based testing is broader: it can influence scope, depth, techniques, environments, and exit decisions.</p>
+<p data-bid="9bd4d5811d"><strong>Exam trap:</strong> Risk-based testing reduces risk, but it does not eliminate risk or prove the product has no defects.</p>
+<h2 data-bid="783053e60b" id="review-types">Review Types</h2>
+<p data-bid="05c3624cfb"><strong>Meaning:</strong> Review types are ways of examining work products without executing software. CTFL commonly distinguishes informal review, walkthrough, technical review, and inspection.</p>
+<p data-bid="590e0f5d6c"><strong>Clear explanation:</strong> The difference is mainly formality, roles, documentation, and objective.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="0e80e6dce5">Review type</th>
+<th data-bid="3baea67933">Main idea</th>
+<th data-bid="cc250b438b-2">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="89ef8cbb65">Informal review</td>
+<td data-bid="fda903440f">Lightweight, flexible, little process</td>
+<td data-bid="cede3e32c4">A teammate quickly checks a user story</td>
+</tr>
+<tr>
+<td data-bid="b7be69da5e">Walkthrough</td>
+<td data-bid="874af618b3">Author leads others through the work product</td>
+<td data-bid="4b9cb761f0">Analyst walks the team through requirements</td>
+</tr>
+<tr>
+<td data-bid="38bb389fb0">Technical review</td>
+<td data-bid="23e2eeff0c">Peers/experts evaluate technical quality</td>
+<td data-bid="a8bc1397c0">Architects review an API design</td>
+</tr>
+<tr>
+<td data-bid="991dbb1dd9">Inspection</td>
+<td data-bid="a8d4547e3d">Formal review with defined roles and process</td>
+<td data-bid="9301f4f0f0">Regulated healthcare requirement inspection</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="2f066cc992"><strong>Do not confuse with:</strong> Static testing as a whole. Reviews are one form of static testing. Static analysis by tools is another form.</p>
+<p data-bid="0ebc6ce296"><strong>Exam trap:</strong> More formal reviews usually have defined roles, preparation, logging, and follow-up.</p>
+<h2 data-bid="95488234dc" id="state-transition-testing">State Transition Testing</h2>
+<p data-bid="4b8a30ea9a"><strong>Meaning:</strong> State transition testing is a black-box technique for systems whose behavior depends on current state and events.</p>
+<p data-bid="dcc6cb0ad6"><strong>Clear explanation:</strong> You identify states, valid transitions between states, events that trigger transitions, and sometimes invalid transitions. Then you design tests to cover states or transitions.</p>
+<p data-bid="d897a2c835"><strong>Example:</strong> An order can be <code>Created</code>, <code>Paid</code>, <code>Shipped</code>, or <code>Cancelled</code>. Valid transitions include Created -&gt; Paid and Paid -&gt; Shipped. An invalid transition might be Shipped -&gt; Paid.</p>
+<p data-bid="dfe4a0411f"><strong>Do not confuse with:</strong> Decision table testing. Decision tables focus on combinations of conditions. State transition testing focuses on current state plus event.</p>
+<p data-bid="9a1eb372e7"><strong>Exam trap:</strong> If the question talks about states such as logged out/logged in/locked, or transitions such as submit/approve/reject, think state transition testing.</p>
+<h2 data-bid="3fb74943a7" id="static-testing-vs-state-transition-testing">Static Testing vs State Transition Testing</h2>
+<p data-bid="a97d8e6b17"><strong>Meaning:</strong> Static testing examines work products without executing software. State transition testing is a dynamic black-box test design technique for state-based behavior.</p>
+<p data-bid="313b08dcdd"><strong>Clear explanation:</strong> These are different categories. Static testing is about whether execution happens. State transition testing is about how tests are designed for behavior that changes by state.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="f87b939ee6-4">Aspect</th>
+<th data-bid="1900ece416">Static Testing</th>
+<th data-bid="4efbaa6e5b">State Transition Testing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="9ffaf916bd">Execution?</td>
+<td data-bid="db7ad498a7">No execution</td>
+<td data-bid="1ab240a101">Usually tests executing behavior</td>
+</tr>
+<tr>
+<td data-bid="c9bef92f34">Focus</td>
+<td data-bid="31b58ec670">Finding defects in work products</td>
+<td data-bid="ef91a145fe">Covering states and transitions</td>
+</tr>
+<tr>
+<td data-bid="a7ed2cc5bc-3">Example</td>
+<td data-bid="75c3da8141">Review a state diagram and find a missing transition</td>
+<td data-bid="b13a3afedd">Run tests to move an order from Created to Paid to Shipped</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="4c62e2ba29"><strong>Example:</strong> If you inspect an order state diagram and notice there is no transition for "payment failed", that is static testing. If you run the app and test Created -&gt; Paid -&gt; Shipped, that is state transition testing.</p>
+<p data-bid="466e11dae5"><strong>Do not confuse with:</strong> Transition coverage. Transition coverage is a coverage measure within state transition testing, not the same thing as static testing.</p>
+<p data-bid="da16980271"><strong>Exam trap:</strong> "State diagram reviewed without running software" is static testing. "Tests execute each valid transition" is state transition testing.</p>
+<h2 data-bid="cc2b55c3fb" id="stubs">Stubs</h2>
+<p data-bid="d4963fcfd7"><strong>Meaning:</strong> A stub is a test environment item that replaces a called component that is not available or not ready.</p>
+<p data-bid="31e6f752e5"><strong>Clear explanation:</strong> The component under test calls the stub. The stub gives controlled responses so testing can continue without the real dependency.</p>
+<p data-bid="1aff455204"><strong>Example:</strong> You are testing an online checkout service, but the real payment gateway is unavailable. A payment stub returns "approved", "declined", or "timeout" responses on demand.</p>
+<p data-bid="4554260a68"><strong>Do not confuse with:</strong> Driver. A driver calls the component under test. A stub is called by the component under test.</p>
+<p data-bid="1ac301bc99"><strong>Exam trap:</strong> If the missing dependency is something the tested component calls, use a stub. If something is needed to call the tested component, use a driver.</p>
+<h2 data-bid="5c85cd3bff" id="testing-quadrants">Testing Quadrants</h2>
+<p data-bid="f3a557eb4e"><strong>Meaning:</strong> Testing quadrants classify tests using two dimensions: business-facing vs technology-facing, and supporting the team vs critiquing the product.</p>
+<p data-bid="124dce25d9"><strong>Clear explanation:</strong> They help teams discuss different kinds of testing, especially in Agile contexts. They are not a strict sequence.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="c547a6648c">Quadrant</th>
+<th data-bid="0df65af560">Facing</th>
+<th data-bid="5b276bedce">Purpose</th>
+<th data-bid="cc250b438b-3">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="f76b2924fe">Q1</td>
+<td data-bid="89183e3caf">Technology-facing</td>
+<td data-bid="500273e109">Support the team</td>
+<td data-bid="525eaae550">Component tests, API-level checks</td>
+</tr>
+<tr>
+<td data-bid="8d102c4167">Q2</td>
+<td data-bid="8977795350">Business-facing</td>
+<td data-bid="500273e109-2">Support the team</td>
+<td data-bid="0a1925e085">Functional examples, acceptance tests</td>
+</tr>
+<tr>
+<td data-bid="a9844d79a6">Q3</td>
+<td data-bid="8977795350-2">Business-facing</td>
+<td data-bid="69dd5776ef">Critique the product</td>
+<td data-bid="e83e7e070c">Exploratory testing, usability testing</td>
+</tr>
+<tr>
+<td data-bid="4da511c9f7">Q4</td>
+<td data-bid="89183e3caf-2">Technology-facing</td>
+<td data-bid="69dd5776ef-2">Critique the product</td>
+<td data-bid="3a72612994">Performance, security, reliability tests</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="e8b6308563"><strong>Example:</strong> For a food delivery app, Q2 tests check "order is placed when payment succeeds"; Q3 exploratory testing asks whether users can actually find the reorder option; Q4 performance testing checks response time under dinner-hour load.</p>
+<p data-bid="f6a8674104"><strong>Do not confuse with:</strong> Test levels. Quadrants group tests by purpose and perspective, not by component/integration/system/acceptance level.</p>
+<p data-bid="a57b9e4a79"><strong>Exam trap:</strong> "Support the team" means helping build the product. "Critique the product" means evaluating whether the product is good enough.</p>
+<h2 data-bid="80a50c7385" id="testing-vs-debugging">Testing vs Debugging</h2>
+<p data-bid="cefd93abe5"><strong>Meaning:</strong> Testing discovers defects, triggers failures, evaluates quality, and provides information. Debugging investigates and removes the cause of a known failure or defect.</p>
+<p data-bid="bf4181e37f"><strong>Clear explanation:</strong> Testing asks, "Is there a problem?" Debugging asks, "Where exactly is the problem, why does it happen, and how do we fix it?"</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="f87b939ee6-5">Aspect</th>
+<th data-bid="49478c89e7">Testing</th>
+<th data-bid="76e7d8ece1">Debugging</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="e14c8004b9">Purpose</td>
+<td data-bid="121c326e9a">Find/evaluate/report</td>
+<td data-bid="674220556a">Reproduce/diagnose/fix</td>
+</tr>
+<tr>
+<td data-bid="cbbc1d5b3c">Typical result</td>
+<td data-bid="8f1d59e713">Test result or defect report</td>
+<td data-bid="adbc144e13">Changed/fixed work product</td>
+</tr>
+<tr>
+<td data-bid="626b986b13">Activity type</td>
+<td data-bid="49582674c6">Testing activity</td>
+<td data-bid="b51a4b5354">Not a testing activity</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="1a892a22e4"><strong>Example:</strong> Tester sees the checkout discount is not applied and reports it. Developer traces pricing code, finds the coupon rule is never called, and fixes it. Tester reruns the failed scenario as confirmation testing.</p>
+<p data-bid="41539798de"><strong>Do not confuse with:</strong> Confirmation testing. Rerunning the failed test after the fix is testing, not debugging.</p>
+<p data-bid="4d75b29254"><strong>Exam trap:</strong> "Finding and fixing defects" combines two separate activities. Finding belongs to testing. Fixing belongs to debugging.</p>
+<h2 data-bid="d03725ba73" id="testing-vs-quality-assurance-vs-quality-control">Testing vs Quality Assurance vs Quality Control</h2>
+<p data-bid="ccec9dec42"><strong>Meaning:</strong> Testing is product-oriented and is a major form of quality control. QA is process-oriented and preventive.</p>
+<p data-bid="a5133ec462"><strong>Clear explanation:</strong> QA improves how work is done to prevent defects. QC checks work products to detect problems. Testing is one important QC activity.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="f87b939ee6-6">Aspect</th>
+<th data-bid="49478c89e7-2">Testing</th>
+<th data-bid="9452edfe7e">Quality Control</th>
+<th data-bid="76fa0d57a3">Quality Assurance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="c9bef92f34-2">Focus</td>
+<td data-bid="b961f5e4dc">Test object</td>
+<td data-bid="787302f5ae">Product/work product</td>
+<td data-bid="58ce346a14">Process</td>
+</tr>
+<tr>
+<td data-bid="e54b456b09">Orientation</td>
+<td data-bid="51a1514290">Product-oriented</td>
+<td data-bid="51a1514290-2">Product-oriented</td>
+<td data-bid="d1e099bf7d">Process-oriented</td>
+</tr>
+<tr>
+<td data-bid="593dc25982">Style</td>
+<td data-bid="4af5c53b95">Detective/corrective</td>
+<td data-bid="4af5c53b95-2">Detective/corrective</td>
+<td data-bid="6810603330">Preventive</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="7db131f520"><strong>Example:</strong> Testing checks whether appointment reminders are sent correctly. QC can also include review or simulation. QA improves the review checklist so reminder rules are clarified before coding.</p>
+<p data-bid="5cdbf7b479"><strong>Do not confuse with:</strong> Casual workplace wording where "QA" means testers. In CTFL, QA and testing are different.</p>
+<p data-bid="e7500766dc"><strong>Exam trap:</strong> If the option says QA is the same as testing, it is wrong in ISTQB wording.</p>
+<h2 data-bid="678495ee46" id="testing-vs-release-decision">Testing vs Release Decision</h2>
+<p data-bid="0e3da63a07"><strong>Meaning:</strong> Testing provides information for decisions. It does not make the release decision by itself.</p>
+<p data-bid="91c8e95be8"><strong>Clear explanation:</strong> Stakeholders use test results, risk, cost, deadlines, compliance, and business priorities to decide whether to release.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="beab925218">Testing provides</th>
+<th data-bid="4e68cc850a">Release decision uses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="87bba22a9c">Failed tests, coverage, known defects, residual risk</td>
+<td data-bid="42db6e5bdf">Go/no-go, delay, scope reduction, accepted risk</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="dc12ed736d"><strong>Example:</strong> Testing shows that 12 payment tests failed. The release authority decides to delay release until payment defects are fixed.</p>
+<p data-bid="1d2c6cad96"><strong>Do not confuse with:</strong> "Testing proves readiness." Testing can increase confidence, but it cannot certify that no important defects remain.</p>
+<p data-bid="c311bb50df"><strong>Exam trap:</strong> Absolute wording like "guarantees ready for release" is almost always wrong.</p>
+<h2 data-bid="b8eab3d7ca" id="testing-vs-test-execution">Testing vs Test Execution</h2>
+<p data-bid="0896866724"><strong>Meaning:</strong> Testing is the whole set of activities. Test execution is only the part where tests are run.</p>
+<p data-bid="63790c5666"><strong>Clear explanation:</strong> Testing includes planning, analysis, design, implementation, execution, completion, reporting, and evaluation. Static testing can happen without executing software at all.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="e9127f276d">Activity</th>
+<th data-bid="c36d1665e8">Testing?</th>
+<th data-bid="ea440a6730">Test execution?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="c384baafde">Review a login requirement</td>
+<td data-bid="a54648c401-5">Yes</td>
+<td data-bid="1a28b4e3cf-3">No</td>
+</tr>
+<tr>
+<td data-bid="c88c1567ad">Design login test cases</td>
+<td data-bid="a54648c401-6">Yes</td>
+<td data-bid="1a28b4e3cf-4">No</td>
+</tr>
+<tr>
+<td data-bid="31ba44fa67">Prepare test users</td>
+<td data-bid="a54648c401-7">Yes</td>
+<td data-bid="1a28b4e3cf-5">No</td>
+</tr>
+<tr>
+<td data-bid="91f38f0bf5">Run login tests</td>
+<td data-bid="a54648c401-8">Yes</td>
+<td data-bid="a54648c401-9">Yes</td>
+</tr>
+<tr>
+<td data-bid="d57802fb95">Summarize residual risk</td>
+<td data-bid="a54648c401-10">Yes</td>
+<td data-bid="1a28b4e3cf-6">No</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="bbc5a1cd0f"><strong>Example:</strong> Finding a missing lockout rule in a user story is testing, specifically static testing, even though no app was run.</p>
+<p data-bid="d84957080d"><strong>Do not confuse with:</strong> Dynamic testing. Dynamic testing executes software; testing as a whole is broader.</p>
+<p data-bid="ac14c61e22"><strong>Exam trap:</strong> "Testing means executing software" is incomplete and often wrong.</p>
+<h2 data-bid="db830b3c08" id="two-value-bva-vs-three-value-bva">Two-Value BVA vs Three-Value BVA</h2>
+<p data-bid="e6231b7826"><strong>Meaning:</strong> 2-value BVA tests each boundary and the closest neighbor in the adjacent partition. 3-value BVA tests each boundary and both neighbors.</p>
+<p data-bid="34efaddb27"><strong>Clear explanation:</strong> 3-value BVA is more rigorous because it checks one more value around each boundary.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="eb7b7c9add">Boundary at 18</th>
+<th data-bid="ff16073939">2-value BVA</th>
+<th data-bid="012fd7a769">3-value BVA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="a2abc248cf">Values to consider</td>
+<td data-bid="745251a400">17 and 18, or 18 and 19 depending on boundary direction</td>
+<td data-bid="e7996008ba">17, 18, 19</td>
+</tr>
+<tr>
+<td data-bid="9c493260f0">Main idea</td>
+<td data-bid="bd639d22d6">Boundary plus adjacent neighbor</td>
+<td data-bid="a1a83c3bee">Boundary plus both neighbors</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="3d00fc3671"><strong>Example:</strong> A system accepts age 18 to 60. Around lower boundary 18, 2-value BVA might test 17 and 18. 3-value BVA tests 17, 18, and 19.</p>
+<p data-bid="a0d3fac016"><strong>Do not confuse with:</strong> Equivalence partitioning. EP may test one value from a whole partition, such as 30. BVA focuses near edges, where defects are common.</p>
+<p data-bid="8e6d8bdf8a"><strong>Exam trap:</strong> The term "2-value BVA" and "2-Value BVA" mean the same thing. The capitalization is irrelevant.</p>
+<h2 data-bid="29a26c8f13" id="verification-vs-validation">Verification vs Validation</h2>
+<p data-bid="5bd85d1932"><strong>Meaning:</strong> Verification checks whether the product matches specified requirements. Validation checks whether it satisfies real user and stakeholder needs.</p>
+<p data-bid="110430fcad"><strong>Clear explanation:</strong> A product can pass verification and still fail validation if the written requirement was wrong or incomplete.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th data-bid="f87b939ee6-7">Aspect</th>
+<th data-bid="98ae3da914">Verification</th>
+<th data-bid="e51ecbdc07">Validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-bid="639850ed89">Simple question</td>
+<td data-bid="5dd4b23179">Did we build the thing right?</td>
+<td data-bid="20377e76be">Did we build the right thing?</td>
+</tr>
+<tr>
+<td data-bid="c610cdd512">Compared against</td>
+<td data-bid="3d9b7a1723">Specification</td>
+<td data-bid="2636b614b1">User/stakeholder need</td>
+</tr>
+<tr>
+<td data-bid="260aaa11b2">Synonym</td>
+<td data-bid="4731c41ff5">Conformance to requirements</td>
+<td data-bid="f6733654f7">Fitness for use</td>
+</tr>
+</tbody>
+</table></div>
+<p data-bid="8fd6ed5e55"><strong>Example:</strong> A travel site correctly sorts flights by lowest price because the requirement says so. Verification passes. Business travelers actually need fastest arrival first, so validation may fail.</p>
+<p data-bid="8392853125"><strong>Do not confuse with:</strong> Testing as a whole. Testing can include both verification and validation.</p>
+<p data-bid="b38e785e7e"><strong>Exam trap:</strong> "Matches documented requirement" points to verification. "Meets user needs" points to validation.</p>
+<h2 data-bid="3d7ad37cf3" id="wideband-delphi-and-estimators">Wideband Delphi and Estimators</h2>
+<p data-bid="8d285b07f5"><strong>Meaning:</strong> Wideband Delphi is an expert-based estimation technique. Estimators individually estimate, discuss differences, and re-estimate until the estimates converge.</p>
+<p data-bid="35e66a38a5"><strong>Clear explanation:</strong> The important part is expert judgment plus iteration. It is not a single manager guessing the number.</p>
+<p data-bid="b15bc32190"><strong>Example:</strong> Five senior testers estimate regression testing for a banking migration. Their first estimates are 8, 12, 20, 24, and 30 person-days. They discuss assumptions, discover one person included performance testing while another did not, then estimate again.</p>
+<p data-bid="255ebae8d9"><strong>Do not confuse with:</strong> Three-point estimation. Three-point estimation uses optimistic, most likely, and pessimistic values in a formula. Wideband Delphi uses repeated expert estimation and discussion.</p>
+<p data-bid="570349bc75"><strong>Exam trap:</strong> If several experts estimate independently, discuss, and repeat until agreement, think Wideband Delphi.</p>
     </div>
   </main>
 </div>
@@ -1548,17 +2045,65 @@ window.__DOC_TITLE__ = "Common Confusions";
   function buildTOC() {
     var heads = els.content.querySelectorAll("h2, h3");
     if (!heads.length) { els.toc.classList.add("hidden"); return; }
+    var topicOnlyMode = window.__DOC_ID__ === "revision/common-confusions.md";
     var title = document.createElement("div");
     title.className = "toc-title";
     title.textContent = "Contents";
     els.toc.appendChild(title);
+    if (topicOnlyMode) {
+      var all = document.createElement("a");
+      all.href = "#";
+      all.className = "toc-show-all active";
+      all.textContent = "Show all topics";
+      all.addEventListener("click", function (e) {
+        e.preventDefault();
+        showTopicSection(null);
+      });
+      els.toc.appendChild(all);
+    }
     heads.forEach(function (h) {
       if (!h.id) return;
       var a = document.createElement("a");
       a.href = "#" + h.id;
       a.textContent = h.textContent;
       if (h.tagName === "H3") a.className = "level-3";
+      if (topicOnlyMode && h.tagName === "H2") {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          showTopicSection(h.id);
+          h.scrollIntoView({ block: "start" });
+          if (window.innerWidth < 980) document.body.classList.remove("toc-open");
+        });
+      }
       els.toc.appendChild(a);
+    });
+  }
+
+  function showTopicSection(topicId) {
+    var topicOnlyMode = window.__DOC_ID__ === "revision/common-confusions.md";
+    if (!topicOnlyMode) return;
+
+    var inChosenTopic = false;
+    var seenTopic = false;
+    Array.prototype.forEach.call(els.content.children, function (node) {
+      if (node.tagName === "H2") {
+        seenTopic = true;
+        inChosenTopic = node.id === topicId;
+        node.hidden = !!topicId && !inChosenTopic;
+        return;
+      }
+      if (!topicId) {
+        node.hidden = false;
+      } else if (!seenTopic) {
+        node.hidden = true;
+      } else {
+        node.hidden = !inChosenTopic;
+      }
+    });
+
+    Array.prototype.forEach.call(els.toc.querySelectorAll("a"), function (link) {
+      var target = link.getAttribute("href");
+      link.classList.toggle("active", topicId ? target === "#" + topicId : link.classList.contains("toc-show-all"));
     });
   }
 
@@ -1567,8 +2112,13 @@ window.__DOC_TITLE__ = "Common Confusions";
   function wireHeader() {
     els.themeToggle.addEventListener("click", toggleTheme);
     els.tocToggle.addEventListener("click", function () {
-      document.body.classList.toggle("toc-open");
-      document.body.classList.toggle("toc-hidden");
+      if (window.innerWidth < 980) {
+        document.body.classList.toggle("toc-open");
+        document.body.classList.remove("toc-hidden");
+      } else {
+        document.body.classList.toggle("toc-hidden");
+        document.body.classList.remove("toc-open");
+      }
     });
   }
 

@@ -1,0 +1,1051 @@
+{
+  "exam_id": "2026-09-03-hard-02",
+  "title": "ISTQB CTFL v4.0.1 - Hard Mock Exam",
+  "variant": "hard",
+  "generated": "2026-09-03",
+  "duration_minutes": 75,
+  "pass_mark_pct": 65,
+  "bank_version": 1,
+  "questions": [
+    {
+      "id": "Q361",
+      "chapter": "5.1",
+      "lo": "FL-5.1.6",
+      "topic": "Test Pyramid",
+      "type": "C",
+      "difficulty": "red",
+      "question": "Which statement BEST reflects the test pyramid model?",
+      "options": {
+        "A": "Lower layers contain many small, isolated, fast tests; higher layers contain fewer broader, slower end-to-end tests",
+        "B": "Higher layers should contain the most tests because they are closest to users",
+        "C": "The layer names and numbers are fixed by CTFL and must always be unit, service and UI",
+        "D": "The pyramid applies only to manual testing and not automation effort allocation"
+      },
+      "correct": "A",
+      "why_correct": "The test pyramid shows tests at different granularities. Lower-layer tests are small, isolated and fast, so many are usually needed. Higher-layer end-to-end tests are broader, slower and fewer. Layer names and numbers can vary, and the model supports automation and effort allocation.",
+      "option_notes": {
+        "A": "Correct. It captures granularity, isolation, speed and typical quantity.",
+        "B": "Incorrect. This inverts the pyramid.",
+        "C": "Incorrect. CTFL notes layer names and numbers may differ.",
+        "D": "Incorrect. The model supports test automation and effort allocation."
+      },
+      "distractor_note": "Do not memorize only one set of layer names; understand the shape and trade-offs.",
+      "alt_wording": "What do the lower and upper layers of the test pyramid imply?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q339",
+      "chapter": "2.1",
+      "lo": "FL-2.1.3",
+      "topic": "TDD, ATDD and BDD",
+      "type": "C",
+      "difficulty": "red",
+      "question": "A team writes executable examples in Given/When/Then language that product owners can read before implementation. Which test-first approach is MOST directly indicated?",
+      "options": {
+        "A": "TDD, because all test-first approaches are code-level unit testing",
+        "B": "BDD, because desired behavior is expressed in simple natural language, often Given/When/Then",
+        "C": "Static analysis, because no dynamic execution is ever intended",
+        "D": "Wideband Delphi, because stakeholders reach estimation consensus"
+      },
+      "correct": "B",
+      "why_correct": "BDD expresses the desired behavior of an application with test cases written in simple natural language, usually using Given/When/Then, and those tests may be translated into executable tests. TDD is more directly about coding through tests; ATDD derives tests from acceptance criteria.",
+      "option_notes": {
+        "A": "Incorrect. TDD is not the best match for stakeholder-readable Given/When/Then behavior examples.",
+        "B": "Correct. Given/When/Then natural language behavior is the BDD clue.",
+        "C": "Incorrect. BDD examples can become executable tests.",
+        "D": "Incorrect. Wideband Delphi is an estimation technique."
+      },
+      "distractor_note": "ATDD and BDD can overlap in practice, but CTFL explicitly associates Given/When/Then behavior expression with BDD.",
+      "alt_wording": "Which test-first approach writes desired behavior in stakeholder-readable Given/When/Then form?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q354",
+      "chapter": "4.4",
+      "lo": "FL-4.4.2",
+      "topic": "Exploratory Testing Usefulness",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A startup has vague requirements and only two days before an investor demo. Which testing approach is MOST suitable to complement a few critical scripted checks?",
+      "options": {
+        "A": "Exploratory testing by an experienced tester using charters focused on high-risk areas",
+        "B": "Full decision table testing for every possible combination in the product",
+        "C": "Only statement coverage because specifications are weak",
+        "D": "No testing, because inadequate specifications prevent all useful testing"
+      },
+      "correct": "A",
+      "why_correct": "Exploratory testing is useful when specifications are few or inadequate or when time pressure is significant. It is more effective with experienced testers, domain knowledge, analytical skill, curiosity and creativity, and it can complement more formal techniques.",
+      "option_notes": {
+        "A": "Correct. It fits weak specifications, time pressure and complementary testing.",
+        "B": "Incorrect. Full combination testing is unlikely to be practical in two days.",
+        "C": "Incorrect. Statement coverage can help code coverage but does not replace behavior exploration.",
+        "D": "Incorrect. Inadequate specifications make exploratory testing more relevant, not useless."
+      },
+      "distractor_note": "Exploratory testing is not random clicking; charters can focus learning and risk under time pressure.",
+      "alt_wording": "When are exploratory tests especially useful?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q337",
+      "chapter": "1.5",
+      "lo": "FL-1.5.2",
+      "topic": "Whole Team Approach",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Which statement is NOT an advantage or characteristic of the whole team approach?",
+      "options": {
+        "A": "Everyone is responsible for quality",
+        "B": "Communication and collaboration are improved by shared workspace and shared goals",
+        "C": "Testers can help business representatives create suitable acceptance tests",
+        "D": "A high level of test independence is always unnecessary, including in safety-critical contexts"
+      },
+      "correct": "D",
+      "why_correct": "The whole team approach encourages shared responsibility for quality and close collaboration, including testers working with developers and business representatives. CTFL also notes it may not always be appropriate; some situations, such as safety-critical contexts, may need high independence.",
+      "option_notes": {
+        "A": "Incorrect. This is a characteristic of the approach.",
+        "B": "Incorrect. Improved communication and synergy are advantages.",
+        "C": "Incorrect. This is a valid tester contribution.",
+        "D": "Correct. It is an overstatement and contradicts the context-sensitive view of independence."
+      },
+      "distractor_note": "The word 'always' is the clue. CTFL avoids absolute claims about independence and team structure.",
+      "alt_wording": "Which statement overstates the whole team approach?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q360",
+      "chapter": "5.1",
+      "lo": "FL-5.1.5",
+      "topic": "Prioritization with Dependencies and Resources",
+      "type": "D",
+      "difficulty": "red",
+      "question": "Risk analysis ranks security test S1 highest, but S1 depends on account-creation test A1 passing first. The mobile lab needed for A1 is available only this morning. What should the schedule consider?",
+      "options": {
+        "A": "Run S1 first because risk priority always overrides dependencies",
+        "B": "Run A1 when the lab is available so the higher-priority dependent test can be executed later",
+        "C": "Cancel A1 because lower-priority tests must never run before higher-priority tests",
+        "D": "Ignore resource windows because prioritization uses only coverage"
+      },
+      "correct": "B",
+      "why_correct": "Test execution order should ideally follow prioritization, but dependencies and resource availability must also be considered. A lower-priority test may need to run first if a higher-priority test depends on it or a required environment is available only at a certain time.",
+      "option_notes": {
+        "A": "Incorrect. Dependencies can force a lower-priority prerequisite to run first.",
+        "B": "Correct. It handles both dependency and resource constraints.",
+        "C": "Incorrect. Lower priority does not mean unnecessary.",
+        "D": "Incorrect. Tools, environments and people availability affect scheduling."
+      },
+      "distractor_note": "Hard prioritization questions add real-world constraints after the ranking is known.",
+      "alt_wording": "How should dependencies and limited resources affect test case prioritization?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q364",
+      "chapter": "5.3",
+      "lo": "FL-5.3.1",
+      "topic": "Test Metrics",
+      "type": "C",
+      "difficulty": "red",
+      "question": "Which pairing of metric and category is MOST accurate?",
+      "options": {
+        "A": "Mean time to failure - product quality metric",
+        "B": "Number of test cases run - cost metric",
+        "C": "Residual risk level - defect metric",
+        "D": "Defect density - project progress metric"
+      },
+      "correct": "A",
+      "why_correct": "Product quality metrics include availability, response time and mean time to failure. Number of test cases run is a test progress metric. Residual risk level is a risk metric. Defect density is a defect metric.",
+      "option_notes": {
+        "A": "Correct. Mean time to failure reflects product quality/reliability.",
+        "B": "Incorrect. Test cases run/not run are test progress metrics.",
+        "C": "Incorrect. Residual risk level is a risk metric.",
+        "D": "Incorrect. Defect density is a defect metric."
+      },
+      "distractor_note": "Metric names often sound managerial; classify by what is being measured.",
+      "alt_wording": "Classify testing metrics as progress, product quality, defect, risk, coverage or cost metrics.",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q356",
+      "chapter": "4.5",
+      "lo": "FL-4.5.3",
+      "topic": "ATDD Test Derivation",
+      "type": "H",
+      "difficulty": "red",
+      "question": "A user story says: As a commuter, I want fare capping so that I never pay more than $8 per day. Acceptance criteria state: Given total fares today are below $8, When a trip is tapped, Then charge only the amount needed to reach $8; Given total fares are $8 or more, When a trip is tapped, Then charge $0. Which set best derives ATDD tests?",
+      "options": {
+        "A": "Prior total $6.50 with trip fare $2.00 expecting $1.50 charged, and prior total $8.00 with trip fare $2.00 expecting $0 charged",
+        "B": "Only a code statement coverage test for the fare-capping module",
+        "C": "Only a usability survey asking whether commuters like fare capping",
+        "D": "Prior total $6.50 expecting $2.00 charged, and prior total $8.00 expecting $2.00 charged"
+      },
+      "correct": "A",
+      "why_correct": "ATDD derives tests from acceptance criteria before implementation. The first test covers the below-cap scenario and charges only enough to reach $8. The second covers the at-cap scenario and charges zero.",
+      "option_notes": {
+        "A": "Correct. Both examples are business-readable acceptance tests derived from the criteria.",
+        "B": "Incorrect. Code coverage alone is not ATDD acceptance behavior.",
+        "C": "Incorrect. A survey does not exercise the stated acceptance criteria.",
+        "D": "Incorrect. It violates the capping behavior in both examples."
+      },
+      "distractor_note": "For ATDD, convert each acceptance criterion into a concrete example with expected outcomes.",
+      "alt_wording": "Which test cases are derived from Given/When/Then acceptance criteria?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q335",
+      "chapter": "1.4",
+      "lo": "FL-1.4.4",
+      "topic": "Traceability",
+      "type": "B",
+      "difficulty": "red",
+      "question": "A privacy rule changes after several test cycles. The test manager quickly identifies affected requirements, related test conditions, test cases, failed results and open defects. Which practice enabled this?",
+      "options": {
+        "A": "Maintaining traceability between the test basis, testware, results and defects",
+        "B": "Using only exploratory testing so documentation is unnecessary",
+        "C": "Applying branch coverage to all source files",
+        "D": "Closing all defect reports before impact analysis"
+      },
+      "correct": "A",
+      "why_correct": "Traceability links test basis elements to testware, results and defects. It supports coverage evaluation, impact analysis, audits, reporting and communication about test status and residual risk.",
+      "option_notes": {
+        "A": "Correct. The scenario describes change impact through linked testing artifacts.",
+        "B": "Incorrect. Exploratory testing does not remove the value of traceability.",
+        "C": "Incorrect. Branch coverage is a code coverage measure, not the link among requirements, tests, results and defects.",
+        "D": "Incorrect. Open defects are important impact-analysis information."
+      },
+      "distractor_note": "Impact analysis is a common traceability clue, especially when requirements or risks change.",
+      "alt_wording": "What supports determining which tests and defects are affected by a changed test basis item?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q353",
+      "chapter": "4.4",
+      "lo": "FL-4.4.1",
+      "topic": "Error Guessing and Fault Attacks",
+      "type": "B",
+      "difficulty": "red",
+      "question": "A tester builds a list of likely payment API failures from past incidents: missing parameters, wrong data types, rounding errors and timeout handling. They design tests specifically to expose those possible problems. Which technique is MOST directly described?",
+      "options": {
+        "A": "Fault attack as an implementation of error guessing",
+        "B": "Boundary value analysis",
+        "C": "Inspection",
+        "D": "Additional coverage prioritization"
+      },
+      "correct": "A",
+      "why_correct": "Error guessing uses tester knowledge about likely errors, defects and failures. Fault attacks implement error guessing by using a list of possible problems and designing tests to identify defects, expose defects or cause failures associated with them.",
+      "option_notes": {
+        "A": "Correct. The defect/failure list from experience is the key clue.",
+        "B": "Incorrect. BVA focuses ordered partition boundaries.",
+        "C": "Incorrect. Inspection is a formal review type.",
+        "D": "Incorrect. Additional coverage prioritization orders tests by new coverage."
+      },
+      "distractor_note": "The listed failure patterns are experience-based knowledge, not formal specification or structure coverage items.",
+      "alt_wording": "Which experience-based technique uses lists of likely errors, defects and failures?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q346",
+      "chapter": "4.1",
+      "lo": "FL-4.1.1",
+      "topic": "Black-Box, White-Box and Experience-Based Techniques",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A team refactors an order service internally without changing its specified behavior. Which statement about existing test cases is MOST accurate?",
+      "options": {
+        "A": "Black-box tests are likely still useful because they are independent of internal implementation",
+        "B": "White-box tests are always unaffected because they ignore internal structure",
+        "C": "Experience-based tests must be deleted because they are never complementary",
+        "D": "All tests become invalid because any implementation change invalidates every test basis"
+      },
+      "correct": "A",
+      "why_correct": "Black-box tests are derived from specified behavior without reference to internal structure, so they can remain useful if implementation changes while required behavior stays the same. White-box tests depend on internal structure and may need adjustment.",
+      "option_notes": {
+        "A": "Correct. It captures a key strength of black-box tests.",
+        "B": "Incorrect. White-box tests are structure-based and may be affected by refactoring.",
+        "C": "Incorrect. Experience-based techniques complement black-box and white-box techniques.",
+        "D": "Incorrect. Implementation changes do not necessarily invalidate behavior-based tests."
+      },
+      "distractor_note": "The phrase 'internal refactor' is the clue: behavior-based tests are more resilient than structure-based tests.",
+      "alt_wording": "Which test technique category remains useful when implementation changes but behavior does not?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q370",
+      "chapter": "4.2",
+      "lo": "FL-4.2.4",
+      "topic": "State Table vs State Diagram",
+      "type": "C",
+      "difficulty": "red",
+      "question": "Why might a tester prefer a state table over a state diagram when planning all transitions coverage?",
+      "options": {
+        "A": "A state table explicitly shows invalid transitions as empty cells",
+        "B": "A state table eliminates the need to identify valid transitions",
+        "C": "A state table is a white-box technique while a state diagram is black-box",
+        "D": "A state table can only represent one state"
+      },
+      "correct": "A",
+      "why_correct": "A state table is equivalent to a state diagram but explicitly shows invalid transitions using empty cells. This is useful when all transitions coverage requires exercising valid transitions and attempting invalid transitions.",
+      "option_notes": {
+        "A": "Correct. Empty cells make invalid transitions visible.",
+        "B": "Incorrect. Valid transitions still need to be identified and exercised.",
+        "C": "Incorrect. Both are models used for state transition testing, a black-box technique in this syllabus section.",
+        "D": "Incorrect. A state table represents states as rows and events as columns."
+      },
+      "distractor_note": "The explicit display of invalid transitions is the key advantage for all transitions coverage.",
+      "alt_wording": "What does a state table show that a state diagram may not show explicitly?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q369",
+      "chapter": "6.2",
+      "lo": "FL-6.2.1",
+      "topic": "Automation Risks",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Which statement is NOT a risk of test automation listed or implied by CTFL?",
+      "options": {
+        "A": "Unrealistic expectations about tool benefits and ease of use",
+        "B": "Inaccurate estimation of introduction, maintenance and process-change effort",
+        "C": "Dependency on a vendor or open-source component that may lose support",
+        "D": "More objective coverage measurement that is too complicated for humans to determine"
+      },
+      "correct": "D",
+      "why_correct": "Objective assessment and measures such as coverage are potential benefits of automation. Unrealistic expectations, poor estimation, tool/vendor dependency, unsuitable tools, overreliance and compatibility or regulatory issues are risks.",
+      "option_notes": {
+        "A": "Incorrect. This is a risk.",
+        "B": "Incorrect. This is a risk.",
+        "C": "Incorrect. This is a risk.",
+        "D": "Correct. This is a benefit, not a risk."
+      },
+      "distractor_note": "The negative wording asks for the non-risk. Objective measurement belongs on the benefits side.",
+      "alt_wording": "Which automation item is a benefit rather than a risk?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q362",
+      "chapter": "5.2",
+      "lo": "FL-5.2.3",
+      "topic": "Risk Assessment",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which TWO activities are part of product risk assessment rather than risk identification?\n\nI. Categorizing identified risks.\nII. Brainstorming a comprehensive list of possible product risks.\nIII. Determining likelihood, impact and risk level.\nIV. Interviewing stakeholders to discover unknown risks.",
+      "options": {
+        "A": "I and III",
+        "B": "I and IV",
+        "C": "II and III",
+        "D": "II and IV"
+      },
+      "correct": "A",
+      "why_correct": "Product risk analysis consists of risk identification and risk assessment. Identification generates a comprehensive list of risks, often through brainstorming, workshops or interviews. Assessment categorizes risks and determines likelihood, impact, risk level, priority and possible handling.",
+      "option_notes": {
+        "A": "Correct. Categorization and determining likelihood/impact/level belong to assessment.",
+        "B": "Incorrect. Interviewing to discover risks belongs to identification.",
+        "C": "Incorrect. Brainstorming a risk list is identification.",
+        "D": "Incorrect. Both II and IV are identification activities."
+      },
+      "distractor_note": "Both identification and assessment are part of risk analysis, but they are not the same activity.",
+      "alt_wording": "Which product risk analysis tasks belong to identification versus assessment?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q340",
+      "chapter": "2.2",
+      "lo": "FL-2.2.1",
+      "topic": "Acceptance Testing Forms",
+      "type": "B",
+      "difficulty": "red",
+      "question": "A cloud vendor lets selected real customers use a nearly finished feature in their own environments before general release, to reveal usage and environment issues. Which form of acceptance testing is MOST likely described?",
+      "options": {
+        "A": "Component integration testing",
+        "B": "Beta testing",
+        "C": "Operational acceptance testing",
+        "D": "System integration testing"
+      },
+      "correct": "B",
+      "why_correct": "Beta testing is a form of acceptance testing where selected external users try a product before general release, often in real or customer environments. The focus is validation and readiness, not internal component or system interface testing.",
+      "option_notes": {
+        "A": "Incorrect. Component integration testing concerns interfaces between components.",
+        "B": "Correct. Selected real customers before release is the beta-testing clue.",
+        "C": "Incorrect. Operational acceptance testing focuses operational readiness such as backup, restore, monitoring or deployment operations.",
+        "D": "Incorrect. System integration testing concerns interfaces with external systems and services."
+      },
+      "distractor_note": "External environment does not automatically mean system integration testing; users validating a pre-release product points to beta testing.",
+      "alt_wording": "Which acceptance testing form uses selected users before general release?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q359",
+      "chapter": "5.1",
+      "lo": "FL-5.1.4",
+      "topic": "Extrapolation",
+      "type": "H",
+      "difficulty": "red",
+      "question": "In an iterative project, testing effort for the last four similar iterations was 34, 30, 38 and 34 hours. Using simple extrapolation based on the average of these observations, what should be estimated for the next similar iteration?",
+      "options": {
+        "A": "30 hours",
+        "B": "34 hours",
+        "C": "36 hours",
+        "D": "38 hours"
+      },
+      "correct": "B",
+      "why_correct": "Extrapolation uses measurements from the current project to approximate remaining or future work. The average is (34 + 30 + 38 + 34) / 4 = 136 / 4 = 34 hours.",
+      "option_notes": {
+        "A": "Incorrect. This uses the minimum observed value.",
+        "B": "Correct. It uses the average of the observed iterations.",
+        "C": "Incorrect. This does not match the arithmetic mean.",
+        "D": "Incorrect. This uses the maximum observed value."
+      },
+      "distractor_note": "Extrapolation is metrics-based from current observations, not expert consensus or three-point weighting.",
+      "alt_wording": "Use observed iteration data to estimate effort for a forthcoming iteration.",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q358",
+      "chapter": "5.1",
+      "lo": "FL-5.1.4",
+      "topic": "Estimation Based on Ratios",
+      "type": "H",
+      "difficulty": "red",
+      "question": "Historical projects in an organization show a development-to-test effort ratio of 5:3 for similar mobile features. A new feature is estimated at 250 development person-days. What test effort is estimated by ratio?",
+      "options": {
+        "A": "150 person-days",
+        "B": "417 person-days",
+        "C": "83 person-days",
+        "D": "750 person-days"
+      },
+      "correct": "A",
+      "why_correct": "A development-to-test ratio of 5:3 means test effort is 3/5 of development effort. For 250 development person-days, estimated test effort is 250 * 3/5 = 150 person-days.",
+      "option_notes": {
+        "A": "Correct. It applies the ratio in the right direction.",
+        "B": "Incorrect. This reverses the ratio as 5/3 of development effort.",
+        "C": "Incorrect. This divides by 3 instead of applying 3/5.",
+        "D": "Incorrect. This multiplies by 3 without considering the ratio."
+      },
+      "distractor_note": "Ratio questions often reverse development-to-test versus test-to-development. Read the order carefully.",
+      "alt_wording": "Estimate test effort using a historical development-to-test effort ratio.",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q371",
+      "chapter": "5.2",
+      "lo": "FL-5.2.2",
+      "topic": "Product Risk Consequences",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Which example is LEAST likely to be a negative consequence of a product risk occurring?",
+      "options": {
+        "A": "Loss of revenue, trust or reputation",
+        "B": "User dissatisfaction",
+        "C": "Damage to third parties or legal penalties",
+        "D": "A more accurate project estimate caused by historical data"
+      },
+      "correct": "D",
+      "why_correct": "Product risks can cause negative product-related consequences such as user dissatisfaction, loss of revenue/trust/reputation, damage to third parties, high maintenance costs, legal penalties, or even injury or death in extreme cases. A more accurate estimate is not a negative consequence of a product risk occurring.",
+      "option_notes": {
+        "A": "Incorrect. This is a product risk consequence.",
+        "B": "Incorrect. User dissatisfaction is a product risk consequence.",
+        "C": "Incorrect. Damage and penalties can be product risk consequences.",
+        "D": "Correct. This belongs to estimation improvement, not product risk harm."
+      },
+      "distractor_note": "The negative wording tests whether you distinguish product-quality harm from project-management artifacts.",
+      "alt_wording": "Which item is not a possible consequence of realized product risk?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q341",
+      "chapter": "2.2",
+      "lo": "FL-2.2.2",
+      "topic": "Functional and Non-Functional Testing",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A search function returns the correct products. The tester now checks that the same searches complete within two seconds under expected load. Which classification is BEST?",
+      "options": {
+        "A": "Functional testing only, because search results are still being requested",
+        "B": "Non-functional testing derived from functional tests, because response time is being checked",
+        "C": "White-box testing only, because performance always requires code structure",
+        "D": "Confirmation testing, because the function already works"
+      },
+      "correct": "B",
+      "why_correct": "Non-functional testing evaluates how well the system behaves, including performance efficiency. It may use functional tests while checking a non-functional constraint such as response time.",
+      "option_notes": {
+        "A": "Incorrect. The quality focus is response time, not just functional correctness.",
+        "B": "Correct. Functional actions are reused to test a non-functional constraint.",
+        "C": "Incorrect. Performance testing does not necessarily require white-box derivation.",
+        "D": "Incorrect. Confirmation testing checks whether an original defect was fixed."
+      },
+      "distractor_note": "The action under test can be functional while the objective is non-functional.",
+      "alt_wording": "How can a functional test be reused for non-functional testing?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q355",
+      "chapter": "4.5",
+      "lo": "FL-4.5.1",
+      "topic": "User Stories and INVEST",
+      "type": "D",
+      "difficulty": "red",
+      "question": "During backlog refinement, a stakeholder says they cannot think of any way to test a user story's acceptance. Which interpretation is MOST consistent with CTFL?",
+      "options": {
+        "A": "The story may not be clear enough, may not reflect something valuable, or the stakeholder may need help testing it",
+        "B": "The story is automatically complete because stakeholders should not define tests",
+        "C": "The story should bypass acceptance criteria and go directly to coding",
+        "D": "The issue proves that only white-box tests are possible"
+      },
+      "correct": "A",
+      "why_correct": "Good user stories should satisfy INVEST, including being testable. If a stakeholder does not know how to test a story, the story may be unclear, may not reflect something valuable to them, or they may need help in testing.",
+      "option_notes": {
+        "A": "Correct. It reflects the CTFL interpretation of poor testability.",
+        "B": "Incorrect. Stakeholders are important in defining acceptance and value.",
+        "C": "Incorrect. Acceptance criteria are the confirmation aspect of user stories.",
+        "D": "Incorrect. Testability concerns the story, not a forced switch to white-box testing."
+      },
+      "distractor_note": "A testability problem is a feedback signal during collaboration, not a reason to skip acceptance thinking.",
+      "alt_wording": "What does it suggest when a user story cannot be tested by stakeholders?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q368",
+      "chapter": "6.1",
+      "lo": "FL-6.1.1",
+      "topic": "Tool Support for Testing",
+      "type": "C",
+      "difficulty": "red",
+      "question": "Which tool pairing is MOST accurate?",
+      "options": {
+        "A": "Static analysis tool - executes regression tests and measures runtime failures",
+        "B": "Test management tool - helps manage requirements, tests, defects and configuration across the SDLC",
+        "C": "Collaboration tool - automatically generates branch coverage from source code",
+        "D": "Non-functional testing tool - replaces all manual review activity"
+      },
+      "correct": "B",
+      "why_correct": "Test management tools can increase test process efficiency by facilitating management of the SDLC, requirements, tests, defects and configuration. Static testing tools support reviews/static analysis; execution and coverage tools support automated execution and coverage; collaboration tools facilitate communication.",
+      "option_notes": {
+        "A": "Incorrect. Automated execution and runtime results are test execution tool concerns, not static analysis.",
+        "B": "Correct. It accurately describes test management tool support.",
+        "C": "Incorrect. Collaboration tools support communication, not code coverage measurement.",
+        "D": "Incorrect. Non-functional testing tools support difficult measurements but do not replace all review activity."
+      },
+      "distractor_note": "Tool categories are based on the testing activity they support, not just that they are software tools.",
+      "alt_wording": "Which test tool type supports management, static testing, execution, non-functional testing or collaboration?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q348",
+      "chapter": "4.2",
+      "lo": "FL-4.2.2",
+      "topic": "Boundary Value Analysis Coverage",
+      "type": "H",
+      "difficulty": "red",
+      "question": "A valid integer age range is 18 through 65 inclusive. For 3-value BVA, the planned tests are 17, 18, 19, 64 and 65. What is the coverage?",
+      "options": {
+        "A": "5/6, about 83%",
+        "B": "4/6, about 67%",
+        "C": "5/5, 100%",
+        "D": "2/2, 100%"
+      },
+      "correct": "A",
+      "why_correct": "For 3-value BVA the coverage items are each boundary and both closest neighbors. Required values are 17, 18, 19 for the lower boundary and 64, 65, 66 for the upper boundary. The planned tests cover five of six items; 66 is missing.",
+      "option_notes": {
+        "A": "Correct. Five of six required 3-value BVA items are covered.",
+        "B": "Incorrect. It misses one more item than the actual set does.",
+        "C": "Incorrect. The denominator is six, not the five executed values.",
+        "D": "Incorrect. This counts only boundary values and ignores 3-value neighbors."
+      },
+      "distractor_note": "The denominator is total coverage items required by the technique, not just values in the test set.",
+      "alt_wording": "What percentage of 3-value BVA coverage items have been exercised?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q333",
+      "chapter": "1.2",
+      "lo": "FL-1.2.3",
+      "topic": "Root Cause, Error, Defect and Failure",
+      "type": "B",
+      "difficulty": "red",
+      "question": "A team had no checklist for currency conversions. A developer misunderstood a requirement and used a floating-point comparison in code. In production, some refunds are one cent wrong and customers see incorrect balances. Which mapping is MOST accurate?",
+      "options": {
+        "A": "Root cause: missing checklist; error: misunderstanding; defect: faulty comparison; failure: customers see wrong balances",
+        "B": "Root cause: wrong balances; error: faulty comparison; defect: missing checklist; failure: misunderstanding",
+        "C": "Root cause: faulty comparison; error: wrong balances; defect: customers; failure: missing checklist",
+        "D": "Root cause: misunderstanding; error: customers see wrong balances; defect: production; failure: checklist"
+      },
+      "correct": "A",
+      "why_correct": "A root cause is the underlying reason the human error happened. The developer's misunderstanding is the error; the faulty code is the defect; the externally visible incorrect balances are failures.",
+      "option_notes": {
+        "A": "Correct. It follows root cause to error to defect to failure.",
+        "B": "Incorrect. It treats the visible failure as the root cause.",
+        "C": "Incorrect. The faulty comparison is the defect, not the root cause.",
+        "D": "Incorrect. It confuses observable effect with human mistake."
+      },
+      "distractor_note": "Hard questions often include both process causes and runtime symptoms. Keep the causal chain in order.",
+      "alt_wording": "Identify the root cause, human error, code defect and observed failure in a scenario.",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q345",
+      "chapter": "3.2",
+      "lo": "FL-3.2.5",
+      "topic": "Review Success Factors",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Which objective should NOT be used as a success objective for a review?",
+      "options": {
+        "A": "Evaluate a work product against clear objectives and measurable exit criteria",
+        "B": "Find anomalies in a small enough work product chunk for effective concentration",
+        "C": "Assess and rank individual participants' performance",
+        "D": "Provide feedback to authors and stakeholders for improvement"
+      },
+      "correct": "C",
+      "why_correct": "Successful reviews should have clear objectives and measurable exit criteria, choose an appropriate review type, use manageable chunks, allow preparation time, and provide useful feedback. Evaluation of participants should never be an objective.",
+      "option_notes": {
+        "A": "Incorrect. Clear objectives and exit criteria support review success.",
+        "B": "Incorrect. Small chunks help reviewers maintain concentration.",
+        "C": "Correct. Participant evaluation should not be a review objective.",
+        "D": "Incorrect. Feedback supports product and process improvement."
+      },
+      "distractor_note": "Reviews evaluate work products, not people. That distinction protects openness and quality of feedback.",
+      "alt_wording": "Which review goal would harm review success and should be avoided?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q343",
+      "chapter": "3.1",
+      "lo": "FL-3.1.1",
+      "topic": "Work Products for Static Testing",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Which work product is LEAST appropriate for static testing?",
+      "options": {
+        "A": "A requirements specification that can be read by reviewers",
+        "B": "Source code that can be checked by static analysis",
+        "C": "A product backlog item with acceptance criteria",
+        "D": "Third-party executable binary code that humans cannot interpret and tools should not analyze for legal reasons"
+      },
+      "correct": "D",
+      "why_correct": "Almost any work product that can be read and understood can be reviewed. Static analysis requires structure such as code or formal syntax. Work products that are difficult for humans to interpret and should not be analyzed by tools, such as certain third-party executable code, are not appropriate.",
+      "option_notes": {
+        "A": "Incorrect. Requirements are classic review work products.",
+        "B": "Incorrect. Source code can be reviewed or analyzed statically.",
+        "C": "Incorrect. Backlog items and acceptance criteria can be reviewed.",
+        "D": "Correct. It matches the syllabus example of inappropriate static testing material."
+      },
+      "distractor_note": "Static testing is broad, but not limitless. Interpretability and legal/tool suitability matter.",
+      "alt_wording": "Which item cannot reasonably be examined by review or static analysis?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q350",
+      "chapter": "4.2",
+      "lo": "FL-4.2.4",
+      "topic": "State Transition Testing - All Transitions",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A state table for a medical device has 12 valid transitions and 5 invalid transitions. A safety-critical test objective requires the strongest CTFL state transition coverage discussed. Which coverage target is appropriate?",
+      "options": {
+        "A": "Exercise only all states",
+        "B": "Exercise all valid transitions and attempt all invalid transitions, preferably one invalid transition per test case",
+        "C": "Exercise any 12 transitions, valid or invalid",
+        "D": "Exercise one happy path from start state to end state"
+      },
+      "correct": "B",
+      "why_correct": "All transitions coverage includes all valid transitions and attempts to execute invalid transitions. CTFL notes it should be a minimum requirement for mission and safety-critical software, and testing only one invalid transition in a single test case helps avoid defect masking.",
+      "option_notes": {
+        "A": "Incorrect. All states coverage is weaker than valid transitions and all transitions coverage.",
+        "B": "Correct. It matches all transitions coverage and invalid-transition guidance.",
+        "C": "Incorrect. The distinction between valid and invalid coverage items matters.",
+        "D": "Incorrect. A single path is far weaker than the required coverage."
+      },
+      "distractor_note": "Safety-critical context points to the strongest state transition coverage criterion in the syllabus.",
+      "alt_wording": "Which state transition criterion covers valid transitions and attempts invalid transitions?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q357",
+      "chapter": "5.1",
+      "lo": "FL-5.1.1",
+      "topic": "Test Plan Purpose and Content",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Which item is LEAST typical as content of a test plan?",
+      "options": {
+        "A": "Test scope, objectives and test basis",
+        "B": "Risk register and test approach",
+        "C": "Budget, schedule, roles and communication approach",
+        "D": "A guarantee that all possible input combinations will be exhaustively tested"
+      },
+      "correct": "D",
+      "why_correct": "A test plan describes objectives, resources and processes, and may include context, assumptions, constraints, stakeholders, communication, risk register, test approach, budget and schedule. It does not guarantee exhaustive testing, which is impossible except in trivial cases.",
+      "option_notes": {
+        "A": "Incorrect. This is typical test plan context.",
+        "B": "Incorrect. Risk register and test approach are typical content.",
+        "C": "Incorrect. Budget, schedule, roles and communication are typical planning concerns.",
+        "D": "Correct. It is an unrealistic claim, not a test plan content item."
+      },
+      "distractor_note": "Test plans guide thinking and communication; they do not suspend testing principles.",
+      "alt_wording": "Which proposed test plan item is an impossible promise rather than useful planning content?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q349",
+      "chapter": "4.2",
+      "lo": "FL-4.2.3",
+      "topic": "Decision Table Minimization",
+      "type": "C",
+      "difficulty": "red",
+      "question": "Two decision table columns have the same action outcome, and one condition has no effect on that outcome. The table combines the two columns using '-' for that condition. What has happened?",
+      "options": {
+        "A": "An infeasible combination has been deleted",
+        "B": "Columns have been minimized by merging rules where a condition is irrelevant",
+        "C": "All conditions have become invalid transitions",
+        "D": "The table has changed from black-box to white-box testing"
+      },
+      "correct": "B",
+      "why_correct": "A decision table can be minimized by merging columns when some conditions do not affect the outcome. The '-' notation indicates the condition value is irrelevant for the action outcome. Deleting infeasible combinations is a different simplification.",
+      "option_notes": {
+        "A": "Incorrect. Infeasible combinations are removed, often marked N/A before deletion, not merged because a condition is irrelevant.",
+        "B": "Correct. Same outcome plus irrelevant condition indicates minimization by merging.",
+        "C": "Incorrect. Invalid transitions belong to state transition testing.",
+        "D": "Incorrect. Decision table testing remains black-box."
+      },
+      "distractor_note": "Do not confuse '-' meaning irrelevant with N/A meaning infeasible.",
+      "alt_wording": "What does '-' mean in a decision table and how can rules be merged?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q334",
+      "chapter": "1.3",
+      "lo": "FL-1.3.1",
+      "topic": "Testing Principles - Tests Wear Out",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A team's nightly regression suite has found no new defects for six months, but production incidents now come from new user workflows not represented in the suite. Which principle is MOST relevant?",
+      "options": {
+        "A": "Testing is context dependent",
+        "B": "Tests wear out",
+        "C": "Defects cluster together",
+        "D": "Early testing saves time and money"
+      },
+      "correct": "B",
+      "why_correct": "The tests-wear-out principle says that repeated tests become less effective at finding new defects unless they are reviewed, revised, and extended. Here the suite no longer represents changing workflows.",
+      "option_notes": {
+        "A": "Incorrect. Context matters, but the main issue is stale tests losing effectiveness.",
+        "B": "Correct. The old regression suite needs review and renewal.",
+        "C": "Incorrect. The scenario is not about many defects concentrated in a few modules.",
+        "D": "Incorrect. This is not primarily about testing earlier in the lifecycle."
+      },
+      "distractor_note": "A regression suite can be automated and still stale. Automation does not prevent test wear-out.",
+      "alt_wording": "Which principle applies when unchanged tests stop finding new defects over time?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q365",
+      "chapter": "5.3",
+      "lo": "FL-5.3.3",
+      "topic": "Communicating Test Status",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A distributed project has executives needing release risk summaries, developers needing current failed checks, and auditors needing formal evidence. Which communication approach is BEST?",
+      "options": {
+        "A": "Use a single informal chat message for all audiences",
+        "B": "Tailor communication to stakeholders, using suitable options such as dashboards, formal reports and team channels",
+        "C": "Communicate only verbally because formal reports are never useful",
+        "D": "Share only raw defect IDs because interpretation introduces bias"
+      },
+      "correct": "B",
+      "why_correct": "The best communication option varies by test management concerns, organizational strategy, regulations and team needs. Options include verbal communication, dashboards, electronic channels, online documentation and formal reports. Different stakeholders need different information, so communication should be tailored.",
+      "option_notes": {
+        "A": "Incorrect. One informal message will not satisfy all audiences.",
+        "B": "Correct. It matches CTFL guidance on audience-appropriate communication.",
+        "C": "Incorrect. Formal reporting may be appropriate, especially under regulatory or distributed conditions.",
+        "D": "Incorrect. Stakeholders need understandable status, not only raw identifiers."
+      },
+      "distractor_note": "Status communication is not just frequency; it is audience, medium, content and formality.",
+      "alt_wording": "How should test status communication vary for different stakeholders?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q367",
+      "chapter": "5.5",
+      "lo": "FL-5.5.1",
+      "topic": "Defect Management Workflow",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which TWO statements about defect management are correct?\n\nI. Reported anomalies may later be classified as real defects, false positives or change requests.\nII. Defect management should begin only after system testing because static testing anomalies are not relevant.\nIII. A defect workflow typically includes logging, analysis/classification, deciding a response and closure.\nIV. All defect reports must omit test case references to preserve tester independence.",
+      "options": {
+        "A": "I and III",
+        "B": "I and IV",
+        "C": "II and III",
+        "D": "II and IV"
+      },
+      "correct": "A",
+      "why_correct": "CTFL notes that reported anomalies may turn out to be real defects or something else, such as false positives or change requests. A defect management process typically includes logging, analyzing and classifying, deciding a response, and closing the report. It is advisable to handle static testing defects similarly, and defect reports often include references such as related test cases.",
+      "option_notes": {
+        "A": "Correct. Both statements match the syllabus.",
+        "B": "Incorrect. Statement IV contradicts useful defect report references.",
+        "C": "Incorrect. Statement II is false because anomalies can be reported in any SDLC phase.",
+        "D": "Incorrect. Both II and IV are false."
+      },
+      "distractor_note": "Defect management is wider than confirmed runtime bugs. It manages anomalies through classification and resolution.",
+      "alt_wording": "What happens to anomalies in a defect management process?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q338",
+      "chapter": "2.1",
+      "lo": "FL-2.1.4",
+      "topic": "DevOps and Testing",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which TWO statements about DevOps and testing are correct?\n\nI. DevOps can provide fast feedback and reduce regression risk through automated pipelines.\nII. DevOps eliminates the need for manual testing from the user's perspective.\nIII. DevOps requires toolchains and automation that need introduction and maintenance effort.\nIV. DevOps means operations replaces all tester responsibilities.",
+      "options": {
+        "A": "I and III",
+        "B": "I and IV",
+        "C": "II and III",
+        "D": "II and IV"
+      },
+      "correct": "A",
+      "why_correct": "DevOps promotes fast feedback, CI/CD, integrated toolchains, stable environments, automation and regression test suites. It also creates challenges: pipelines and tools must be defined, introduced and maintained. Manual testing, especially from a user perspective, may still be needed.",
+      "option_notes": {
+        "A": "Correct. Both statements reflect CTFL's balanced view.",
+        "B": "Incorrect. Statement IV invents a replacement of tester responsibilities.",
+        "C": "Incorrect. Statement II is an automation overclaim.",
+        "D": "Incorrect. Both II and IV are false."
+      },
+      "distractor_note": "DevOps questions often tempt you with total automation. CTFL says automation is high, but manual/user-oriented testing remains relevant.",
+      "alt_wording": "Which DevOps testing effects are benefits, and which are unrealistic claims?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q352",
+      "chapter": "4.3",
+      "lo": "FL-4.3.2",
+      "topic": "Branch Coverage Subsumes Statement Coverage",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which TWO statements about branch coverage are correct?\n\nI. 100% branch coverage also achieves 100% statement coverage.\nII. 100% statement coverage also achieves 100% branch coverage.\nIII. Branches may be unconditional or conditional transfers of control.\nIV. Branch coverage guarantees detection of all path-specific defects.",
+      "options": {
+        "A": "I and III",
+        "B": "I and IV",
+        "C": "II and III",
+        "D": "II and IV"
+      },
+      "correct": "A",
+      "why_correct": "Branch coverage subsumes statement coverage: any set achieving 100% branch coverage also achieves 100% statement coverage. Branches are transfers of control and can be unconditional or conditional. Branch coverage does not guarantee all path-specific defects are detected.",
+      "option_notes": {
+        "A": "Correct. Statements I and III match the syllabus.",
+        "B": "Incorrect. Statement IV overclaims branch coverage.",
+        "C": "Incorrect. Statement II reverses the subsumption relationship.",
+        "D": "Incorrect. Both II and IV are false."
+      },
+      "distractor_note": "Subsumes means branch coverage is stronger at 100%, not that statement coverage is equally strong.",
+      "alt_wording": "Which coverage criterion implies the other, and what does branch coverage not guarantee?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q363",
+      "chapter": "5.2",
+      "lo": "FL-5.2.4",
+      "topic": "Risk Control",
+      "type": "C",
+      "difficulty": "red",
+      "question": "A team adds security reviews and penetration tests for a high-risk login area, then tracks whether the actions reduce residual risk and whether new risks appear. What are these two parts of product risk control?",
+      "options": {
+        "A": "Risk identification followed by risk assessment",
+        "B": "Risk mitigation followed by risk monitoring",
+        "C": "Test planning followed by test completion",
+        "D": "Risk transfer followed by risk acceptance"
+      },
+      "correct": "B",
+      "why_correct": "Product risk control consists of risk mitigation and risk monitoring. Mitigation implements actions proposed in risk assessment to reduce risk level. Monitoring checks whether mitigation actions are effective, gathers more information and identifies emerging risks.",
+      "option_notes": {
+        "A": "Incorrect. Those are parts of product risk analysis, not control.",
+        "B": "Correct. Added testing/reviews mitigate risk; tracking effectiveness monitors risk.",
+        "C": "Incorrect. These are broader test process activities.",
+        "D": "Incorrect. The scenario does not transfer or simply accept the risk."
+      },
+      "distractor_note": "Risk analysis decides and prioritizes; risk control acts and follows up.",
+      "alt_wording": "What is the difference between risk mitigation and risk monitoring?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q332",
+      "chapter": "1.1",
+      "lo": "FL-1.1.1",
+      "topic": "Test Objectives",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A regulator will approve a payroll release only if the team can show which legal withholding rules were tested, the results, and remaining unresolved risks. Which test objective is MOST directly supported?",
+      "options": {
+        "A": "Providing information to stakeholders so they can make informed decisions",
+        "B": "Debugging the payroll calculation code",
+        "C": "Proving that no defects exist in payroll processing",
+        "D": "Replacing contractual review with automated execution"
+      },
+      "correct": "A",
+      "why_correct": "Testing provides information to stakeholders for decisions, including evidence about coverage, results, compliance and residual risk. Testing may support regulatory confidence, but it cannot prove absence of all defects and is distinct from debugging.",
+      "option_notes": {
+        "A": "Correct. The scenario is about decision evidence for a stakeholder.",
+        "B": "Incorrect. Debugging locates and fixes known causes of failures.",
+        "C": "Incorrect. Testing shows presence of defects, not their complete absence.",
+        "D": "Incorrect. Testing supports but does not replace contractual or regulatory obligations."
+      },
+      "distractor_note": "The regulatory context can tempt a compliance-only answer, but the main clue is stakeholder decision information.",
+      "alt_wording": "Which objective is achieved when test evidence is used for go/no-go or approval decisions?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q344",
+      "chapter": "3.2",
+      "lo": "FL-3.2.3",
+      "topic": "Review Roles",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which TWO role assignments are correct for a formal review?\n\nI. The moderator facilitates the meeting, manages time and helps maintain a safe discussion environment.\nII. The scribe collates anomalies and records decisions from the review meeting.\nIII. The author decides what will be reviewed and provides resources.\nIV. The manager fixes the work product under review.",
+      "options": {
+        "A": "I and II",
+        "B": "I and III",
+        "C": "II and IV",
+        "D": "III and IV"
+      },
+      "correct": "A",
+      "why_correct": "The moderator, also called facilitator, ensures effective running of review meetings. The scribe, also called recorder, collates anomalies and records review information and decisions. The manager decides what is reviewed and provides resources; the author creates and fixes the work product.",
+      "option_notes": {
+        "A": "Correct. Both responsibilities are assigned correctly.",
+        "B": "Incorrect. Statement III assigns the manager's responsibility to the author.",
+        "C": "Incorrect. Statement IV assigns the author's fixing responsibility to the manager.",
+        "D": "Incorrect. Both III and IV are false."
+      },
+      "distractor_note": "Review leader, manager, moderator and author are often swapped in exam options.",
+      "alt_wording": "Which review role facilitates, records, decides resources, or fixes the work product?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q351",
+      "chapter": "4.3",
+      "lo": "FL-4.3.1",
+      "topic": "Statement Coverage Limitations",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Which statement is FALSE about statement coverage?",
+      "options": {
+        "A": "It measures executable statements exercised divided by total executable statements",
+        "B": "100% statement coverage means each executable statement has been exercised at least once",
+        "C": "It guarantees that every branch outcome has been exercised",
+        "D": "It may miss data-dependent defects even when a statement has executed"
+      },
+      "correct": "C",
+      "why_correct": "Statement coverage measures executable statements exercised. Full statement coverage does not ensure all decision logic or branch outcomes have been tested, and it can miss data-dependent defects.",
+      "option_notes": {
+        "A": "Incorrect. This is true.",
+        "B": "Incorrect. This is true.",
+        "C": "Correct. This is false; branch coverage is stronger for branch outcomes.",
+        "D": "Incorrect. This is true."
+      },
+      "distractor_note": "Negative wording plus coverage terminology is a classic trap. Statement coverage does not imply branch coverage.",
+      "alt_wording": "What limitation remains after 100% statement coverage?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q347",
+      "chapter": "4.2",
+      "lo": "FL-4.2.1",
+      "topic": "Equivalence Partitioning - Each Choice Coverage",
+      "type": "H",
+      "difficulty": "red",
+      "question": "A hotel search has two input parameters. Nights has partitions: 1-2, 3-7, 8-14, and invalid over 14. Guests has partitions: 1, 2-4, and invalid over 4. Tests use (1 night, 1 guest), (5 nights, 3 guests), and (20 nights, 6 guests). What is Each Choice EP coverage?",
+      "options": {
+        "A": "5/7, about 71%",
+        "B": "6/7, about 86%",
+        "C": "7/7, 100%",
+        "D": "3/12, 25%"
+      },
+      "correct": "B",
+      "why_correct": "Each Choice coverage requires every partition from each set to be exercised at least once, without requiring all combinations. Covered Nights partitions are 1-2, 3-7, and invalid over 14; 8-14 is missing. Covered Guests partitions are 1, 2-4, and invalid over 4. Six of seven total partitions are covered.",
+      "option_notes": {
+        "A": "Incorrect. Five partitions undercounts the covered guest partitions.",
+        "B": "Correct. Six of seven partitions are exercised.",
+        "C": "Incorrect. The 8-14 nights partition is missing.",
+        "D": "Incorrect. Each Choice does not count all pairwise combinations."
+      },
+      "distractor_note": "Do not turn Each Choice into combination coverage. Count partitions from each parameter set.",
+      "alt_wording": "Calculate Each Choice coverage across multiple sets of equivalence partitions.",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q366",
+      "chapter": "5.4",
+      "lo": "FL-5.4.1",
+      "topic": "Configuration Management and Reproducibility",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A defect appears only in last week's mobile build with a specific API stub and dataset. Which configuration management capability MOST helps reproduce the result?",
+      "options": {
+        "A": "Keeping uniquely identified, version-controlled and related configuration items, including test items and testware",
+        "B": "Deleting previous test data after every run",
+        "C": "Allowing testers to rename builds informally for convenience",
+        "D": "Removing traceability from test reports to reduce detail"
+      },
+      "correct": "A",
+      "why_correct": "Configuration management identifies, controls and tracks test items, testware and environment items as configuration items, including versions and relationships. It makes it possible to revert to a previous baseline and reproduce previous test results.",
+      "option_notes": {
+        "A": "Correct. Versions and relationships enable reproduction.",
+        "B": "Incorrect. Deleting data may destroy reproducibility.",
+        "C": "Incorrect. Informal naming undermines unambiguous identification.",
+        "D": "Incorrect. Traceability supports understanding and control."
+      },
+      "distractor_note": "Reproducibility is a strong clue for baselines, version control and linked configuration items.",
+      "alt_wording": "How does CM support reproducing previous test results?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q336",
+      "chapter": "1.5",
+      "lo": "FL-1.5.1",
+      "topic": "Tester Skills and Constructive Communication",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A developer rejects a defect report because it contradicts their belief that the module is stable. Which tester response BEST reflects CTFL good practice?",
+      "options": {
+        "A": "Escalate immediately and describe the developer as careless",
+        "B": "Present objective evidence, expected and actual results, and discuss the issue constructively",
+        "C": "Withdraw the report because testers should avoid giving bad news",
+        "D": "Stop communicating directly because independence forbids collaboration"
+      },
+      "correct": "B",
+      "why_correct": "Testers often communicate unwelcome information and may face confirmation bias. CTFL emphasizes communication skills, active listening, teamwork and constructive communication of defects and failures.",
+      "option_notes": {
+        "A": "Incorrect. Blame-focused escalation is not constructive.",
+        "B": "Correct. Objective evidence and constructive discussion are good tester practices.",
+        "C": "Incorrect. Avoiding bad news harms product quality.",
+        "D": "Incorrect. Independence does not forbid collaboration."
+      },
+      "distractor_note": "The issue is not just reporting a defect; it is communicating it in a way that others can understand and act on.",
+      "alt_wording": "How should testers handle confirmation bias and the perception that testing is destructive?",
+      "created": "2026-09-03"
+    },
+    {
+      "id": "Q342",
+      "chapter": "2.3",
+      "lo": "FL-2.3.1",
+      "topic": "Maintenance Testing - Retirement",
+      "type": "B",
+      "difficulty": "red",
+      "question": "An insurance platform is being retired, but law requires policy data to remain retrievable for ten years. Which maintenance testing activity is MOST relevant?",
+      "options": {
+        "A": "Testing data archiving and restore/retrieval procedures",
+        "B": "Only testing new features added to the retired platform",
+        "C": "Skipping testing because retirement is not a maintenance trigger",
+        "D": "Only testing component interfaces in the old codebase"
+      },
+      "correct": "A",
+      "why_correct": "Retirement is a maintenance testing trigger. When data retention is required, testing may include data archiving and restore or retrieval procedures in case data is needed during the archiving period.",
+      "option_notes": {
+        "A": "Correct. The legal retention requirement points directly to archive and retrieval testing.",
+        "B": "Incorrect. Retirement is not about adding features.",
+        "C": "Incorrect. Retirement is explicitly a trigger for maintenance testing.",
+        "D": "Incorrect. Interface testing may be relevant in some contexts, but it is not the main retirement concern here."
+      },
+      "distractor_note": "Maintenance testing includes more than modifications and hot fixes; migrations and retirement are also triggers.",
+      "alt_wording": "What should be tested when an application is retired but archived data must remain accessible?",
+      "created": "2026-09-03"
+    }
+  ]
+}

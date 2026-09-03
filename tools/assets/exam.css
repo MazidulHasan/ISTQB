@@ -15,6 +15,8 @@
   --red-bg: #fbe9e8;
   --amber: #b8790a;
   --amber-bg: #fdf1de;
+  --marker: #6b4ecf;
+  --marker-bg: #eee9ff;
   --shadow: 0 1px 3px rgba(20, 24, 34, 0.08), 0 1px 2px rgba(20, 24, 34, 0.06);
   --radius: 10px;
 }
@@ -35,6 +37,8 @@
     --red-bg: #3a1c1c;
     --amber: #f2c069;
     --amber-bg: #3a2e12;
+    --marker: #b7a6ff;
+    --marker-bg: #2c2544;
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 }
@@ -53,6 +57,8 @@
   --red-bg: #3a1c1c;
   --amber: #f2c069;
   --amber-bg: #3a2e12;
+  --marker: #b7a6ff;
+  --marker-bg: #2c2544;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -196,6 +202,9 @@ button { font-family: inherit; }
 @media (max-width: 820px) {
   .exam-layout { grid-template-columns: 1fr; }
   .navigator { order: 2; border-top: 1px solid var(--border); border-right: none; }
+  .learn-btn { margin-left: 0; }
+  .marker-chip,
+  .sol-marker-item { grid-template-columns: 1fr; }
 }
 
 .navigator {
@@ -234,10 +243,20 @@ button { font-family: inherit; }
   background: var(--amber);
   border: 1px solid var(--surface);
 }
+.nav-btn.marked::before {
+  content: "";
+  position: absolute;
+  left: -3px; bottom: -3px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--marker);
+  border: 1px solid var(--surface);
+}
 .nav-legend { margin-top: 14px; font-size: 0.76rem; color: var(--text-muted); line-height: 1.9; }
 .nav-legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
 .nav-legend .dot.answered { background: var(--accent); }
 .nav-legend .dot.flagged { background: var(--amber); }
+.nav-legend .dot.marked { background: var(--marker); }
 .nav-legend .dot.unanswered { background: var(--surface-2); border: 1px solid var(--border); }
 
 .exam-main {
@@ -255,7 +274,7 @@ button { font-family: inherit; }
 }
 .q-progress-fill { height: 100%; background: var(--accent); }
 
-.q-header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.q-header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
 .q-num-badge {
   font-weight: 700;
   font-size: 0.85rem;
@@ -263,8 +282,24 @@ button { font-family: inherit; }
   border-radius: 6px;
   padding: 4px 10px;
 }
-.flag-btn {
+.learn-btn {
   margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.learn-btn:hover { background: var(--surface-2); color: var(--text); }
+.learn-btn.active {
+  color: var(--marker);
+  border-color: var(--marker);
+  background: var(--marker-bg);
+}
+.flag-btn {
+  margin-left: 0;
   background: none;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -298,6 +333,88 @@ button { font-family: inherit; }
 .option-row input { margin-top: 3px; flex-shrink: 0; }
 .option-letter { font-weight: 700; flex-shrink: 0; width: 1.2em; }
 .option-text { line-height: 1.55; }
+
+.marker-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--marker) 5%, var(--surface));
+  padding: 12px 14px;
+  margin: 0 0 18px;
+}
+.marker-panel.has-items {
+  border-color: color-mix(in srgb, var(--marker) 55%, var(--border));
+}
+.marker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.marker-title {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--marker);
+}
+.marker-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.marker-add-btn,
+.marker-mini-btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 7px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.marker-add-btn {
+  border-color: var(--marker);
+  color: var(--marker);
+  font-weight: 700;
+}
+.marker-add-btn:hover,
+.marker-mini-btn:hover { background: var(--surface-2); }
+.marker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.marker-chip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 9px 10px;
+}
+.marker-chip-text { min-width: 0; }
+.marker-chip-text strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+.marker-chip-text span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.marker-mini-btn.danger { color: var(--red); }
 
 .scratch-panel {
   border: 1px solid var(--border);
@@ -474,12 +591,56 @@ button { font-family: inherit; }
   box-shadow: var(--shadow);
 }
 .modal h3 { margin: 0 0 12px; }
-.modal-stats { display: flex; gap: 14px; margin: 16px 0 22px; }
+.modal-stats { display: flex; gap: 14px; margin: 16px 0 22px; flex-wrap: wrap; }
 .modal-stat { flex: 1; text-align: center; background: var(--surface-2); border-radius: 8px; padding: 10px; }
 .modal-stat .n { font-size: 1.3rem; font-weight: 700; display: block; }
 .modal-stat .l { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; }
 .modal-actions { display: flex; gap: 10px; }
 .modal-actions button { flex: 1; }
+.marker-modal { max-width: 520px; }
+.marker-modal p {
+  color: var(--text-muted);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+.marker-label {
+  display: block;
+  margin: 12px 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.marker-field,
+.marker-textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 10px 11px;
+  font: 0.95rem/1.45 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.marker-textarea { resize: vertical; min-height: 96px; }
+.marker-field:focus,
+.marker-textarea:focus {
+  outline: 2px solid var(--marker);
+  outline-offset: 2px;
+}
+.marker-selected {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--marker);
+  border-radius: 8px;
+  background: var(--marker-bg);
+  color: var(--text);
+  padding: 9px 11px;
+  font-size: 0.86rem;
+}
 
 /* ---------- Results ---------- */
 .score-circle {
@@ -560,6 +721,32 @@ button { font-family: inherit; }
   font-size: 0.88rem;
   line-height: 1.5;
 }
+.sol-marker-box {
+  background: var(--marker-bg);
+  border: 1px solid color-mix(in srgb, var(--marker) 55%, var(--border));
+  border-radius: 8px;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+}
+.sol-marker-box > strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--marker);
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.sol-marker-item {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.36fr) minmax(0, 1fr);
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  padding: 5px 0;
+}
+.sol-marker-item + .sol-marker-item { border-top: 1px solid color-mix(in srgb, var(--marker) 30%, transparent); }
+.sol-marker-term { font-weight: 700; }
+.sol-marker-note { color: var(--text-muted); }
 .sol-option {
   display: flex; gap: 10px; padding: 8px 12px; border-radius: 6px; margin-bottom: 6px; font-size: 0.92rem; line-height: 1.5;
   border: 1px solid transparent;

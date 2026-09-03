@@ -222,6 +222,7 @@ body {
   text-overflow: ellipsis;
 }
 .study-toc a:hover { background: var(--bg-sunken); color: var(--text); }
+.study-toc a.active { background: var(--accent); color: var(--accent-contrast); }
 .study-toc a.level-3 { padding-left: 20px; font-size: 12.5px; }
 .study-toc .toc-title {
   font-weight: 700;
@@ -1864,17 +1865,65 @@ window.__DOC_TITLE__ = "1.1 What is Testing?";
   function buildTOC() {
     var heads = els.content.querySelectorAll("h2, h3");
     if (!heads.length) { els.toc.classList.add("hidden"); return; }
+    var topicOnlyMode = window.__DOC_ID__ === "revision/common-confusions.md";
     var title = document.createElement("div");
     title.className = "toc-title";
     title.textContent = "Contents";
     els.toc.appendChild(title);
+    if (topicOnlyMode) {
+      var all = document.createElement("a");
+      all.href = "#";
+      all.className = "toc-show-all active";
+      all.textContent = "Show all topics";
+      all.addEventListener("click", function (e) {
+        e.preventDefault();
+        showTopicSection(null);
+      });
+      els.toc.appendChild(all);
+    }
     heads.forEach(function (h) {
       if (!h.id) return;
       var a = document.createElement("a");
       a.href = "#" + h.id;
       a.textContent = h.textContent;
       if (h.tagName === "H3") a.className = "level-3";
+      if (topicOnlyMode && h.tagName === "H2") {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          showTopicSection(h.id);
+          h.scrollIntoView({ block: "start" });
+          if (window.innerWidth < 980) document.body.classList.remove("toc-open");
+        });
+      }
       els.toc.appendChild(a);
+    });
+  }
+
+  function showTopicSection(topicId) {
+    var topicOnlyMode = window.__DOC_ID__ === "revision/common-confusions.md";
+    if (!topicOnlyMode) return;
+
+    var inChosenTopic = false;
+    var seenTopic = false;
+    Array.prototype.forEach.call(els.content.children, function (node) {
+      if (node.tagName === "H2") {
+        seenTopic = true;
+        inChosenTopic = node.id === topicId;
+        node.hidden = !!topicId && !inChosenTopic;
+        return;
+      }
+      if (!topicId) {
+        node.hidden = false;
+      } else if (!seenTopic) {
+        node.hidden = true;
+      } else {
+        node.hidden = !inChosenTopic;
+      }
+    });
+
+    Array.prototype.forEach.call(els.toc.querySelectorAll("a"), function (link) {
+      var target = link.getAttribute("href");
+      link.classList.toggle("active", topicId ? target === "#" + topicId : link.classList.contains("toc-show-all"));
     });
   }
 
@@ -1883,8 +1932,13 @@ window.__DOC_TITLE__ = "1.1 What is Testing?";
   function wireHeader() {
     els.themeToggle.addEventListener("click", toggleTheme);
     els.tocToggle.addEventListener("click", function () {
-      document.body.classList.toggle("toc-open");
-      document.body.classList.toggle("toc-hidden");
+      if (window.innerWidth < 980) {
+        document.body.classList.toggle("toc-open");
+        document.body.classList.remove("toc-hidden");
+      } else {
+        document.body.classList.toggle("toc-hidden");
+        document.body.classList.remove("toc-open");
+      }
     });
   }
 

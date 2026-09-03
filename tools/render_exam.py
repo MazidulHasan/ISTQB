@@ -4,6 +4,7 @@
 Usage:
     python tools/render_exam.py new                      # pick today's exam from the bank, write session json + HTML
     python tools/render_exam.py new --count 40 --duration 75 --pass-mark 65
+    python tools/render_exam.py new --variant hard       # hard/tricky sitting, named YYYY-MM-DD-hard-01
     python tools/render_exam.py question-bank/exams/2026-08-16-01.json   # re-render one session's HTML
     python tools/render_exam.py                            # re-render every session under question-bank/exams/
 
@@ -24,6 +25,7 @@ from __future__ import annotations
 import html
 import json
 import random
+import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -38,6 +40,7 @@ EXAMS_DIR = REPO_ROOT / "question-bank" / "exams"
 DEFAULT_COUNT = 40
 DEFAULT_DURATION = 75
 DEFAULT_PASS_MARK = 65
+SUPPORTED_VARIANTS = {"standard", "hard"}
 
 TEMPLATE = """<!doctype html>
 <html lang="en">
@@ -85,32 +88,48 @@ def used_question_ids(exams_dir: Path) -> set[str]:
     return used
 
 
-def next_exam_id(exams_dir: Path, on_date: date) -> str:
-    base = on_date.isoformat()
-    existing = sorted(p.stem for p in exams_dir.glob(f"{base}-*.json"))
+def next_exam_id(exams_dir: Path, on_date: date, variant: str) -> str:
+    date_part = on_date.isoformat()
+    base = date_part if variant == "standard" else f"{date_part}-{variant}"
+    existing = sorted(
+        p.stem
+        for p in exams_dir.glob(f"{base}-*.json")
+        if re.fullmatch(rf"{re.escape(base)}-\d{{2}}", p.stem)
+    )
     seq = len(existing) + 1
     return f"{base}-{seq:02d}"
 
 
-def build_session(count: int, duration: int, pass_mark: int, bank_path: Path, seed: str | None) -> dict:
+def candidate_questions(questions: list[dict], used_ids: set[str], variant: str) -> list[dict]:
+    unused_questions = [q for q in questions if q.get("id") not in used_ids]
+    if variant == "hard":
+        return [q for q in unused_questions if q.get("difficulty") == "red"]
+    return unused_questions
+
+
+def build_session(count: int, duration: int, pass_mark: int, bank_path: Path, seed: str | None, variant: str) -> dict:
     questions = load_bank(bank_path)
     used_ids = used_question_ids(EXAMS_DIR)
-    unused_questions = [q for q in questions if q.get("id") not in used_ids]
+    unused_questions = candidate_questions(questions, used_ids, variant)
     if len(unused_questions) < count:
         missing = count - len(unused_questions)
+        variant_note = " red-difficulty" if variant == "hard" else ""
         sys.exit(
             "Not enough fresh questions for a new sitting: "
-            f"{len(unused_questions)} never-used question(s) available, {count} requested. "
-            f"Add at least {missing} new, non-duplicate question variant(s) to question-bank/bank.json first."
+            f"{len(unused_questions)} never-used{variant_note} question(s) available, {count} requested. "
+            f"Add at least {missing} new, non-duplicate{variant_note} question variant(s) "
+            "to question-bank/bank.json first."
         )
 
-    rng = random.Random(seed or date.today().isoformat())
+    rng = random.Random(seed or f"{date.today().isoformat()}:{variant}")
     chosen = rng.sample(unused_questions, count)
 
-    exam_id = next_exam_id(EXAMS_DIR, date.today())
+    exam_id = next_exam_id(EXAMS_DIR, date.today(), variant)
+    title_variant = "Hard Mock Exam" if variant == "hard" else "Mock Exam"
     session = {
         "exam_id": exam_id,
-        "title": "ISTQB CTFL v4.0.1 — Mock Exam",
+        "title": f"ISTQB CTFL v4.0.1 - {title_variant}",
+        "variant": variant,
         "generated": date.today().isoformat(),
         "duration_minutes": duration,
         "pass_mark_pct": pass_mark,
@@ -129,6 +148,7 @@ def session_to_exam_payload(session: dict) -> dict:
         "durationMinutes": session["duration_minutes"],
         "passMarkPct": session["pass_mark_pct"],
         "bankVersion": session.get("bank_version", 1),
+        "variant": session.get("variant", "standard"),
         "questions": [
             {
                 "id": q["id"],
@@ -169,6 +189,7 @@ def cmd_new(args: list[str]) -> None:
     pass_mark = DEFAULT_PASS_MARK
     seed = None
     bank_path = BANK_PATH
+    variant = "standard"
     i = 0
     while i < len(args):
         if args[i] == "--count":
@@ -181,11 +202,18 @@ def cmd_new(args: list[str]) -> None:
             seed = args[i + 1]; i += 2
         elif args[i] == "--bank":
             bank_path = REPO_ROOT / args[i + 1]; i += 2
+        elif args[i] == "--variant":
+            variant = args[i + 1].lower(); i += 2
+        elif args[i].lower() == "hard":
+            variant = "hard"; i += 1
         else:
             sys.exit(f"Unknown option: {args[i]}")
+    if variant not in SUPPORTED_VARIANTS:
+        choices = ", ".join(sorted(SUPPORTED_VARIANTS))
+        sys.exit(f"Unknown variant: {variant}. Supported variants: {choices}.")
 
     EXAMS_DIR.mkdir(parents=True, exist_ok=True)
-    session = build_session(count, duration, pass_mark, bank_path, seed)
+    session = build_session(count, duration, pass_mark, bank_path, seed, variant)
     session_path = EXAMS_DIR / f"{session['exam_id']}.json"
     session_path.write_text(json.dumps(session, indent=2), encoding="utf-8")
 
@@ -195,7 +223,10 @@ def cmd_new(args: list[str]) -> None:
 
     print(f"Wrote session: {session_path.resolve().relative_to(REPO_ROOT)}")
     print(f"Rendered exam: {out_path.resolve().relative_to(REPO_ROOT)}")
-    print(f"{len(session['questions'])} questions, {session['duration_minutes']} minutes, pass mark {session['pass_mark_pct']}%.")
+    print(
+        f"{len(session['questions'])} questions, {session['duration_minutes']} minutes, "
+        f"pass mark {session['pass_mark_pct']}%, variant {session['variant']}."
+    )
 
 
 def cmd_render(args: list[str]) -> None:
