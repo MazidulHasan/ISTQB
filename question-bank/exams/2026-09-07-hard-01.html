@@ -1,0 +1,1931 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ISTQB CTFL v4.0.1 - Hard Mock Exam — ISTQB Mock Exam</title>
+<meta name="generator" content="tools/render_exam.py — do not hand-edit, regenerate from the session .json instead">
+<style>
+/* ISTQB CTFL Mock Exam — self-contained styling, inlined by tools/render_exam.py */
+
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --surface-2: #eef0f4;
+  --border: #d8dbe2;
+  --text: #1b1f27;
+  --text-muted: #5b6270;
+  --accent: #2f5fd6;
+  --accent-contrast: #ffffff;
+  --green: #1a8a4a;
+  --green-bg: #e6f6ec;
+  --red: #c9302c;
+  --red-bg: #fbe9e8;
+  --amber: #b8790a;
+  --amber-bg: #fdf1de;
+  --marker: #6b4ecf;
+  --marker-bg: #eee9ff;
+  --shadow: 0 1px 3px rgba(20, 24, 34, 0.08), 0 1px 2px rgba(20, 24, 34, 0.06);
+  --radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14161c;
+    --surface: #1c1f28;
+    --surface-2: #262a35;
+    --border: #383d4a;
+    --text: #e7e9ee;
+    --text-muted: #9aa1b0;
+    --accent: #6d93f2;
+    --accent-contrast: #0d1117;
+    --green: #4fd48a;
+    --green-bg: #113321;
+    --red: #f28b8b;
+    --red-bg: #3a1c1c;
+    --amber: #f2c069;
+    --amber-bg: #3a2e12;
+    --marker: #b7a6ff;
+    --marker-bg: #2c2544;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14161c;
+  --surface: #1c1f28;
+  --surface-2: #262a35;
+  --border: #383d4a;
+  --text: #e7e9ee;
+  --text-muted: #9aa1b0;
+  --accent: #6d93f2;
+  --accent-contrast: #0d1117;
+  --green: #4fd48a;
+  --green-bg: #113321;
+  --red: #f28b8b;
+  --red-bg: #3a1c1c;
+  --amber: #f2c069;
+  --amber-bg: #3a2e12;
+  --marker: #b7a6ff;
+  --marker-bg: #2c2544;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+}
+body { overflow-x: hidden; }
+button { font-family: inherit; }
+.hidden { display: none !important; }
+
+/* ---------- Top bar (persistent) ---------- */
+.exam-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.exam-topbar .exam-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.exam-topbar .spacer { flex: 1; }
+.icon-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  padding: 6px 10px;
+  font-size: 1rem;
+  line-height: 1;
+}
+.icon-btn:hover { background: var(--surface-2); }
+
+.timer {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  min-width: 84px;
+  text-align: center;
+}
+.timer.warn { color: var(--amber); border-color: var(--amber); background: var(--amber-bg); }
+.timer.critical { color: var(--red); border-color: var(--red); background: var(--red-bg); animation: pulse 1s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+.q-counter { font-size: 0.9rem; color: var(--text-muted); white-space: nowrap; }
+
+/* ---------- Centered card shell (start / results) ---------- */
+.center-shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px;
+}
+.card + .card { margin-top: 20px; }
+
+.start-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+.start-sub { color: var(--text-muted); margin: 0 0 24px; }
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 14px;
+  margin: 20px 0 26px;
+}
+.meta-tile {
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+.meta-tile .num { font-size: 1.5rem; font-weight: 700; display: block; }
+.meta-tile .label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+
+.rules-list { margin: 0 0 26px; padding-left: 20px; line-height: 1.65; color: var(--text); }
+.rules-list li { margin-bottom: 6px; }
+
+.big-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 14px 28px;
+  cursor: pointer;
+  width: 100%;
+}
+.big-btn:hover { filter: brightness(1.07); }
+.big-btn.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.resume-banner {
+  background: var(--amber-bg);
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 0.92rem;
+}
+
+/* ---------- Exam layout ---------- */
+.exam-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  min-height: calc(100vh - 53px);
+}
+@media (max-width: 820px) {
+  .exam-layout { grid-template-columns: 1fr; }
+  .navigator { order: 2; border-top: 1px solid var(--border); border-right: none; }
+  .learn-btn { margin-left: 0; }
+  .marker-chip,
+  .sol-marker-item { grid-template-columns: 1fr; }
+}
+
+.navigator {
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px 12px;
+  overflow-y: auto;
+}
+.navigator h4 { margin: 0 0 10px; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+.nav-btn {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-btn.answered { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
+.nav-btn.current { outline: 2px solid var(--accent); outline-offset: 2px; }
+.nav-btn.flagged::after {
+  content: "";
+  position: absolute;
+  top: -3px; right: -3px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--amber);
+  border: 1px solid var(--surface);
+}
+.nav-btn.marked::before {
+  content: "";
+  position: absolute;
+  left: -3px; bottom: -3px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--marker);
+  border: 1px solid var(--surface);
+}
+.nav-legend { margin-top: 14px; font-size: 0.76rem; color: var(--text-muted); line-height: 1.9; }
+.nav-legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.nav-legend .dot.answered { background: var(--accent); }
+.nav-legend .dot.flagged { background: var(--amber); }
+.nav-legend .dot.marked { background: var(--marker); }
+.nav-legend .dot.unanswered { background: var(--surface-2); border: 1px solid var(--border); }
+
+.exam-main {
+  padding: 28px 32px 100px;
+  max-width: 780px;
+  margin: 0 auto;
+  width: 100%;
+}
+.q-progress-bar {
+  height: 5px;
+  background: var(--surface-2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.q-progress-fill { height: 100%; background: var(--accent); }
+
+.q-header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.q-num-badge {
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: var(--surface-2);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+.learn-btn {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.learn-btn:hover { background: var(--surface-2); color: var(--text); }
+.learn-btn.active {
+  color: var(--marker);
+  border-color: var(--marker);
+  background: var(--marker-bg);
+}
+.flag-btn {
+  margin-left: 0;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.flag-btn.active { color: var(--amber); border-color: var(--amber); background: var(--amber-bg); }
+
+.q-text {
+  font-size: 1.12rem;
+  line-height: 1.6;
+  margin: 0 0 22px;
+  white-space: pre-line;
+}
+
+.options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+.option-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 13px 16px;
+  cursor: pointer;
+  background: var(--surface);
+}
+.option-row:hover { background: var(--surface-2); }
+.option-row.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.option-row input { margin-top: 3px; flex-shrink: 0; }
+.option-letter { font-weight: 700; flex-shrink: 0; width: 1.2em; }
+.option-text { line-height: 1.55; }
+
+.marker-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--marker) 5%, var(--surface));
+  padding: 12px 14px;
+  margin: 0 0 18px;
+}
+.marker-panel.has-items {
+  border-color: color-mix(in srgb, var(--marker) 55%, var(--border));
+}
+.marker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.marker-title {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--marker);
+}
+.marker-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.marker-add-btn,
+.marker-mini-btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 7px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.marker-add-btn {
+  border-color: var(--marker);
+  color: var(--marker);
+  font-weight: 700;
+}
+.marker-add-btn:hover,
+.marker-mini-btn:hover { background: var(--surface-2); }
+.marker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.marker-chip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 9px 10px;
+}
+.marker-chip-text { min-width: 0; }
+.marker-chip-text strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+.marker-chip-text span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.marker-mini-btn.danger { color: var(--red); }
+
+.scratch-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  resize: both;
+  overflow: auto;
+  min-width: 240px;
+  max-width: 100%;
+  min-height: 150px;
+  max-height: 80vh;
+}
+.scratch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.scratch-label {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.scratch-postoggle { display: flex; gap: 4px; flex-shrink: 0; }
+.postoggle-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  font-size: 0.82rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.postoggle-btn:hover { background: var(--border); color: var(--text); }
+.postoggle-btn.active { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
+.scratch-input {
+  display: block;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 80px;
+  resize: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 12px;
+  font: 0.95rem/1.5 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+.scratch-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Docked to the right edge of the viewport, between the topbar and the footer.
+   Height/width default to filling the column but are user-resizable via the
+   native corner grip (bottom-right), clamped to the visible viewport space. */
+.scratch-panel.pos-right {
+  position: fixed;
+  top: 53px;
+  right: 0;
+  width: 320px;
+  height: calc(100vh - 117px);
+  min-width: 260px;
+  max-width: calc(100vw - 40px);
+  min-height: 160px;
+  max-height: calc(100vh - 117px);
+  border-radius: 0;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  z-index: 18;
+}
+.exam-layout.notes-right-open .exam-main {
+  max-width: none;
+  margin: 0;
+  padding-right: 340px;
+}
+.exam-footer.notes-right-open { right: 320px; }
+@media (max-width: 820px) {
+  .scratch-panel.pos-right {
+    position: static;
+    top: auto; right: auto;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    min-height: 150px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin: 16px 20px 24px;
+  }
+  .exam-layout.notes-right-open .exam-main { padding-right: 32px; }
+  .exam-footer.notes-right-open { right: 0; }
+}
+
+/* Free-floating, draggable anywhere on screen; position and size persist via localStorage. */
+.scratch-panel.pos-float {
+  position: fixed;
+  right: 24px;
+  bottom: 90px;
+  width: 320px;
+  max-width: calc(100vw - 40px);
+  max-height: 55vh;
+  box-shadow: 0 10px 34px rgba(20, 24, 34, 0.28);
+  z-index: 40;
+}
+.scratch-panel.pos-float .scratch-header { cursor: grab; touch-action: none; }
+.scratch-panel.pos-float.dragging .scratch-header { cursor: grabbing; }
+.scratch-panel.pos-float.dragging { box-shadow: 0 16px 44px rgba(20, 24, 34, 0.42); }
+
+.exam-footer {
+  position: fixed;
+  bottom: 0;
+  left: 220px;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 12px 32px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  z-index: 15;
+}
+@media (max-width: 820px) { .exam-footer { left: 0; } }
+.nav-action-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+.nav-action-btn:hover { background: var(--border); }
+.nav-action-btn:disabled { opacity: 0.4; cursor: default; }
+.submit-btn {
+  margin-left: auto;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.submit-btn:hover { filter: brightness(1.08); }
+
+/* ---------- Modal ---------- */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10, 12, 18, 0.55);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 26px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow);
+}
+.modal h3 { margin: 0 0 12px; }
+.modal-stats { display: flex; gap: 14px; margin: 16px 0 22px; flex-wrap: wrap; }
+.modal-stat { flex: 1; text-align: center; background: var(--surface-2); border-radius: 8px; padding: 10px; }
+.modal-stat .n { font-size: 1.3rem; font-weight: 700; display: block; }
+.modal-stat .l { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; }
+.modal-actions { display: flex; gap: 10px; }
+.modal-actions button { flex: 1; }
+.marker-modal { max-width: 520px; }
+.marker-modal p {
+  color: var(--text-muted);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+.marker-label {
+  display: block;
+  margin: 12px 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.marker-field,
+.marker-textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 10px 11px;
+  font: 0.95rem/1.45 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.marker-textarea { resize: vertical; min-height: 96px; }
+.marker-field:focus,
+.marker-textarea:focus {
+  outline: 2px solid var(--marker);
+  outline-offset: 2px;
+}
+.marker-selected {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--marker);
+  border-radius: 8px;
+  background: var(--marker-bg);
+  color: var(--text);
+  padding: 9px 11px;
+  font-size: 0.86rem;
+}
+
+/* ---------- Results ---------- */
+.score-circle {
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  margin: 8px auto 18px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 8px solid var(--surface-2);
+}
+.score-circle.pass { border-color: var(--green); color: var(--green); }
+.score-circle.fail { border-color: var(--red); color: var(--red); }
+.score-circle .pct { font-size: 2rem; font-weight: 800; }
+.score-circle .frac { font-size: 0.85rem; color: var(--text-muted); }
+
+.pass-banner {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.pass-banner.pass { color: var(--green); }
+.pass-banner.fail { color: var(--red); }
+.pass-mark-note { text-align: center; color: var(--text-muted); font-size: 0.88rem; margin-bottom: 24px; }
+
+.breakdown-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+.breakdown-table th, .breakdown-table td {
+  text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); font-size: 0.9rem;
+}
+.breakdown-table th { color: var(--text-muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
+.mini-bar-track { background: var(--surface-2); border-radius: 4px; height: 8px; width: 100px; overflow: hidden; }
+.mini-bar-fill { height: 100%; background: var(--accent); }
+
+.results-actions { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+.results-actions button, .results-actions a { flex: 1; min-width: 180px; text-align: center; text-decoration: none; }
+
+/* ---------- Solutions ---------- */
+.solutions-wrap { max-width: 860px; margin: 0 auto; padding: 36px 20px 80px; }
+.solutions-top-actions { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+.sol-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin-bottom: 16px;
+}
+.sol-item.correct { border-left: 4px solid var(--green); }
+.sol-item.incorrect { border-left: 4px solid var(--red); }
+.sol-item.unanswered { border-left: 4px solid var(--text-muted); }
+.sol-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.sol-badge {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+  padding: 3px 9px; border-radius: 20px;
+}
+.sol-badge.correct { background: var(--green-bg); color: var(--green); }
+.sol-badge.incorrect { background: var(--red-bg); color: var(--red); }
+.sol-badge.unanswered { background: var(--surface-2); color: var(--text-muted); }
+.sol-tag { font-size: 0.76rem; color: var(--text-muted); }
+.sol-q { font-weight: 600; margin: 0 0 14px; white-space: pre-line; line-height: 1.55; }
+.sol-note {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+}
+.sol-note strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.sol-note p {
+  margin: 0;
+  white-space: pre-line;
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.sol-marker-box {
+  background: var(--marker-bg);
+  border: 1px solid color-mix(in srgb, var(--marker) 55%, var(--border));
+  border-radius: 8px;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+}
+.sol-marker-box > strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--marker);
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.sol-marker-item {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.36fr) minmax(0, 1fr);
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  padding: 5px 0;
+}
+.sol-marker-item + .sol-marker-item { border-top: 1px solid color-mix(in srgb, var(--marker) 30%, transparent); }
+.sol-marker-term { font-weight: 700; }
+.sol-marker-note { color: var(--text-muted); }
+.sol-option {
+  display: flex; gap: 10px; padding: 8px 12px; border-radius: 6px; margin-bottom: 6px; font-size: 0.92rem; line-height: 1.5;
+  border: 1px solid transparent;
+}
+.sol-option.is-correct { background: var(--green-bg); border-color: var(--green); }
+.sol-option.is-your-wrong { background: var(--red-bg); border-color: var(--red); }
+.sol-option-mark { font-weight: 700; flex-shrink: 0; }
+.sol-block { margin-top: 12px; font-size: 0.92rem; line-height: 1.6; }
+.sol-block h5 { margin: 14px 0 4px; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); }
+.sol-block p { margin: 0 0 6px; }
+
+.jump-nav { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 22px; }
+.jump-nav a {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 6px; font-size: 0.75rem;
+  text-decoration: none; border: 1px solid var(--border); color: var(--text);
+}
+.jump-nav a.correct { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+.jump-nav a.incorrect { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+
+.footer-note { text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 30px; }
+.footer-note + .footer-note { margin-top: 8px; }
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.__EXAM__ = {"examId": "2026-09-07-hard-01", "title": "ISTQB CTFL v4.0.1 - Hard Mock Exam", "generated": "2026-09-07", "durationMinutes": 75, "passMarkPct": 65, "bankVersion": 1, "variant": "hard", "questions": [{"id": "Q465", "chapter": "3.2", "topic": "Inspection Formality and Role Restrictions", "type": "E", "difficulty": "red", "question": "A regulated railway project wants the most formal review type for a signaling design. The author proposes to lead the review, act as scribe, and keep only informal verbal notes to save time.\n\nWhich part is NOT consistent with an inspection?", "options": {"A": "Using the most formal review type for a regulated, critical work product.", "B": "Collecting metrics to improve the SDLC and inspection process.", "C": "Following the complete generic review process.", "D": "Allowing the author to act as review leader or scribe."}, "correct": "D", "why_correct": "An inspection is the most formal review type, follows the complete generic review process, and collects metrics. In inspections, the author cannot act as the review leader or scribe.", "option_notes": {"A": "Consistent. Critical and regulated contexts often justify high formality.", "B": "Consistent. Metrics are collected in inspections.", "C": "Consistent. Inspections follow the complete generic process.", "D": "Not consistent (the answer). The author cannot be review leader or scribe in an inspection."}, "distractor_note": "The stem adds several inspection-like clues; the role restriction is the small but decisive detail.", "alt_wording": "Which proposed role assignment violates inspection guidance?"}, {"id": "Q488", "chapter": "5.1", "topic": "Testing Quadrants Classification", "type": "C", "difficulty": "red", "question": "An Agile team maps tests into quadrants. Which mapping is correct?", "options": {"A": "Q1: technology-facing tests that support the team, such as component and component integration tests; Q3: business-facing tests that critique the product, such as exploratory, usability, and user acceptance testing.", "B": "Q1: business-facing acceptance examples; Q3: technology-facing smoke and performance tests.", "C": "Q2: technology-facing component tests; Q4: business-facing user story examples.", "D": "Q2: all manual tests; Q4: all automated tests, regardless of purpose or audience."}, "correct": "A", "why_correct": "Testing quadrants combine two axes: business/technology facing and supporting the team/critiquing the product. Q1 is technology-facing/supporting. Q3 is business-facing/critiquing.", "option_notes": {"A": "Correct. It maps the quadrants and examples accurately.", "B": "Incorrect. It swaps quadrant meanings.", "C": "Incorrect. Q2 is business-facing/supporting; Q4 is technology-facing/critiquing.", "D": "Incorrect. The quadrants are not simply manual versus automated."}, "distractor_note": "Automation often appears in Q1 and Q4, but automation is not the axis that defines the quadrants.", "alt_wording": "Which testing quadrant contains which kinds of tests?"}, {"id": "Q490", "chapter": "5.2", "topic": "Product Risk Control - Mitigation and Monitoring", "type": "D", "difficulty": "red", "question": "Risk analysis for an online pharmacy identifies high risk that dosage warnings may be missed by users. The team assigns an experienced healthcare tester, adds usability reviews, designs targeted tests for warning visibility, and tracks whether residual risk decreases after each build.\n\nWhich statement BEST describes these activities?", "options": {"A": "They are product risk control: mitigation actions plus monitoring whether those actions are effective and whether new risks emerge.", "B": "They are only risk identification because no risk response can occur until after release.", "C": "They are project risk transfer because responsibility is moved from testers to users.", "D": "They are configuration management because test items are uniquely identified."}, "correct": "A", "why_correct": "Product risk control consists of risk mitigation and risk monitoring. Mitigation may include skilled testers, appropriate independence, reviews, suitable techniques, coverage levels, test types, dynamic testing, and regression testing. Monitoring checks effectiveness and emerging risks.", "option_notes": {"A": "Correct. It captures both mitigation and monitoring.", "B": "Incorrect. Risk responses can and should occur during testing.", "C": "Incorrect. Nothing transfers the risk; the team is reducing and monitoring it.", "D": "Incorrect. CM supports identification/control of work products, not this risk response."}, "distractor_note": "The word 'tracks' can suggest CM, but here the object being tracked is residual risk and mitigation effectiveness.", "alt_wording": "Which activities are examples of product risk mitigation and monitoring?"}, {"id": "Q460", "chapter": "2.2", "topic": "Component Integration vs System Integration Testing", "type": "B", "difficulty": "red", "question": "An insurance platform has already tested its premium-calculation service and claims service individually. The next test focuses on whether these two internal services exchange policy IDs correctly. A later test focuses on whether the platform correctly communicates with an external national identity-verification service.\n\nWhich classification is MOST accurate?", "options": {"A": "Internal service interaction: component integration testing; external identity-service interface: system integration testing.", "B": "Internal service interaction: system testing; external identity-service interface: component testing.", "C": "Both are acceptance testing because they involve business workflows.", "D": "Both are component testing because every interface is tested through a component."}, "correct": "A", "why_correct": "Component integration testing focuses on interfaces and interactions between components. System integration testing focuses on interfaces between the system under test and other systems or external services.", "option_notes": {"A": "Correct. It separates internal component interactions from external system interfaces.", "B": "Incorrect. System testing covers overall system behavior; component testing tests components in isolation.", "C": "Incorrect. Business relevance alone does not make the level acceptance testing.", "D": "Incorrect. Interface tests can be integration tests, not just isolated component tests."}, "distractor_note": "The word 'service' can blur levels; ask whether the interface is inside the system or between systems.", "alt_wording": "Which test level checks internal component interfaces versus external system interfaces?"}, {"id": "Q456", "chapter": "1.4", "topic": "Traceability for Coverage, Change Impact and Reporting", "type": "D", "difficulty": "red", "question": "A regulator asks a medical-device team to show which safety requirements have been tested, which test results relate to each safety risk, and which defects remain open against those risks. The team also wants to assess the impact of a changed requirement.\n\nWhich answer BEST explains why traceability matters here?", "options": {"A": "Traceability links test basis elements, risks, testware, results, and defects, supporting coverage evaluation, residual-risk assessment, audits, and change impact analysis.", "B": "Traceability replaces the need for test monitoring because linked artifacts automatically prove that all testing objectives have been met.", "C": "Traceability is mainly useful after release, because during testing it would slow down defect reporting and should be avoided.", "D": "Traceability means each tester must personally remember which requirement each test was intended to cover."}, "correct": "A", "why_correct": "ISTQB emphasizes maintaining traceability between test basis elements, related testware, test results, and defects. This supports coverage, residual risk, audits, impact analysis, and clearer reporting.", "option_notes": {"A": "Correct. It includes the major syllabus benefits.", "B": "Incorrect. Traceability supports monitoring and control; it does not replace them or prove objectives are met by itself.", "C": "Incorrect. Traceability is valuable throughout the test process.", "D": "Incorrect. Traceability should be recorded in work products/tools, not kept only in memory."}, "distractor_note": "B overclaims: trace links provide evidence, but evidence still needs interpretation against objectives and exit criteria.", "alt_wording": "Why maintain links from requirements and risks to tests, results, and defects?"}, {"id": "Q459", "chapter": "2.1", "topic": "TDD, ATDD and BDD Distinctions", "type": "C", "difficulty": "red", "question": "A team describes three practices:\n- Practice 1: developers write a failing low-level test, write code to pass it, then refactor.\n- Practice 2: customers, testers, and developers agree on acceptance examples before implementing a story.\n- Practice 3: desired behavior is captured in natural-language Given/When/Then scenarios that can be translated into executable tests.\n\nWhich mapping is correct?", "options": {"A": "1 = TDD, 2 = ATDD, 3 = BDD", "B": "1 = ATDD, 2 = BDD, 3 = TDD", "C": "1 = BDD, 2 = TDD, 3 = ATDD", "D": "1 = TDD, 2 = BDD, 3 = ATDD"}, "correct": "A", "why_correct": "TDD directs coding through tests. ATDD derives acceptance tests from acceptance criteria with multiple perspectives before implementation. BDD expresses desired behavior in natural language, commonly Given/When/Then.", "option_notes": {"A": "Correct. Each practice matches the syllabus characterization.", "B": "Incorrect. ATDD is acceptance-criteria oriented, not the low-level developer test cycle.", "C": "Incorrect. BDD is the natural-language behavior format, not the developer red/green/refactor loop.", "D": "Incorrect. It swaps ATDD and BDD for practices 2 and 3."}, "distractor_note": "ATDD and BDD can overlap in real projects, but the syllabus distinguishes acceptance examples from behavior-expression style.", "alt_wording": "Which test-first approach is described by each scenario?"}, {"id": "Q483", "chapter": "5.1", "topic": "Entry Criteria, Exit Criteria, Definition of Ready and Done", "type": "C", "difficulty": "red", "question": "An Agile team says a user story may enter development only when acceptance criteria, test data needs, and dependencies are clear. It says the story may be considered releasable only when planned tests have run, critical defects are resolved or accepted, and required coverage is achieved.\n\nWhich mapping is correct?", "options": {"A": "The first set acts like entry criteria/Definition of Ready; the second set acts like exit criteria/Definition of Done.", "B": "The first set is exit criteria/Definition of Done; the second set is entry criteria/Definition of Ready.", "C": "Both sets are entry criteria because they are defined before work starts.", "D": "Both sets are exit criteria because Agile does not use entry criteria."}, "correct": "A", "why_correct": "Entry criteria define preconditions for starting an activity, often called Definition of Ready for user stories. Exit criteria define what must be achieved to declare completion, often called Definition of Done in Agile.", "option_notes": {"A": "Correct. Preconditions map to entry/Ready; completion conditions map to exit/Done.", "B": "Incorrect. It reverses the concepts.", "C": "Incorrect. When criteria are defined does not determine whether they govern start or completion.", "D": "Incorrect. Agile commonly uses analogous Ready and Done criteria."}, "distractor_note": "C confuses planning-time definition with lifecycle purpose.", "alt_wording": "Which criteria describe starting conditions versus completion conditions?"}, {"id": "Q486", "chapter": "5.1", "topic": "Additional Coverage Prioritization", "type": "H", "difficulty": "red", "question": "A suite has four test cases covering requirements:\n- T1 covers R1, R2, R3\n- T2 covers R3, R4, R5\n- T3 covers R5, R6\n- T4 covers R2, R6, R7\n\nUsing additional coverage prioritization and choosing the first test with the highest total coverage, which ordering is BEST?", "options": {"A": "T1, T2, T4, T3", "B": "T1, T3, T2, T4", "C": "T3, T4, T2, T1", "D": "T4, T1, T2, T3"}, "correct": "A", "why_correct": "T1 is chosen first with three requirements. T2 then adds R4 and R5 (two new). T4 then adds R6 and R7 (two new). T3 adds no new requirements after T1, T2, and T4, so it is last.", "option_notes": {"A": "Correct. It maximizes new coverage at each step using the stated first choice.", "B": "Incorrect. T3 adds only R5 and R6 after T1, while T2 adds R4 and R5; then T4 would still add R7.", "C": "Incorrect. T3 does not have the highest initial total coverage.", "D": "Incorrect. T4 ties T1 initially, but the question specifies choosing T1 first."}, "distractor_note": "This tests whether you recalculate uncovered items after each selected test rather than sorting once by total size.", "alt_wording": "Apply additional coverage prioritization to order test execution."}, {"id": "Q464", "chapter": "3.2", "topic": "Review Process Activities", "type": "D", "difficulty": "red", "question": "A formal review is planned for a safety requirement. The participants already have the document, but reviewers have not yet individually examined it. A project manager wants to jump straight to deciding defect ownership in a meeting.\n\nWhich review activity is being skipped?", "options": {"A": "Individual review", "B": "Fixing and reporting", "C": "Review initiation", "D": "Planning"}, "correct": "A", "why_correct": "In individual review, each reviewer examines the work product and records anomalies, recommendations, and questions before communication and analysis. The scenario says access/preparation exists but individual examination has not happened.", "option_notes": {"A": "Correct. Reviewers have not yet performed their own assessment.", "B": "Incorrect. Fixing and reporting happens after anomalies are analyzed and actions decided.", "C": "Incorrect. Review initiation is about ensuring participants have access, understand roles, and are prepared to start.", "D": "Incorrect. Planning defines scope, objectives, exit criteria, support material, effort, and timeframes; the skipped step described is later."}, "distractor_note": "C is close because it mentions preparation, but the stem says the practical readiness items are already handled.", "alt_wording": "Which generic review activity occurs after initiation but before communication and analysis?"}, {"id": "Q484", "chapter": "5.1", "topic": "Three-Point Estimation Calculation", "type": "H", "difficulty": "red", "question": "For testing a new fraud-alert workflow, experts provide three-point estimates: optimistic a = 8 person-days, most likely m = 14 person-days, pessimistic b = 32 person-days.\n\nUsing E = (a + 4m + b) / 6 and SD = (b - a) / 6, which result is correct?", "options": {"A": "E = 16 person-days; SD = 4 person-days", "B": "E = 18 person-days; SD = 24 person-days", "C": "E = 14 person-days; SD = 4 person-days", "D": "E = 16 person-days; SD = 6 person-days"}, "correct": "A", "why_correct": "E = (8 + 4*14 + 32) / 6 = (8 + 56 + 32) / 6 = 96 / 6 = 16. SD = (32 - 8) / 6 = 24 / 6 = 4.", "option_notes": {"A": "Correct. Both formula applications are accurate.", "B": "Incorrect. It miscalculates both the weighted mean and SD.", "C": "Incorrect. It uses the most likely estimate as E and ignores weighting.", "D": "Incorrect. E is correct, but SD is not."}, "distractor_note": "C tempts anyone who treats the most likely estimate as the final estimate.", "alt_wording": "Calculate the weighted three-point estimate and standard deviation."}, {"id": "Q474", "chapter": "4.3", "topic": "Statement Coverage Limitations", "type": "D", "difficulty": "red", "question": "A developer shows that every executable statement in a pricing function has run at least once during tests. However, one if-condition has only been exercised with the true outcome, never the false outcome.\n\nWhich statement is BEST?", "options": {"A": "100% statement coverage may have been achieved, but it does not ensure all decision outcomes or branches have been tested.", "B": "100% statement coverage always implies 100% branch coverage.", "C": "Statement testing is invalid unless every path through the code has also been exercised.", "D": "If every statement executed once, all data-dependent defects must have been detected."}, "correct": "A", "why_correct": "Statement coverage measures exercised executable statements. It can reach 100% without exercising all branches or detecting data-dependent defects.", "option_notes": {"A": "Correct. It states the limitation exactly.", "B": "Incorrect. Branch coverage subsumes statement coverage, not the reverse.", "C": "Incorrect. Statement testing has value even though it is weaker than path-oriented criteria.", "D": "Incorrect. Executing a statement once does not guarantee all data-dependent defects are revealed."}, "distractor_note": "B reverses the subsumption relationship, one of the favorite white-box traps.", "alt_wording": "What does 100% statement coverage fail to guarantee?"}, {"id": "Q475", "chapter": "4.3", "topic": "Branch Coverage Calculation and Subsumption", "type": "H", "difficulty": "red", "question": "A control-flow graph for a fraud-scoring component has 16 branches, including unconditional and conditional branches. A test suite exercises 12 branches and executes all executable statements at least once.\n\nWhich statement is correct?", "options": {"A": "Branch coverage is 75%; 100% statement coverage does not imply 100% branch coverage.", "B": "Branch coverage is 100% because all statements were executed.", "C": "Branch coverage is 12% because only conditional branches count.", "D": "Branch coverage cannot be measured unless requirements coverage is also known."}, "correct": "A", "why_correct": "Branch coverage is exercised branches divided by total branches: 12/16 = 75%. Branch coverage includes unconditional and conditional branches. 100% statement coverage does not guarantee 100% branch coverage.", "option_notes": {"A": "Correct. It calculates coverage and keeps the subsumption relation straight.", "B": "Incorrect. Statement coverage alone does not prove all branches were exercised.", "C": "Incorrect. Branches include unconditional and conditional transfers of control.", "D": "Incorrect. Branch coverage is measured from the control-flow graph, not requirements coverage."}, "distractor_note": "B uses a true fact from the stem to draw a false conclusion.", "alt_wording": "Calculate branch coverage and identify whether statement coverage is enough."}, {"id": "Q458", "chapter": "2.1", "topic": "Shift Left Without Neglecting Later Testing", "type": "D", "difficulty": "red", "question": "A team says it has adopted shift left because testers now review user stories, write tests before coding, and run static analysis in CI. The team therefore plans to cancel system testing and late non-functional testing.\n\nWhich response is MOST consistent with CTFL v4.0.1?", "options": {"A": "The early activities are good examples of shift left, but shift left does not mean later testing should be neglected.", "B": "This is not shift left, because shift left only means moving all test execution to acceptance testing.", "C": "This is correct, because early static analysis makes dynamic testing unnecessary.", "D": "Shift left applies only to sequential lifecycles and cannot be used with CI or Agile practices."}, "correct": "A", "why_correct": "Shift left means testing earlier in the SDLC, such as reviewing specifications, writing tests before code, using CI, static analysis, and early non-functional testing. It does not remove the need for appropriate later test levels/types.", "option_notes": {"A": "Correct. It recognizes both the value and the limit of shift left.", "B": "Incorrect. Shift left moves activities earlier, not later to acceptance.", "C": "Incorrect. Static analysis complements dynamic testing.", "D": "Incorrect. CI and Agile practices can support shift left."}, "distractor_note": "C is the overgeneralization trap: early testing saves effort later, but does not erase later risks.", "alt_wording": "Which statement correctly describes what shift left does and does not imply?"}, {"id": "Q468", "chapter": "4.2", "topic": "2-Value vs 3-Value Boundary Value Analysis", "type": "H", "difficulty": "red", "question": "A library app accepts a loan renewal count from 0 to 4 inclusive. Values below 0 and above 4 are invalid. Which set contains the 3-value BVA coverage items for the two boundaries of the valid partition?", "options": {"A": "-1, 0, 1, 3, 4, 5", "B": "0, 1, 4, 5", "C": "-1, 0, 4, 5", "D": "0, 2, 4"}, "correct": "A", "why_correct": "For 3-value BVA, each boundary value and both its closest neighbors are coverage items. The valid partition boundaries are 0 and 4, so the items are -1, 0, 1 and 3, 4, 5.", "option_notes": {"A": "Correct. It includes each boundary and both adjacent neighbors.", "B": "Incorrect. It omits -1 and 3.", "C": "Incorrect. This resembles 2-value BVA around the two boundaries.", "D": "Incorrect. It includes an internal value, not the required boundary neighbors."}, "distractor_note": "C is a close 2-value BVA answer; hard questions often hide which BVA variant is requested.", "alt_wording": "Which values achieve 3-value BVA for an inclusive valid range?"}, {"id": "Q452", "chapter": "1.1", "topic": "Testing and Debugging Across Static and Dynamic Testing", "type": "C", "difficulty": "red", "question": "During a requirements review, a tester identifies a contradiction between two business rules. Later, during system testing, another tester observes that submitting a renewal payment sometimes returns HTTP 500. Which TWO statements correctly distinguish testing from debugging in these situations?\n\nI. The review can directly find a defect without executing the software.\nII. The HTTP 500 failure must be reproduced, diagnosed, and fixed as part of debugging.\nIII. Confirmation testing is the activity of finding the code defect that caused the HTTP 500 failure.\nIV. Static testing must always include reproduction of a failure before a defect can be removed.", "options": {"A": "I and II", "B": "I and III", "C": "II and IV", "D": "III and IV"}, "correct": "A", "why_correct": "Static testing can directly detect defects in work products without execution. When dynamic testing triggers a failure, debugging is concerned with reproducing the failure, diagnosing the defect, and fixing it.", "option_notes": {"A": "Correct. It separates static defect detection from dynamic failure analysis and debugging.", "B": "Incorrect. Confirmation testing checks whether the fix resolved the defect; it is not the diagnosis activity.", "C": "Incorrect. II is true, but IV is false because static testing does not cause failures that need reproduction.", "D": "Incorrect. Both statements reverse or misuse ISTQB terminology."}, "distractor_note": "III is tempting because it happens after a fix, but finding the cause belongs to debugging; checking the fix belongs to confirmation testing.", "alt_wording": "Which statements correctly compare testing, debugging, and confirmation testing?"}, {"id": "Q455", "chapter": "1.4", "topic": "Testware by Test Activity", "type": "F", "difficulty": "red", "question": "A team is classifying testware for a payroll release. Which TWO classifications are correct according to the usual test activities?\n\nI. A prioritized list of test conditions belongs mainly to test analysis work products.\nII. A test execution schedule belongs mainly to test implementation work products.\nIII. A test completion report belongs mainly to test design work products.\nIV. A defect report from an executed test belongs mainly to test planning work products.", "options": {"A": "I and II", "B": "I and III", "C": "II and IV", "D": "III and IV"}, "correct": "A", "why_correct": "Test analysis produces test conditions. Test implementation includes organizing test cases into procedures/suites and arranging them in a test execution schedule.", "option_notes": {"A": "Correct. Both items are mapped to the activity that normally creates or organizes them.", "B": "Incorrect. A test completion report is a completion work product, not design.", "C": "Incorrect. II is true, but execution defect reports are test execution work products.", "D": "Incorrect. Both mappings are wrong."}, "distractor_note": "The hard part is separating design from implementation: test cases are designed, but procedures, suites, scripts, data, and execution schedule are implementation-heavy.", "alt_wording": "Which testware item is usually produced by which test activity?"}, {"id": "Q476", "chapter": "4.3", "topic": "White-Box Testing and Defects of Omission", "type": "D", "difficulty": "red", "question": "A team achieves 100% branch coverage of a tax module. Later, a customer reports that a required senior-citizen tax exemption was never implemented, so there was no code branch for it.\n\nWhich statement BEST explains the limitation shown?", "options": {"A": "White-box testing considers the implemented structure, so it may not reveal requirements that are missing from the implementation.", "B": "Branch coverage is useless because it never detects any defects in implemented code.", "C": "Black-box testing cannot detect omitted requirements either because it ignores code.", "D": "The branch coverage result must have been calculated incorrectly, because 100% branch coverage guarantees all requirements are implemented."}, "correct": "A", "why_correct": "White-box techniques take the software implementation into account and can measure structural coverage, but they may miss defects of omission where required behavior is not implemented at all.", "option_notes": {"A": "Correct. It states the syllabus weakness.", "B": "Incorrect. White-box testing can detect implemented-code defects and provide objective code coverage.", "C": "Incorrect. Black-box tests derived from requirements may detect missing required behavior.", "D": "Incorrect. Structural coverage does not guarantee requirements coverage."}, "distractor_note": "D confuses code coverage with coverage of the test basis.", "alt_wording": "Why can high structural coverage still miss an unimplemented requirement?"}, {"id": "Q470", "chapter": "4.2", "topic": "Decision Table Notation and Minimization", "type": "C", "difficulty": "red", "question": "In a decision table for a loan application, one rule says the applicant is under 18 and income is above $50,000. The business states that income is irrelevant whenever the applicant is under 18 because the loan is always rejected. Another rule combination is impossible because the same applicant cannot be both 'new customer' and 'existing customer.'\n\nWhich notation distinction is MOST accurate?", "options": {"A": "Use '-' when a condition is irrelevant for an outcome; use 'N/A' for an infeasible combination.", "B": "Use 'N/A' when a condition is irrelevant; use '-' only for actions that must occur.", "C": "Use '-' and 'N/A' interchangeably because both mean false.", "D": "Use 'X' for irrelevant conditions and a blank cell for infeasible combinations."}, "correct": "A", "why_correct": "In CTFL decision table notation, '-' means the condition value is irrelevant for the action outcome. 'N/A' means the condition combination is infeasible. 'X' indicates an action should occur.", "option_notes": {"A": "Correct. It applies the notation precisely.", "B": "Incorrect. It reverses and misuses the symbols.", "C": "Incorrect. Neither symbol simply means false.", "D": "Incorrect. X and blank are action notation, not condition irrelevance/infeasibility notation."}, "distractor_note": "C is dangerous because both symbols can reduce table complexity, but for different reasons.", "alt_wording": "What is the difference between '-' and 'N/A' in a decision table?"}, {"id": "Q466", "chapter": "4.1", "topic": "Classifying Test Technique Categories", "type": "F", "difficulty": "red", "question": "Which TWO statements correctly classify test techniques?\n\nI. Deriving tests from a state model of allowed screen transitions is a black-box technique.\nII. Designing tests to exercise branches in source code is a white-box technique.\nIII. Creating tests from a tester's memory of defects common in similar payment systems is a black-box technique because no code is used.\nIV. Using a checklist based on past production incidents is a white-box technique because it depends on internal experience.", "options": {"A": "I and II", "B": "I and III", "C": "II and IV", "D": "III and IV"}, "correct": "A", "why_correct": "State transition testing is a black-box technique based on specified behavior. Branch testing is a white-box technique based on internal structure. Error guessing and checklist-based testing are experience-based techniques.", "option_notes": {"A": "Correct. Both classifications match CTFL categories.", "B": "Incorrect. III describes error guessing, which is experience-based.", "C": "Incorrect. II is true, but IV describes checklist-based testing, an experience-based technique.", "D": "Incorrect. Both III and IV misclassify experience-based techniques."}, "distractor_note": "The absence of code does not automatically mean black-box; experience-based techniques also may avoid code.", "alt_wording": "Which examples are black-box, white-box, or experience-based?"}, {"id": "Q467", "chapter": "4.2", "topic": "Equivalence Partitioning - Each Choice Coverage", "type": "H", "difficulty": "red", "question": "A delivery-fee API has these independent input partitions:\n- Destination zone: Local, National, International\n- Customer status: Guest, Member\n- Parcel weight: Invalid light (<1 kg), Valid normal (1-20 kg), Invalid heavy (>20 kg)\n\nUsing Each Choice coverage for equivalence partitioning, what is the MINIMUM number of test cases needed to exercise every partition from every set at least once?", "options": {"A": "3", "B": "5", "C": "8", "D": "18"}, "correct": "A", "why_correct": "Each Choice coverage requires every partition in each set to appear at least once, but it does not require every combination. The largest partition set has 3 choices, so 3 test cases can cover all zone, status, and weight partitions by pairing values efficiently.", "option_notes": {"A": "Correct. Three tests can cover all 3 zones, both statuses, and all 3 weight partitions.", "B": "Incorrect. This adds partition counts in a way that is not required.", "C": "Incorrect. This resembles covering all individual listed partitions, but one test can cover one partition from each set.", "D": "Incorrect. This is full combination coverage, not Each Choice."}, "distractor_note": "D is tempting because 3 x 2 x 3 = 18, but Each Choice explicitly does not take combinations into account.", "alt_wording": "For multiple input partition sets, what is the minimum suite for Each Choice coverage?"}, {"id": "Q477", "chapter": "4.4", "topic": "Exploratory Testing Under Poor Specification", "type": "D", "difficulty": "red", "question": "A team inherits a warehouse handheld-scanner app with poor documentation and only two days before a pilot. An experienced tester proposes time-boxed sessions guided by charters, designing and executing tests while learning the product, then debriefing stakeholders.\n\nWhich technique is MOST directly described?", "options": {"A": "Exploratory testing, possibly using a session-based approach.", "B": "Decision table testing, because business rules are undocumented.", "C": "Statement testing, because no requirements are available.", "D": "Confirmation testing, because the tester will confirm whatever is found."}, "correct": "A", "why_correct": "Exploratory testing combines learning, test design, execution, and evaluation. Session-based exploratory testing uses time boxes, charters, and debriefings.", "option_notes": {"A": "Correct. The scenario contains the key exploratory testing cues.", "B": "Incorrect. Decision tables require modeled combinations of conditions and actions; the scenario does not describe that.", "C": "Incorrect. Statement testing is white-box and based on executable statements.", "D": "Incorrect. Confirmation testing checks whether a known defect has been fixed."}, "distractor_note": "Time pressure alone does not define the technique; the simultaneous learning/design/execution plus charter does.", "alt_wording": "Which experience-based technique is useful with inadequate specifications and time pressure?"}, {"id": "Q461", "chapter": "2.2", "topic": "Confirmation Testing vs Regression Testing", "type": "D", "difficulty": "red", "question": "A defect in a shopping cart discount calculation is fixed. The tester first repeats the exact scenario that previously failed and confirms the discount is now correct. Then the team runs a suite covering checkout totals, tax calculation, loyalty points, and invoice generation.\n\nWhich statement is BEST?", "options": {"A": "The repeated failed scenario is confirmation testing; the broader suite is regression testing.", "B": "The repeated failed scenario is regression testing; the broader suite is confirmation testing.", "C": "Both activities are confirmation testing because they happen after a defect fix.", "D": "Both activities are debugging because they happen after a failure was observed."}, "correct": "A", "why_correct": "Confirmation testing checks whether the original defect was fixed. Regression testing checks whether a change caused adverse consequences elsewhere in the same component, system, connected systems, or environment.", "option_notes": {"A": "Correct. It matches the purpose of each activity.", "B": "Incorrect. It reverses the definitions.", "C": "Incorrect. Not all post-fix testing is confirmation testing.", "D": "Incorrect. Debugging is reproduction, diagnosis, and fixing, not checking results after the fix."}, "distractor_note": "C is tempting because both occur after a change, but the scope and objective differ.", "alt_wording": "Which post-change activity confirms the fix, and which checks for side effects?"}, {"id": "Q457", "chapter": "1.5", "topic": "Independence of Testing Benefits and Drawbacks", "type": "E", "difficulty": "red", "question": "A fintech product owner proposes that all testing should be moved to an external independent test team because 'independent testers always find all important defects and remove the need for developers to test their own work.'\n\nWhich statement is NOT a valid interpretation of test independence?", "options": {"A": "Independence can reduce author bias and bring a different perspective to defect detection.", "B": "A high level of independence may create isolation or communication delays if collaboration is poor.", "C": "Independent testing guarantees that all important defects will be found and developers no longer need testing skills.", "D": "The appropriate level of independence depends on context, including risk, regulation, skills, and lifecycle."}, "correct": "C", "why_correct": "Independence has benefits and drawbacks, but it does not guarantee complete defect detection and does not remove quality responsibility from developers or the team.", "option_notes": {"A": "Valid. Reduced bias is a key benefit.", "B": "Valid. Isolation and communication problems are recognized drawbacks.", "C": "Invalid (the answer). It overstates independence and contradicts whole-team quality responsibility.", "D": "Valid. Independence is context dependent."}, "distractor_note": "C sounds decisive, but ISTQB rarely treats one organizational choice as a guarantee.", "alt_wording": "Which claim about independent testing is false?"}, {"id": "Q479", "chapter": "4.4", "topic": "Error Guessing and Fault Attacks", "type": "G", "difficulty": "red", "question": "A tester of an API gateway creates tests for missing parameters, wrong parameter types, incorrect initialization, and incompatible interface values because these categories have caused failures in similar systems before.\n\nWhich technique is being applied MOST directly?", "options": {"A": "Error guessing implemented through fault attacks.", "B": "Equivalence partitioning with Each Choice coverage.", "C": "Branch testing of conditional outcomes.", "D": "ATDD using acceptance examples."}, "correct": "A", "why_correct": "Error guessing anticipates errors, defects, and failures based on tester knowledge and experience. Fault attacks use lists of possible errors, defects, and failures to design tests that expose related defects or cause failures.", "option_notes": {"A": "Correct. The stem lists defect/failure categories derived from experience.", "B": "Incorrect. No equivalence partitions or Each Choice criterion are defined.", "C": "Incorrect. No code branches or control-flow graph are mentioned.", "D": "Incorrect. No acceptance criteria or pre-implementation examples are described."}, "distractor_note": "Missing/wrong parameters can be partitioned too, but the stem emphasizes experience-based lists of likely problems.", "alt_wording": "Which technique uses prior defect and failure knowledge to attack likely fault categories?"}, {"id": "Q469", "chapter": "4.2", "topic": "Boundary Value Analysis Coverage Calculation", "type": "H", "difficulty": "red", "question": "A form accepts ages from 18 to 65 inclusive. For 3-value BVA, the identified coverage items are 17, 18, 19, 64, 65, and 66. A current test suite uses ages 17, 18, 19, and 65.\n\nWhat is the 3-value BVA coverage?", "options": {"A": "4/6 = 66.7%", "B": "2/2 = 100%", "C": "4/4 = 100%", "D": "2/6 = 33.3%"}, "correct": "A", "why_correct": "3-value BVA coverage is measured as exercised boundary values and their neighbors divided by all identified boundary values and their neighbors. Four of six items are exercised: 17, 18, 19, and 65.", "option_notes": {"A": "Correct. Four out of six coverage items are covered.", "B": "Incorrect. It counts only the two boundary values and ignores their neighbors.", "C": "Incorrect. It incorrectly treats the exercised items as the denominator.", "D": "Incorrect. It counts only the exercised boundary values and ignores exercised neighbors."}, "distractor_note": "B would be tempting if this were only boundary-value presence, but 3-value BVA includes neighbors in the denominator.", "alt_wording": "Given exercised values, calculate 3-value BVA coverage."}, {"id": "Q453", "chapter": "1.2", "topic": "Root Cause, Error, Defect and Failure", "type": "B", "difficulty": "red", "question": "A junior analyst misunderstands a tax regulation because the training material is outdated. She writes a requirement saying VAT should be rounded before discounts are applied. A developer implements that requirement exactly. In production, some invoices show a total that is one cent too high.\n\nWhich mapping is MOST accurate?", "options": {"A": "Outdated training material: root cause; analyst misunderstanding: error; wrong requirement/code behavior: defect; incorrect invoice total: failure.", "B": "Outdated training material: failure; analyst misunderstanding: defect; wrong requirement/code behavior: root cause; incorrect invoice total: error.", "C": "Outdated training material: error; analyst misunderstanding: failure; wrong requirement/code behavior: defect; incorrect invoice total: root cause.", "D": "Outdated training material: defect; analyst misunderstanding: root cause; wrong requirement/code behavior: failure; incorrect invoice total: error."}, "correct": "A", "why_correct": "A root cause is the fundamental reason behind the problem. A human mistake is an error. The wrong requirement and implemented wrong behavior are defects in work products. The observed incorrect invoice total is a failure.", "option_notes": {"A": "Correct. It follows the chain root cause -> error -> defect -> failure.", "B": "Incorrect. A production symptom is the failure, not the training material.", "C": "Incorrect. A misunderstanding is not a system failure, and the invoice total is not the root cause.", "D": "Incorrect. It labels the observable wrong behavior as an error, but errors are human mistakes."}, "distractor_note": "Several options use everyday meanings of 'error' and 'failure'; ISTQB uses these words more precisely.", "alt_wording": "Given a causal chain, identify root cause, error, defect, and failure."}, {"id": "Q487", "chapter": "5.1", "topic": "Test Pyramid Granularity and Isolation", "type": "D", "difficulty": "red", "question": "A team redraws its test pyramid with many slow end-to-end UI tests at the bottom and a few fast isolated component tests at the top because 'business workflows matter most.'\n\nWhich statement is MOST accurate?", "options": {"A": "This reverses the usual pyramid idea: lower layers are smaller, more isolated, faster, and more numerous; higher layers are broader, less isolated, slower, and fewer.", "B": "This is correct because the pyramid always requires the most tests at the user-interface level.", "C": "The test pyramid defines exact mandatory CTFL test levels and their official names.", "D": "The pyramid is unrelated to test automation or effort allocation."}, "correct": "A", "why_correct": "The test pyramid supports automation and effort allocation by showing that lower-layer tests are small, isolated, fast, and numerous, while high-level end-to-end tests are slower, broader, less isolated, and fewer.", "option_notes": {"A": "Correct. It describes the relationship between granularity, isolation, speed, and quantity.", "B": "Incorrect. It reverses the usual model.", "C": "Incorrect. Layer names and numbers may differ.", "D": "Incorrect. Supporting automation and effort allocation is a purpose of the pyramid."}, "distractor_note": "Business importance does not automatically mean the largest number of tests should sit at the slowest layer.", "alt_wording": "What do the layers of the test pyramid imply about speed, isolation, and number of tests?"}, {"id": "Q489", "chapter": "5.2", "topic": "Project Risk vs Product Risk Classification", "type": "F", "difficulty": "red", "question": "Which TWO items are product risks rather than project risks?\n\nI. The encryption algorithm may expose customer data under certain input patterns.\nII. The test environment supplier may deliver the environment three weeks late.\nIII. The mobile app may be too slow on older devices, causing users to abandon checkout.\nIV. Two senior testers may be reassigned, reducing available skills for the release.", "options": {"A": "I and III", "B": "I and IV", "C": "II and III", "D": "II and IV"}, "correct": "A", "why_correct": "Product risks relate to product quality characteristics and possible negative product consequences, such as security vulnerabilities or inadequate performance. Project risks threaten schedule, budget, scope, staffing, or delivery.", "option_notes": {"A": "Correct. Security and performance problems are product quality risks.", "B": "Incorrect. IV is a people/project risk.", "C": "Incorrect. II is a supplier/project risk.", "D": "Incorrect. Both II and IV are project risks."}, "distractor_note": "Anything that hurts the release feels risky, but CTFL asks what the risk is about: product quality or project control.", "alt_wording": "Classify risks as project risks or product risks."}, {"id": "Q482", "chapter": "5.1", "topic": "Test Plan Purpose and Content", "type": "E", "difficulty": "red", "question": "A test plan for a public-transport ticketing project includes scope, objectives, assumptions, stakeholders, communication approach, risk register, test levels/types/techniques, entry and exit criteria, environment needs, budget, and schedule.\n\nWhich proposed addition is LEAST appropriate as test plan content?", "options": {"A": "A description of deviations from the organization's test policy and test strategy, with reasons.", "B": "The risk register containing product and project risks with likelihood, impact, and mitigation information.", "C": "The exact source-code implementation of the fare-calculation algorithm.", "D": "The metrics to be collected during monitoring and reporting."}, "correct": "C", "why_correct": "A test plan describes objectives, resources, processes, approach, constraints, risks, schedule, budget, and related planning information. Exact production source-code implementation belongs to the test object/development artifacts, not the test plan.", "option_notes": {"A": "Appropriate. A test plan can show adherence to or justified deviation from test policy/strategy.", "B": "Appropriate. A risk register is typical content.", "C": "Least appropriate. The implementation code is not test planning content.", "D": "Appropriate. Metrics to be collected are part of the test approach."}, "distractor_note": "C may feel useful to testers, but useful information is not automatically test plan content.", "alt_wording": "Which item does not belong in a test plan?"}, {"id": "Q480", "chapter": "4.5", "topic": "ATDD Test Case Scope and Order", "type": "D", "difficulty": "red", "question": "In an ATDD workshop for a hotel-booking story, the team agrees acceptance criteria for selecting room type, entering guest details, and paying with a saved card. A tester proposes these first tests: one happy-path booking, one declined-card scenario, one performance test for 10,000 concurrent users, and one test for car-rental upsell that is not part of the story.\n\nWhich feedback is MOST accurate?", "options": {"A": "Start with positive tests, then negative tests, then relevant non-functional tests, but do not add tests beyond the user story's characteristics.", "B": "Only negative tests should be created in ATDD because positive examples are implementation details.", "C": "ATDD tests should be written after coding, when developers know the final design.", "D": "Any related business idea may be added to ATDD tests, even if it is outside the story, to improve coverage."}, "correct": "A", "why_correct": "ATDD creates tests before implementation based on acceptance criteria. Typically positive tests are created first, then negative tests, then relevant non-functional characteristics. Tests should cover all characteristics of the user story and not go beyond it.", "option_notes": {"A": "Correct. It captures sequence, scope, and relevance.", "B": "Incorrect. Positive tests are normally created first.", "C": "Incorrect. ATDD is test-first.", "D": "Incorrect. Tests should not exceed the story scope."}, "distractor_note": "The performance test may be valid only if it is a relevant quality characteristic for the story; the car-rental upsell is clearly scope creep.", "alt_wording": "How should ATDD examples be derived and bounded by a user story?"}, {"id": "Q463", "chapter": "3.1", "topic": "Static Testing vs Dynamic Testing Defect Detection", "type": "C", "difficulty": "red", "question": "A team can choose either to review a requirements document now or wait until executable code is available. Which statement BEST compares static and dynamic testing?", "options": {"A": "Static testing can find defects directly in non-executable work products; dynamic testing executes software and may cause failures that need later analysis to identify defects.", "B": "Static testing only checks code formatting, while dynamic testing is the only testing that can support validation.", "C": "Dynamic testing can be applied to any readable work product, while static testing requires executable software.", "D": "Static and dynamic testing always find the same defect types, so doing both creates only redundant work."}, "correct": "A", "why_correct": "Static testing evaluates work products without executing software and can directly reveal defects. Dynamic testing requires execution and observes failures from which defects may be diagnosed.", "option_notes": {"A": "Correct. It captures the core contrast.", "B": "Incorrect. Static testing can assess requirements, design, maintainability, testability, consistency, and can support verification and validation.", "C": "Incorrect. This reverses the applicability of static and dynamic testing.", "D": "Incorrect. They complement each other and may find different defect types."}, "distractor_note": "B shrinks static testing to linting, but reviews of requirements and user stories are a major CTFL use.", "alt_wording": "Which statement correctly contrasts static and dynamic testing?"}, {"id": "Q473", "chapter": "4.2", "topic": "State Table Invalid Transitions", "type": "B", "difficulty": "red", "question": "A smart-lock state diagram shows only valid transitions: Locked -> Unlocked after correct PIN, Unlocked -> Locked after timeout, and Locked -> Alarm after three wrong PINs. A state table for the same model also has blank cells, such as 'Unlocked + correct PIN.'\n\nWhy might the state table be especially useful for testing?", "options": {"A": "It explicitly shows invalid transitions, making it easier to design tests that attempt them when all transitions coverage is required.", "B": "It removes the need to test valid transitions because blank cells are the only coverage items.", "C": "It proves that invalid transitions cannot cause failures, so they should never be tested.", "D": "It replaces events and guard conditions with source-code branches."}, "correct": "A", "why_correct": "A state table is equivalent to a state diagram but explicitly shows invalid transitions as empty cells. This helps when designing tests for all transitions coverage.", "option_notes": {"A": "Correct. The table makes invalid transitions visible.", "B": "Incorrect. Valid transitions remain coverage items, especially for valid or all transitions coverage.", "C": "Incorrect. Invalid transitions may need to be attempted, particularly in critical systems.", "D": "Incorrect. State tables model states/events, not code branches."}, "distractor_note": "D confuses black-box state transition testing with white-box branch testing.", "alt_wording": "What extra testing insight does a state table provide compared with a state diagram?"}, {"id": "Q481", "chapter": "4.5", "topic": "Acceptance Criteria Formats and Purpose", "type": "F", "difficulty": "red", "question": "Which TWO statements about acceptance criteria are correct?\n\nI. They may be written in scenario-oriented Given/When/Then form or in a rule-oriented list/table.\nII. They help define story scope, build stakeholder consensus, and provide a basis for acceptance testing.\nIII. They should only describe positive scenarios because negative scenarios belong to system testing.\nIV. They are a substitute for stakeholder conversation and should be written by testers alone after implementation.", "options": {"A": "I and II", "B": "I and III", "C": "II and IV", "D": "III and IV"}, "correct": "A", "why_correct": "Acceptance criteria can be scenario-oriented or rule-oriented. They define scope, support consensus, describe positive and negative scenarios, support acceptance testing, and aid planning and estimation.", "option_notes": {"A": "Correct. Both statements reflect CTFL guidance.", "B": "Incorrect. III is false because acceptance criteria can describe negative scenarios.", "C": "Incorrect. IV contradicts the collaborative Conversation aspect.", "D": "Incorrect. Both statements are false."}, "distractor_note": "III creates a false split between acceptance and negative behavior; acceptance criteria can include both positive and negative scenarios.", "alt_wording": "What are acceptance criteria used for, and how can they be documented?"}, {"id": "Q472", "chapter": "4.2", "topic": "State Transition Coverage Strength", "type": "F", "difficulty": "red", "question": "Which TWO statements about state transition coverage criteria are correct?\n\nI. Full valid transitions coverage guarantees full all states coverage.\nII. Full all states coverage guarantees full valid transitions coverage.\nIII. Full all transitions coverage includes valid transitions and attempts invalid transitions shown in a state table.\nIV. Testing several invalid transitions in one test case is recommended to avoid defect masking.", "options": {"A": "I and III", "B": "I and IV", "C": "II and III", "D": "II and IV"}, "correct": "A", "why_correct": "Valid transitions coverage is stronger than all states coverage and guarantees all states coverage. All transitions coverage includes both valid and invalid transitions. Invalid transitions should generally be tested one per test case to avoid defect masking.", "option_notes": {"A": "Correct. Both statements match the syllabus.", "B": "Incorrect. IV contradicts the advice about avoiding defect masking.", "C": "Incorrect. II reverses the strength relationship.", "D": "Incorrect. Both II and IV are false."}, "distractor_note": "II sounds plausible if every state has been reached, but reaching a state does not mean every route between states has been exercised.", "alt_wording": "Which state transition coverage criterion subsumes which other criterion?"}, {"id": "Q454", "chapter": "1.3", "topic": "Absence-of-Defects Fallacy vs Presence of Defects", "type": "D", "difficulty": "red", "question": "A travel app passes all tests derived from the approved requirements, with no open defects. After release, users abandon it because it cannot combine flights from different airlines, which was never specified but is essential to their planning workflow.\n\nWhich testing principle is BEST illustrated?", "options": {"A": "Absence-of-defects fallacy, because verification against specified requirements did not ensure the product met user needs.", "B": "Testing shows presence, not absence of defects, because passing all tests proves no defects remain.", "C": "Tests wear out, because the same regression suite was repeated too often.", "D": "Defects cluster together, because most operational failures must be in one component."}, "correct": "A", "why_correct": "The absence-of-defects fallacy says that a verified product can still fail if it does not satisfy users' real needs or business goals. This is a validation problem, not merely a defect-count problem.", "option_notes": {"A": "Correct. The system met specified requirements but missed stakeholder value.", "B": "Incorrect. The principle says tests cannot prove there are no defects; it does not fit the missing user need as well as A.", "C": "Incorrect. Nothing indicates repeated tests lost defect-finding power.", "D": "Incorrect. No concentration of defects in a small component set is described."}, "distractor_note": "B uses a true principle name but then states it backwards, which is a classic hard-exam trap.", "alt_wording": "Which principle warns that a defect-free implementation of the wrong product can still fail?"}, {"id": "Q485", "chapter": "5.1", "topic": "Estimation Technique Selection", "type": "C", "difficulty": "red", "question": "A team estimates the next iteration's testing effort by averaging the actual testing effort from the last four completed iterations of the same product. Another team asks several experts to estimate independently, discuss large differences, and repeat until they converge.\n\nWhich mapping is correct?", "options": {"A": "First = extrapolation; second = Wideband Delphi.", "B": "First = Wideband Delphi; second = estimation based on ratios.", "C": "First = three-point estimation; second = extrapolation.", "D": "First = estimation based on ratios; second = boundary value analysis."}, "correct": "A", "why_correct": "Extrapolation uses measurements from the current project, often suitable in iterative SDLCs. Wideband Delphi is an iterative expert-based technique with independent estimates, discussion, and repeated rounds toward consensus.", "option_notes": {"A": "Correct. It distinguishes metrics-based current-project forecasting from expert consensus.", "B": "Incorrect. Ratio estimation uses standard ratios from historical similar projects.", "C": "Incorrect. Three-point estimation uses optimistic, most likely, and pessimistic estimates.", "D": "Incorrect. BVA is a test design technique, not an estimation technique."}, "distractor_note": "Ratio and extrapolation are both metrics-based, but ratio uses standard historical ratios; extrapolation projects from current observations.", "alt_wording": "Which estimation technique is described by each planning approach?"}, {"id": "Q471", "chapter": "4.2", "topic": "Decision Table Coverage", "type": "H", "difficulty": "red", "question": "A minimized decision table for a claims system has 9 columns. Two columns are marked infeasible and are deleted before testing. Of the remaining feasible columns, 5 have been exercised by tests.\n\nWhat is the decision table coverage?", "options": {"A": "5/7 = 71.4%", "B": "5/9 = 55.6%", "C": "7/9 = 77.8%", "D": "9/9 = 100%"}, "correct": "A", "why_correct": "Decision table coverage items are columns containing feasible combinations of conditions. After deleting two infeasible columns, there are seven feasible columns; five exercised columns gives 5/7 coverage.", "option_notes": {"A": "Correct. The denominator excludes infeasible combinations.", "B": "Incorrect. It includes infeasible columns in the denominator.", "C": "Incorrect. It counts feasible columns, not exercised feasible columns, as the numerator.", "D": "Incorrect. Not all feasible columns have been exercised."}, "distractor_note": "B is the common denominator trap: CTFL coverage is over feasible rules, not every original theoretical combination.", "alt_wording": "How is coverage measured for decision table testing when infeasible rules exist?"}, {"id": "Q491", "chapter": "6.2", "topic": "Benefits and Risks of Test Automation", "type": "F", "difficulty": "red", "question": "Which TWO statements about test automation are correct?\n\nI. Automation can reduce repetitive manual execution and support fast feedback, especially for stable regression checks.\nII. Automation always lowers total cost immediately, even for unstable features and one-off tests.\nIII. Automation can introduce risks such as maintenance effort, tool/pipeline dependency, and false confidence if checks are poorly designed.\nIV. Automation removes the need for manual testing from the user's perspective in DevOps teams.", "options": {"A": "I and III", "B": "I and IV", "C": "II and III", "D": "II and IV"}, "correct": "A", "why_correct": "Automation can support frequent, repeatable checks and fast feedback, but it carries risks and costs, including setup, maintenance, tooling, and unsuitable or poorly designed automated checks. Manual testing can still be needed.", "option_notes": {"A": "Correct. It balances benefits and risks.", "B": "Incorrect. IV overstates automation and contradicts the continued need for manual user-perspective testing.", "C": "Incorrect. II is the absolute-cost trap.", "D": "Incorrect. Both statements overclaim automation."}, "distractor_note": "II and IV use absolute wording. CTFL automation questions often test whether you remember automation is powerful but not universally beneficial.", "alt_wording": "Which statements fairly describe test automation benefits and risks?"}, {"id": "Q462", "chapter": "2.3", "topic": "Maintenance Testing Triggers and Scope", "type": "F", "difficulty": "red", "question": "Which TWO statements about maintenance testing are correct?\n\nI. A database migration may require testing data conversion and unchanged functions that could regress.\nII. Retiring a system may require testing data archiving, restore, and retrieval procedures.\nIII. Maintenance testing is only triggered by emergency corrective hot fixes.\nIV. The scope of maintenance testing is independent of the size and risk of the change.", "options": {"A": "I and II", "B": "I and III", "C": "II and IV", "D": "III and IV"}, "correct": "A", "why_correct": "Maintenance testing may be triggered by modifications, upgrades/migrations, or retirement. Its scope depends on factors such as the risk of the change, size of the existing system, and size of the change.", "option_notes": {"A": "Correct. Both migration and retirement examples are in scope.", "B": "Incorrect. III is too narrow.", "C": "Incorrect. IV contradicts the syllabus scope factors.", "D": "Incorrect. Both statements are false."}, "distractor_note": "III narrows maintenance to hot fixes, but planned releases, environment upgrades, migrations, and retirement are also triggers.", "alt_wording": "Which situations can trigger maintenance testing, and what affects its scope?"}, {"id": "Q478", "chapter": "4.4", "topic": "Checklist-Based Testing Maintenance Trap", "type": "E", "difficulty": "red", "question": "A mobile banking team uses a checklist for release testing. Which proposed checklist item is LEAST suitable according to CTFL guidance?", "options": {"A": "Does the transfer confirmation screen clearly show source account, destination account, amount, and date?", "B": "Can each high-priority customer journey be completed without misleading error messages?", "C": "Has the CI pipeline executed the automated unit test suite successfully?", "D": "Does the accessibility review include keyboard navigation for key transaction flows?"}, "correct": "C", "why_correct": "Checklist items should generally not include items that can be checked automatically or items better suited as entry/exit criteria. CI unit-test success is better handled automatically and often as a criterion, not as a manual checklist test condition.", "option_notes": {"A": "Suitable. It is directly checkable and user-facing.", "B": "Suitable if scoped clearly enough; it targets observable behavior.", "C": "Least suitable. It is automatically checkable and better treated as pipeline evidence or an entry/exit criterion.", "D": "Suitable. It asks for a direct quality-focused check."}, "distractor_note": "C sounds responsible, but checklist-based testing should not become a dumping ground for automated checks or process gates.", "alt_wording": "Which item should not be put on a manual checklist-based testing checklist?"}]};
+</script>
+<script>
+// ISTQB CTFL Mock Exam engine — self-contained, inlined by tools/render_exam.py.
+// No questions are rendered into the visible DOM until the candidate clicks "Start Exam".
+(function () {
+  "use strict";
+
+  var EXAM = window.__EXAM__;
+  var STORAGE_KEY = "istqb-exam-state:" + EXAM.examId;
+  var THEME_KEY = "istqb-exam-theme";
+  var root = document.getElementById("app");
+  var timerInterval = null;
+  // Set once startOrResume() runs during THIS page load. Reloading the file always lands
+  // back on the start/resume gate first — it never silently drops the candidate back into
+  // a question — even if an earlier browser session had already clicked Start.
+  var resumedThisSession = false;
+
+  // ---------------------------------------------------------------- state
+  function freshState() {
+    return {
+      phase: "not_started", // not_started | in_progress | cleanup_offer | cleanup | submitted
+      answers: {},          // { questionId: "A" }
+      flags: {},             // { questionId: true }
+      notes: {},             // { questionId: "rough work typed while solving" }
+      markers: {},           // { questionId: [{ id, term, note, source, selectedText, ... }] }
+      currentIndex: 0,
+      deadline: null,        // ms epoch timestamp — remaining time is derived from this, not decremented,
+      startedAt: null,       // so the clock keeps real wall-clock time even if the tab is closed and reopened
+      cleanupQuestionIds: [], // fixed list of flagged/unanswered questions offered after the main timer expires
+      cleanupDeadline: null,
+      cleanupStartedAt: null,
+      cleanupOfferedAt: null,
+      cleanupTimeUsedSeconds: null,
+      cleanupUsed: false,
+      submittedAt: null,
+      timeUsedSeconds: null,
+      exported: false     // whether "Export Results" has been clicked this attempt — used to warn before a retake discards an unexported score
+    };
+  }
+
+  // Remaining seconds, computed from the stored deadline so it reflects real elapsed time
+  // even across a closed tab / reloaded file, matching how a real proctored exam timer behaves.
+  function computeRemaining() {
+    if (state.phase === "cleanup") {
+      if (!state.cleanupDeadline) return cleanupDurationSeconds();
+      return Math.round((state.cleanupDeadline - Date.now()) / 1000);
+    }
+    if (!state.deadline) return EXAM.durationMinutes * 60;
+    return Math.round((state.deadline - Date.now()) / 1000);
+  }
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return freshState();
+      var parsed = JSON.parse(raw);
+      return Object.assign(freshState(), parsed);
+    } catch (e) {
+      return freshState();
+    }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) { /* storage full / disabled — degrade silently */ }
+  }
+
+  var state = loadState();
+
+  // ---------------------------------------------------------------- rough-notes panel position
+  // A display preference, not exam progress — stored separately so it persists across
+  // different exam sittings (unlike `state`, which is keyed per exam id).
+  var NOTES_UI_KEY = "istqb-exam-notes-ui";
+
+  function freshNotesUI() {
+    return { position: "bottom", x: null, y: null, w: null, h: null }; // position: bottom | right | float
+  }
+  function loadNotesUI() {
+    try {
+      var raw = localStorage.getItem(NOTES_UI_KEY);
+      if (!raw) return freshNotesUI();
+      return Object.assign(freshNotesUI(), JSON.parse(raw));
+    } catch (e) { return freshNotesUI(); }
+  }
+  function saveNotesUI() {
+    try { localStorage.setItem(NOTES_UI_KEY, JSON.stringify(notesUI)); } catch (e) { /* ignore */ }
+  }
+  var notesUI = loadNotesUI();
+
+  function setNotesPosition(pos) {
+    if (notesUI.position === pos) return;
+    notesUI.position = pos;
+    saveNotesUI();
+    render();
+  }
+
+  function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
+
+  // Only relevant in float mode. Applies the last dragged coordinates, if any —
+  // otherwise the CSS default (bottom-right corner) is left in place.
+  function applyFloatPosition(panel) {
+    if (notesUI.x === null || notesUI.y === null) return;
+    var maxLeft = Math.max(4, window.innerWidth - 40);
+    var maxTop = Math.max(4, window.innerHeight - 40);
+    panel.style.left = clamp(notesUI.x, 4, maxLeft) + "px";
+    panel.style.top = clamp(notesUI.y, 4, maxTop) + "px";
+    panel.style.right = "auto";
+    panel.style.bottom = "auto";
+  }
+
+  function makeDraggable(panel, handle) {
+    var dragging = false;
+    var startX = 0, startY = 0, startLeft = 0, startTop = 0;
+    handle.addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".postoggle-btn")) return; // let the dock/float buttons handle their own clicks
+      dragging = true;
+      handle.setPointerCapture(e.pointerId);
+      var rect = panel.getBoundingClientRect();
+      startX = e.clientX; startY = e.clientY;
+      startLeft = rect.left; startTop = rect.top;
+      panel.classList.add("dragging");
+    });
+    handle.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      var newLeft = clamp(startLeft + (e.clientX - startX), 4, window.innerWidth - panel.offsetWidth - 4);
+      var newTop = clamp(startTop + (e.clientY - startY), 4, window.innerHeight - panel.offsetHeight - 4);
+      panel.style.left = newLeft + "px";
+      panel.style.top = newTop + "px";
+      panel.style.right = "auto";
+      panel.style.bottom = "auto";
+    });
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      panel.classList.remove("dragging");
+      notesUI.x = parseInt(panel.style.left, 10);
+      notesUI.y = parseInt(panel.style.top, 10);
+      saveNotesUI();
+    }
+    handle.addEventListener("pointerup", endDrag);
+    handle.addEventListener("pointercancel", endDrag);
+  }
+
+  // Applies the last manually-resized width/height, if any — otherwise the panel keeps
+  // its CSS default size. The same saved size is reused across bottom/right/float, since
+  // it's a general "how big do I like my notes box" preference, not a per-mode setting.
+  function applyStoredSize(panel) {
+    if (notesUI.w) panel.style.width = notesUI.w + "px";
+    if (notesUI.h) panel.style.height = notesUI.h + "px";
+  }
+
+  // The panel is fully rebuilt on every question change, so a plain CSS `resize` drag
+  // would otherwise be forgotten the moment the candidate clicks Next. There's no
+  // resize-start/resize-end event for the native corner grip, so we arm a flag when a
+  // mousedown lands in that ~18px corner hit-region, then compare the panel's size on
+  // the next mouseup (wherever it ends) and persist it if it actually changed.
+  var currentScratchPanel = null;
+  var scratchResizeArmed = false;
+  function scratchPanelMouseDown(e) {
+    var rect = e.currentTarget.getBoundingClientRect();
+    var nearRight = rect.right - e.clientX <= 18;
+    var nearBottom = rect.bottom - e.clientY <= 18;
+    scratchResizeArmed = nearRight && nearBottom;
+  }
+  document.addEventListener("mouseup", function () {
+    if (!scratchResizeArmed) return;
+    scratchResizeArmed = false;
+    if (!currentScratchPanel || !currentScratchPanel.isConnected) return;
+    var rect = currentScratchPanel.getBoundingClientRect();
+    var w = Math.round(rect.width), h = Math.round(rect.height);
+    if (w !== notesUI.w || h !== notesUI.h) {
+      notesUI.w = w;
+      notesUI.h = h;
+      saveNotesUI();
+    }
+  });
+
+  // ---------------------------------------------------------------- theme
+  function applyTheme() {
+    var saved = localStorage.getItem(THEME_KEY);
+    if (saved) document.documentElement.setAttribute("data-theme", saved);
+  }
+  function toggleTheme() {
+    var current = document.documentElement.getAttribute("data-theme");
+    var next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem(THEME_KEY, next);
+  }
+  applyTheme();
+
+  // ---------------------------------------------------------------- utils
+  function el(tag, attrs, children) {
+    var node = document.createElement(tag);
+    attrs = attrs || {};
+    Object.keys(attrs).forEach(function (k) {
+      if (attrs[k] === null || attrs[k] === undefined) return; // omit — do not stringify to "null"
+      if (k === "class") node.className = attrs[k];
+      else if (k === "html") node.innerHTML = attrs[k];
+      else if (k.indexOf("on") === 0 && typeof attrs[k] === "function") node.addEventListener(k.slice(2), attrs[k]);
+      else node.setAttribute(k, attrs[k]);
+    });
+    (children || []).forEach(function (c) {
+      if (c === null || c === undefined) return;
+      node.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+    });
+    return node;
+  }
+
+  function formatTime(totalSeconds) {
+    var s = Math.max(0, totalSeconds);
+    var m = Math.floor(s / 60);
+    var sec = s % 60;
+    return String(m).padStart(2, "0") + ":" + String(sec).padStart(2, "0");
+  }
+
+  function timeLimitLabel() {
+    var base = EXAM.durationMinutes + ":00";
+    if (!state.cleanupQuestionIds || !state.cleanupQuestionIds.length) return base;
+    return base + " + " + formatTime(cleanupDurationSeconds()) + " extra";
+  }
+
+  function chapterNum(chapterCode) {
+    return chapterCode.split(".")[0];
+  }
+
+  var CHAPTER_NAMES = {
+    "1": "Fundamentals of Testing",
+    "2": "Testing Throughout the SDLC",
+    "3": "Static Testing",
+    "4": "Test Analysis and Design",
+    "5": "Managing the Test Activities",
+    "6": "Test Tools"
+  };
+
+  function answeredCount() { return Object.keys(state.answers).length; }
+  function flaggedCount() { return Object.keys(state.flags).filter(function (k) { return state.flags[k]; }).length; }
+  function markersFor(questionId) {
+    return state.markers && Array.isArray(state.markers[questionId]) ? state.markers[questionId] : [];
+  }
+  function markerCount() {
+    if (!state.markers) return 0;
+    return Object.keys(state.markers).reduce(function (n, questionId) {
+      return n + markersFor(questionId).length;
+    }, 0);
+  }
+  function noteFor(questionId) {
+    return state.notes && state.notes[questionId] ? state.notes[questionId] : "";
+  }
+  function questionById(questionId) {
+    return EXAM.questions.find(function (q) { return q.id === questionId; }) || null;
+  }
+  function originalQuestionNumber(questionId) {
+    var idx = EXAM.questions.findIndex(function (q) { return q.id === questionId; });
+    return idx >= 0 ? idx + 1 : "?";
+  }
+  function remainingQuestionIds() {
+    return EXAM.questions
+      .filter(function (q) { return !state.answers[q.id] || !!state.flags[q.id]; })
+      .map(function (q) { return q.id; });
+  }
+  function cleanupDurationSeconds() {
+    return (state.cleanupQuestionIds || []).length * 60;
+  }
+  function activeQuestions() {
+    if (state.phase !== "cleanup") return EXAM.questions;
+    return (state.cleanupQuestionIds || []).map(questionById).filter(Boolean);
+  }
+  function activeQuestionCount() {
+    return activeQuestions().length;
+  }
+
+  // ---------------------------------------------------------------- render dispatch
+  function render() {
+    root.innerHTML = "";
+    if (state.phase === "submitted") { renderResults(); return; }
+    if (state.phase === "cleanup_offer") { renderCleanupOffer(); return; }
+    if ((state.phase === "in_progress" || state.phase === "cleanup") && resumedThisSession) { renderExam(); return; }
+    renderStart(); // covers not_started, and in_progress before the candidate has clicked Resume
+  }
+
+  // ---------------------------------------------------------------- start screen
+  function renderStart() {
+    stopTimer();
+    var inProgress = state.phase === "in_progress" || state.phase === "cleanup";
+    var inCleanup = state.phase === "cleanup";
+
+    var shell = el("div", { class: "center-shell" });
+    var card = el("div", { class: "card" });
+
+    if (inProgress) {
+      var total = inCleanup ? activeQuestionCount() : EXAM.questions.length;
+      var answered = inCleanup
+        ? activeQuestions().filter(function (q) { return !!state.answers[q.id]; }).length
+        : answeredCount();
+      card.appendChild(el("div", { class: "resume-banner" }, [
+        (inCleanup ? "A remaining-question round is already in progress (" : "An exam is already in progress (") +
+        answered + "/" + total + " answered, " + formatTime(computeRemaining()) +
+        " remaining). Starting over will discard that progress."
+      ]));
+    }
+
+    card.appendChild(el("h1", { class: "start-title" }, [EXAM.title]));
+    card.appendChild(el("p", { class: "start-sub" }, [
+      "Generated " + EXAM.generated + " · Question bank v" + (EXAM.bankVersion || 1)
+    ]));
+
+    var meta = el("div", { class: "meta-grid" }, [
+      metaTile(String(EXAM.questions.length), "Questions"),
+      metaTile(EXAM.durationMinutes + " min", "Time Limit"),
+      metaTile(EXAM.passMarkPct + "%", "Pass Mark"),
+      metaTile(Math.round(EXAM.questions.length * EXAM.passMarkPct / 100) + "/" + EXAM.questions.length, "To Pass")
+    ]);
+    card.appendChild(meta);
+
+    var rules = el("ul", { class: "rules-list" }, [
+      el("li", {}, ["Every question has a single best answer. No answers or explanations are shown until you submit."]),
+      el("li", {}, ["A countdown timer starts the moment you click Start and cannot be paused. When it reaches 00:00, the exam either submits or offers a remaining-question round."]),
+      el("li", {}, ["If the main timer ends while questions are still unanswered or flagged, you can start a remaining-question round with 1 minute for each of those questions."]),
+      el("li", {}, ["Use the question navigator to jump to any question in any order, and flag questions to revisit."]),
+      el("li", {}, ["Use Learning Marker when a term, topic, option, or phrase feels unclear. Markers are exported with your results so they can be turned into a permanent A-Z review page after the exam."]),
+      el("li", {}, ["Each question has a rough-notes area for scratch work; it auto-saves with your local exam progress. Use the small buttons above it to dock the notes to the bottom, dock them to the right, or float them anywhere on screen — and drag its bottom-right corner to resize it to whatever size you like."]),
+      el("li", {}, ["Your progress is saved in this browser automatically — closing the tab and reopening this file will resume where you left off."]),
+      el("li", {}, ["After submitting, you can review the full solutions with explanations and export your results as a file."])
+    ]);
+    card.appendChild(rules);
+
+    card.appendChild(el("button", {
+      class: "big-btn", onclick: function () { startOrResume(inProgress); }
+    }, [inProgress ? (inCleanup ? "Resume Remaining Round" : "Resume Exam") : "Start Exam"]));
+
+    if (inProgress) {
+      card.appendChild(el("button", {
+        class: "big-btn secondary", style: "margin-top:10px;", onclick: function () {
+          if (confirm("Discard your in-progress exam and start a fresh attempt?")) {
+            state = freshState();
+            saveState();
+            render();
+          }
+        }
+      }, ["Start Over Instead"]));
+    }
+
+    shell.appendChild(card);
+    root.appendChild(topbar(false));
+    root.appendChild(shell);
+  }
+
+  function metaTile(num, label) {
+    return el("div", { class: "meta-tile" }, [
+      el("span", { class: "num" }, [num]),
+      el("span", { class: "label" }, [label])
+    ]);
+  }
+
+  function startOrResume(wasInProgress) {
+    if (!wasInProgress) {
+      state = freshState();
+      state.phase = "in_progress";
+      state.startedAt = Date.now();
+      state.deadline = state.startedAt + EXAM.durationMinutes * 60000;
+    }
+    resumedThisSession = true;
+    saveState();
+    render();
+  }
+
+  // Replays this exact sitting (same 40 questions, same order) with a clean timer and
+  // blank answers/flags/notes. Warns first, since an unexported attempt's score/answers
+  // have no other record once cleared.
+  function retakeExam() {
+    var msg = state.exported
+      ? "Retake this exam with the same 40 questions? Your answers, flags, and rough notes will be cleared and the timer will restart."
+      : "You haven't exported this attempt's results yet, so retaking now will permanently lose your answers and score for it. Retake anyway?";
+    if (!confirm(msg)) return;
+    startOrResume(false);
+  }
+
+  // ---------------------------------------------------------------- top bar
+  function topbar(showTimer) {
+    var bar = el("div", { class: "exam-topbar" }, [
+      el("span", { class: "exam-title" }, [EXAM.title])
+    ]);
+    bar.appendChild(el("span", { class: "spacer" }));
+    if (showTimer) {
+      bar.appendChild(el("span", { class: "q-counter", id: "qCounter" }, [
+        (state.phase === "cleanup" ? "Remaining " : "Question ") + (state.currentIndex + 1) + " of " + activeQuestionCount()
+      ]));
+      bar.appendChild(el("span", { class: "timer", id: "timerEl" }, [formatTime(computeRemaining())]));
+    }
+    bar.appendChild(el("button", { class: "icon-btn", title: "Toggle theme", onclick: toggleTheme }, ["\u{1F319}"]));
+    return bar;
+  }
+
+  // ---------------------------------------------------------------- rough-notes panel
+  function renderScratchPanel(q) {
+    function posBtn(pos, icon, title) {
+      return el("button", {
+        type: "button",
+        class: "postoggle-btn" + (notesUI.position === pos ? " active" : ""),
+        title: title,
+        onclick: function () { setNotesPosition(pos); }
+      }, [icon]);
+    }
+
+    var header = el("div", { class: "scratch-header" }, [
+      el("span", { class: "scratch-label" }, ["Rough notes"]),
+      el("div", { class: "scratch-postoggle" }, [
+        posBtn("bottom", "⬇", "Dock to bottom"),
+        posBtn("right", "▶", "Dock to right"),
+        posBtn("float", "✦", "Float — drag anywhere")
+      ])
+    ]);
+
+    var panel = el("section", {
+      class: "scratch-panel pos-" + notesUI.position,
+      onmousedown: scratchPanelMouseDown
+    }, [
+      header,
+      el("textarea", {
+        id: "scratch_" + q.id,
+        class: "scratch-input",
+        rows: "7",
+        spellcheck: "false",
+        placeholder: "Use this space for rough work, calculations, eliminations, or reminders. Auto-saved in this browser.",
+        oninput: function (e) {
+          if (!state.notes) state.notes = {};
+          var value = e.target.value;
+          if (value.trim()) state.notes[q.id] = value;
+          else delete state.notes[q.id];
+          saveState();
+        }
+      }, [noteFor(q.id)])
+    ]);
+
+    applyStoredSize(panel);
+    currentScratchPanel = panel;
+
+    if (notesUI.position === "float") {
+      applyFloatPosition(panel);
+      makeDraggable(panel, header);
+    }
+    return panel;
+  }
+
+  // ---------------------------------------------------------------- exam screen
+  function renderExam() {
+    var questions = activeQuestions();
+    if (!questions.length) { submitExam(false); return; }
+    if (state.currentIndex >= questions.length) state.currentIndex = questions.length - 1;
+    if (state.currentIndex < 0) state.currentIndex = 0;
+    var q = questions[state.currentIndex];
+    var originalNum = originalQuestionNumber(q.id);
+    var inCleanup = state.phase === "cleanup";
+
+    var layout = el("div", { class: "exam-layout" });
+    layout.appendChild(renderNavigator());
+
+    var main = el("div", { class: "exam-main" });
+    var pct = ((state.currentIndex + 1) / questions.length) * 100;
+    main.appendChild(el("div", { class: "q-progress-bar" }, [
+      el("div", { class: "q-progress-fill", style: "width:" + pct + "%" })
+    ]));
+
+    var headerRow = el("div", { class: "q-header-row" }, [
+      el("span", { class: "q-num-badge" }, [inCleanup ? "Q" + originalNum + " · Remaining" : "Q" + (state.currentIndex + 1)])
+    ]);
+    var isFlagged = !!state.flags[q.id];
+    var hasMarkers = markersFor(q.id).length > 0;
+    headerRow.appendChild(el("button", {
+      class: "learn-btn" + (hasMarkers ? " active" : ""),
+      title: "Mark an unclear term or topic for post-exam learning",
+      onclick: function () { openMarkerModal(q); }
+    }, [hasMarkers ? "Learning gap marked" : "Mark learning gap"]));
+    headerRow.appendChild(el("button", {
+      class: "flag-btn" + (isFlagged ? " active" : ""),
+      onclick: function () {
+        if (state.flags[q.id]) delete state.flags[q.id];
+        else state.flags[q.id] = true;
+        saveState();
+        render();
+      }
+    }, [(isFlagged ? "\u{1F6A9} Flagged" : "\u{1F6A9} Flag for review")]));
+    main.appendChild(headerRow);
+
+    var questionArea = el("div", { class: "question-area", id: "questionArea" });
+    questionArea.appendChild(el("p", { class: "q-text" }, [q.question]));
+
+    var optionsWrap = el("div", { class: "options" });
+    ["A", "B", "C", "D"].forEach(function (letter) {
+      if (!q.options[letter]) return;
+      var selected = state.answers[q.id] === letter;
+      var row = el("label", { class: "option-row" + (selected ? " selected" : "") }, [
+        el("input", {
+          type: "radio", name: "q_" + q.id, checked: selected ? "checked" : null,
+          onchange: function () {
+            state.answers[q.id] = letter;
+            saveState();
+            render();
+          }
+        }),
+        el("span", { class: "option-letter" }, [letter + "."]),
+        el("span", { class: "option-text" }, [q.options[letter]])
+      ]);
+      optionsWrap.appendChild(row);
+    });
+    questionArea.appendChild(optionsWrap);
+    main.appendChild(questionArea);
+    main.appendChild(renderMarkerPanel(q));
+
+    var notesDocked = notesUI.position === "bottom";
+    if (notesDocked) main.appendChild(renderScratchPanel(q));
+    layout.className = "exam-layout" + (notesUI.position === "right" ? " notes-right-open" : "");
+    layout.appendChild(main);
+
+    var footer = el("div", { class: "exam-footer" + (notesUI.position === "right" ? " notes-right-open" : "") }, [
+      el("button", {
+        class: "nav-action-btn", disabled: state.currentIndex === 0 ? "disabled" : null,
+        onclick: function () { state.currentIndex = Math.max(0, state.currentIndex - 1); saveState(); render(); }
+      }, ["← Previous"]),
+      el("button", {
+        class: "nav-action-btn", disabled: state.currentIndex === questions.length - 1 ? "disabled" : null,
+        onclick: function () { state.currentIndex = Math.min(questions.length - 1, state.currentIndex + 1); saveState(); render(); }
+      }, ["Next →"]),
+      el("button", { class: "submit-btn", onclick: openSubmitModal }, ["Submit Exam"])
+    ]);
+
+    root.appendChild(topbar(true));
+    root.appendChild(layout);
+    root.appendChild(footer);
+    if (!notesDocked) {
+      var notesPanel = renderScratchPanel(q);
+      root.appendChild(notesPanel);
+      // The right-docked panel is user-resizable, so its width can no longer be assumed
+      // to match the CSS default (340px) reserved on .exam-main — keep the reserved space
+      // in sync with its live width so a wide panel never covers the question content.
+      if (notesUI.position === "right" && window.ResizeObserver) {
+        var syncRightPadding = function () {
+          main.style.paddingRight = Math.round(notesPanel.getBoundingClientRect().width + 20) + "px";
+        };
+        syncRightPadding();
+        new ResizeObserver(syncRightPadding).observe(notesPanel);
+      }
+    }
+    startTimer();
+    updateTimerDisplay();
+  }
+
+  function renderNavigator() {
+    var questions = activeQuestions();
+    var inCleanup = state.phase === "cleanup";
+    var nav = el("div", { class: "navigator" });
+    nav.appendChild(el("h4", {}, [inCleanup ? "Remaining" : "Questions"]));
+    var grid = el("div", { class: "nav-grid" });
+    questions.forEach(function (q, i) {
+      var classes = ["nav-btn"];
+      if (state.answers[q.id]) classes.push("answered");
+      if (state.flags[q.id]) classes.push("flagged");
+      if (markersFor(q.id).length) classes.push("marked");
+      if (i === state.currentIndex) classes.push("current");
+      grid.appendChild(el("button", {
+        class: classes.join(" "),
+        onclick: function () { state.currentIndex = i; saveState(); render(); }
+      }, [String(inCleanup ? originalQuestionNumber(q.id) : i + 1)]));
+    });
+    nav.appendChild(grid);
+    nav.appendChild(el("div", { class: "nav-legend" }, [
+      el("div", {}, [el("span", { class: "dot answered" }), "Answered"]),
+      el("div", {}, [el("span", { class: "dot flagged" }), "Flagged"]),
+      el("div", {}, [el("span", { class: "dot marked" }), "Learning marker"]),
+      el("div", {}, [el("span", { class: "dot unanswered" }), "Unanswered"])
+    ]));
+    return nav;
+  }
+
+  // ---------------------------------------------------------------- learning markers
+  function selectedExamText() {
+    var area = document.getElementById("questionArea");
+    var sel = window.getSelection && window.getSelection();
+    if (!area || !sel || sel.isCollapsed || sel.rangeCount === 0) return "";
+    var range = sel.getRangeAt(0);
+    var common = range.commonAncestorContainer.nodeType === 1
+      ? range.commonAncestorContainer
+      : range.commonAncestorContainer.parentElement;
+    if (!common || !area.contains(common)) return "";
+    return sel.toString().replace(/\s+/g, " ").trim().slice(0, 120);
+  }
+
+  function normalizeMarkerTerm(term) {
+    return String(term || "").replace(/\s+/g, " ").trim();
+  }
+
+  function renderMarkerPanel(q) {
+    var items = markersFor(q.id);
+    var panel = el("section", { class: "marker-panel" + (items.length ? " has-items" : "") });
+    var head = el("div", { class: "marker-head" }, [
+      el("div", {}, [
+        el("span", { class: "marker-title" }, ["Learning markers"]),
+        el("span", { class: "marker-sub" }, [items.length ? items.length + " saved for this question" : "Save unclear terms for later explanation"])
+      ]),
+      el("button", {
+        type: "button",
+        class: "marker-add-btn",
+        onclick: function () { openMarkerModal(q); }
+      }, ["+ Add"])
+    ]);
+    panel.appendChild(head);
+    if (items.length) {
+      var list = el("div", { class: "marker-list" });
+      items.forEach(function (m) {
+        list.appendChild(el("div", { class: "marker-chip" }, [
+          el("div", { class: "marker-chip-text" }, [
+            el("strong", {}, [m.term || "Unnamed marker"]),
+            el("span", {}, [m.note ? m.note : ((m.source || "Topic") + " marker")])
+          ]),
+          el("button", {
+            type: "button",
+            class: "marker-mini-btn",
+            title: "Edit marker",
+            onclick: function () { openMarkerModal(q, m); }
+          }, ["Edit"]),
+          el("button", {
+            type: "button",
+            class: "marker-mini-btn danger",
+            title: "Delete marker",
+            onclick: function () { deleteMarker(q.id, m.id); }
+          }, ["Delete"])
+        ]));
+      });
+      panel.appendChild(list);
+    }
+    return panel;
+  }
+
+  function openMarkerModal(q, existing) {
+    var selected = selectedExamText();
+    var isEdit = !!existing;
+    var overlay = el("div", { class: "modal-overlay", onclick: function (e) { if (e.target === overlay) overlay.remove(); } });
+    var termInput = el("input", {
+      class: "marker-field",
+      type: "text",
+      maxlength: "80",
+      placeholder: "Term or topic, e.g. confirmation testing",
+      value: isEdit ? existing.term : (selected || q.topic || "")
+    });
+    var sourceSelect = el("select", { class: "marker-field" }, [
+      el("option", { value: "term" }, ["Term"]),
+      el("option", { value: "concept" }, ["Concept"]),
+      el("option", { value: "question wording" }, ["Question wording"]),
+      el("option", { value: "option wording" }, ["Option wording"]),
+      el("option", { value: "other" }, ["Other"])
+    ]);
+    sourceSelect.value = isEdit ? (existing.source || "term") : (selected ? "question wording" : "concept");
+    var noteInput = el("textarea", {
+      class: "marker-textarea",
+      rows: "4",
+      placeholder: "What exactly felt unclear? A short note helps the later explanation target the confusion."
+    }, [isEdit ? (existing.note || "") : ""]);
+
+    var modal = el("div", { class: "modal marker-modal" }, [
+      el("h3", {}, [isEdit ? "Edit learning marker" : "Add learning marker"]),
+      el("p", {}, ["Use this for anything you want explained after the exam. It will be exported with your result file."]),
+      el("label", { class: "marker-label" }, ["Term or topic", termInput]),
+      el("label", { class: "marker-label" }, ["Marker type", sourceSelect]),
+      el("label", { class: "marker-label" }, ["What was unclear?", noteInput]),
+      selected && !isEdit ? el("p", { class: "marker-selected" }, ["Selected text: " + selected]) : null,
+      el("div", { class: "modal-actions" }, [
+        el("button", { class: "nav-action-btn", onclick: function () { overlay.remove(); } }, ["Cancel"]),
+        el("button", {
+          class: "submit-btn",
+          onclick: function () {
+            if (saveMarker(q, existing, termInput.value, sourceSelect.value, noteInput.value, selected)) {
+              overlay.remove();
+            }
+          }
+        }, [isEdit ? "Save Marker" : "Add Marker"])
+      ])
+    ]);
+    overlay.appendChild(modal);
+    root.appendChild(overlay);
+    termInput.focus();
+    termInput.select();
+  }
+
+  function saveMarker(q, existing, term, source, note, selected) {
+    var cleanTerm = normalizeMarkerTerm(term);
+    if (!cleanTerm) {
+      alert("Add a term or topic before saving the marker.");
+      return false;
+    }
+    if (!state.markers) state.markers = {};
+    var list = markersFor(q.id).slice();
+    var now = new Date().toISOString();
+    if (existing) {
+      list = list.map(function (m) {
+        if (m.id !== existing.id) return m;
+        return Object.assign({}, m, {
+          term: cleanTerm,
+          source: source,
+          note: note.trim(),
+          updatedAt: now
+        });
+      });
+    } else {
+      list.push({
+        id: "mk_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+        term: cleanTerm,
+        source: source,
+        note: note.trim(),
+        selectedText: selected || "",
+        questionId: q.id,
+        chapter: q.chapter,
+        topic: q.topic,
+        question: q.question,
+        createdAt: now
+      });
+    }
+    state.markers[q.id] = list;
+    saveState();
+    render();
+    return true;
+  }
+
+  function deleteMarker(questionId, markerId) {
+    if (!confirm("Delete this learning marker?")) return;
+    if (!state.markers) return;
+    var list = markersFor(questionId).filter(function (m) { return m.id !== markerId; });
+    if (list.length) state.markers[questionId] = list;
+    else delete state.markers[questionId];
+    saveState();
+    render();
+  }
+
+  // ---------------------------------------------------------------- remaining-question round
+  function handleTimerExpired() {
+    if (state.phase === "cleanup") {
+      submitExam(true);
+      return;
+    }
+    if (state.phase !== "in_progress") return;
+
+    var ids = remainingQuestionIds();
+    if (!ids.length || state.cleanupUsed) {
+      submitExam(true);
+      return;
+    }
+
+    stopTimer();
+    state.phase = "cleanup_offer";
+    state.cleanupQuestionIds = ids;
+    state.cleanupOfferedAt = Date.now();
+    state.currentIndex = 0;
+    saveState();
+    render();
+  }
+
+  function startCleanupRound() {
+    var ids = (state.cleanupQuestionIds && state.cleanupQuestionIds.length)
+      ? state.cleanupQuestionIds
+      : remainingQuestionIds();
+    if (!ids.length) {
+      submitExam(false);
+      return;
+    }
+    state.phase = "cleanup";
+    state.cleanupUsed = true;
+    state.cleanupQuestionIds = ids;
+    state.cleanupStartedAt = Date.now();
+    state.cleanupDeadline = state.cleanupStartedAt + ids.length * 60000;
+    state.cleanupTimeUsedSeconds = null;
+    state.currentIndex = 0;
+    resumedThisSession = true;
+    saveState();
+    render();
+  }
+
+  function renderCleanupOffer() {
+    stopTimer();
+    var ids = state.cleanupQuestionIds || [];
+    var unanswered = ids.filter(function (id) { return !state.answers[id]; }).length;
+    var flagged = ids.filter(function (id) { return !!state.flags[id]; }).length;
+    var minutes = ids.length;
+
+    var shell = el("div", { class: "center-shell" });
+    var card = el("div", { class: "card" });
+    card.appendChild(el("div", { class: "resume-banner" }, [
+      "The main exam timer has ended. You still have unanswered or flagged questions."
+    ]));
+    card.appendChild(el("h1", { class: "start-title" }, ["Finish Remaining Questions"]));
+    card.appendChild(el("p", { class: "start-sub" }, [
+      "You can take one extra round for only those questions. The timer will be " +
+      minutes + " minute" + (minutes === 1 ? "" : "s") + "."
+    ]));
+    card.appendChild(el("div", { class: "meta-grid" }, [
+      metaTile(String(ids.length), "Remaining"),
+      metaTile(String(unanswered), "Unanswered"),
+      metaTile(String(flagged), "Flagged"),
+      metaTile(minutes + " min", "Extra Time")
+    ]));
+    card.appendChild(el("p", { class: "footer-note" }, [
+      "The remaining round uses the same question view. Your existing answers, notes, flags, and learning markers are kept."
+    ]));
+    card.appendChild(el("div", { class: "results-actions" }, [
+      el("button", { class: "big-btn", onclick: startCleanupRound }, ["Answer Remaining Questions"]),
+      el("button", { class: "big-btn secondary", onclick: function () { submitExam(false); } }, ["Submit Exam Now"])
+    ]));
+
+    shell.appendChild(card);
+    root.appendChild(topbar(false));
+    root.appendChild(shell);
+  }
+
+  // ---------------------------------------------------------------- timer
+  function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function () {
+      if (computeRemaining() <= 0) {
+        handleTimerExpired();
+        return;
+      }
+      updateTimerDisplay();
+    }, 1000);
+  }
+  function stopTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+  }
+  function updateTimerDisplay() {
+    var timerEl = document.getElementById("timerEl");
+    if (!timerEl) return;
+    var remaining = computeRemaining();
+    timerEl.textContent = formatTime(remaining);
+    timerEl.classList.remove("warn", "critical");
+    if (remaining <= 300) timerEl.classList.add("critical");
+    else if (remaining <= 600) timerEl.classList.add("warn");
+    var counter = document.getElementById("qCounter");
+    if (counter) counter.textContent = (state.phase === "cleanup" ? "Remaining " : "Question ") + (state.currentIndex + 1) + " of " + activeQuestionCount();
+  }
+
+  // ---------------------------------------------------------------- submit
+  function openSubmitModal() {
+    var total = EXAM.questions.length;
+    var answered = answeredCount();
+    var unanswered = total - answered;
+    var flagged = flaggedCount();
+    var marked = markerCount();
+
+    var overlay = el("div", { class: "modal-overlay", onclick: function (e) { if (e.target === overlay) overlay.remove(); } });
+    var modal = el("div", { class: "modal" }, [
+      el("h3", {}, ["Submit exam?"]),
+      el("p", {}, ["Once submitted, the timer stops and you cannot change any answers."]),
+      el("div", { class: "modal-stats" }, [
+        modalStat(String(answered), "Answered"),
+        modalStat(String(unanswered), "Unanswered"),
+        modalStat(String(flagged), "Flagged"),
+        modalStat(String(marked), "Learning Markers")
+      ]),
+      el("div", { class: "modal-actions" }, [
+        el("button", { class: "nav-action-btn", onclick: function () { overlay.remove(); } }, ["Keep Working"]),
+        el("button", { class: "submit-btn", onclick: function () { overlay.remove(); submitExam(false); } }, ["Submit Now"])
+      ])
+    ]);
+    overlay.appendChild(modal);
+    root.appendChild(overlay);
+  }
+  function modalStat(n, l) {
+    return el("div", { class: "modal-stat" }, [el("span", { class: "n" }, [n]), el("span", { class: "l" }, [l])]);
+  }
+
+  function submitExam(auto) {
+    stopTimer();
+    var phaseAtSubmit = state.phase;
+    state.phase = "submitted";
+    state.submittedAt = Date.now();
+    var maxSeconds = EXAM.durationMinutes * 60;
+    var usedSeconds = state.startedAt ? Math.round((state.submittedAt - state.startedAt) / 1000) : maxSeconds;
+    var mainUsedSeconds = Math.min(maxSeconds, Math.max(0, usedSeconds));
+    var cleanupUsedSeconds = null;
+    if (state.cleanupStartedAt) {
+      cleanupUsedSeconds = Math.round((state.submittedAt - state.cleanupStartedAt) / 1000);
+      cleanupUsedSeconds = Math.min(cleanupDurationSeconds(), Math.max(0, cleanupUsedSeconds));
+      mainUsedSeconds = maxSeconds;
+    } else if (phaseAtSubmit === "cleanup_offer") {
+      mainUsedSeconds = maxSeconds;
+    }
+    state.cleanupTimeUsedSeconds = cleanupUsedSeconds;
+    state.timeUsedSeconds = mainUsedSeconds + (cleanupUsedSeconds || 0);
+    saveState();
+    render();
+    if (auto) {
+      var msg = phaseAtSubmit === "cleanup"
+        ? "The remaining-question round is over. Your exam was submitted automatically."
+        : "Time's up — your exam was submitted automatically.";
+      setTimeout(function () { alert(msg); }, 50);
+    }
+  }
+
+  // ---------------------------------------------------------------- results
+  function scoreExam() {
+    var total = EXAM.questions.length;
+    var correct = 0;
+    var byChapter = {};
+    EXAM.questions.forEach(function (q) {
+      var cn = chapterNum(q.chapter);
+      if (!byChapter[cn]) byChapter[cn] = { correct: 0, total: 0 };
+      byChapter[cn].total += 1;
+      var isCorrect = state.answers[q.id] === q.correct;
+      if (isCorrect) { correct += 1; byChapter[cn].correct += 1; }
+    });
+    return { total: total, correct: correct, pct: Math.round((correct / total) * 1000) / 10, byChapter: byChapter };
+  }
+
+  function renderResults() {
+    stopTimer();
+    var score = scoreExam();
+    var pass = score.pct >= EXAM.passMarkPct;
+
+    var shell = el("div", { class: "center-shell" });
+    var card = el("div", { class: "card" });
+
+    card.appendChild(el("div", { class: "score-circle " + (pass ? "pass" : "fail") }, [
+      el("span", { class: "pct" }, [score.pct + "%"]),
+      el("span", { class: "frac" }, [score.correct + " / " + score.total])
+    ]));
+    var wrap = el("div", {});
+    wrap.appendChild(el("div", { class: "pass-banner " + (pass ? "pass" : "fail") }, [pass ? "PASS" : "FAIL"]));
+    wrap.appendChild(el("div", { class: "pass-mark-note" }, [
+      "Pass mark: " + EXAM.passMarkPct + "% (" + Math.round(score.total * EXAM.passMarkPct / 100) + "/" + score.total + "). " +
+      "Time used: " + (state.timeUsedSeconds !== null ? formatTime(state.timeUsedSeconds) : "—") + " of " + timeLimitLabel() + "."
+    ]));
+    card.appendChild(wrap);
+
+    var table = el("table", { class: "breakdown-table" });
+    table.appendChild(el("tr", {}, [
+      el("th", {}, ["Chapter"]), el("th", {}, ["Score"]), el("th", {}, [""])
+    ]));
+    Object.keys(score.byChapter).sort().forEach(function (cn) {
+      var row = score.byChapter[cn];
+      var rowPct = (row.correct / row.total) * 100;
+      table.appendChild(el("tr", {}, [
+        el("td", {}, [cn + ". " + (CHAPTER_NAMES[cn] || "")]),
+        el("td", {}, [row.correct + "/" + row.total]),
+        el("td", {}, [el("div", { class: "mini-bar-track" }, [el("div", { class: "mini-bar-fill", style: "width:" + rowPct + "%" })])])
+      ]));
+    });
+    card.appendChild(table);
+
+    var actions = el("div", { class: "results-actions" }, [
+      el("button", { class: "big-btn", onclick: function () { renderSolutionsScreen(score); } }, ["View Full Solutions"]),
+      el("button", { class: "big-btn secondary", onclick: exportResults }, ["Export Results (JSON)"]),
+      el("button", { class: "big-btn secondary", onclick: retakeExam }, ["Retake Exam"])
+    ]);
+    card.appendChild(actions);
+
+    card.appendChild(el("p", { class: "footer-note" }, [
+      "Retake replays this exact set of " + score.total + " questions. For a fresh mix, ask Claude to generate a new mock exam."
+    ]));
+
+    if (flaggedCount() > 0) {
+      var flaggedIds = Object.keys(state.flags).filter(function (k) { return state.flags[k]; });
+      card.appendChild(el("p", { class: "footer-note" }, [
+        flaggedIds.length + " question(s) were flagged for review during the exam — see the solutions view for details."
+      ]));
+    }
+    if (state.cleanupQuestionIds && state.cleanupQuestionIds.length) {
+      card.appendChild(el("p", { class: "footer-note" }, [
+        "Remaining-question round: " + state.cleanupQuestionIds.length + " question(s), " +
+        (state.cleanupStartedAt ? "used " + formatTime(state.cleanupTimeUsedSeconds || 0) + "." : "not used.")
+      ]));
+    }
+    if (markerCount() > 0) {
+      card.appendChild(el("p", { class: "footer-note" }, [
+        markerCount() + " learning marker(s) will be included in the exported results so they can be merged into revision/marked-topics.md."
+      ]));
+    }
+
+    shell.appendChild(card);
+    root.appendChild(topbar(false));
+    root.appendChild(shell);
+  }
+
+  function exportResults() {
+    var score = scoreExam();
+    var allMarkers = [];
+    var payload = {
+      examId: EXAM.examId,
+      title: EXAM.title,
+      generated: EXAM.generated,
+      completedAt: new Date(state.submittedAt || Date.now()).toISOString(),
+      durationMinutes: EXAM.durationMinutes,
+      timeUsedSeconds: state.timeUsedSeconds,
+      cleanupRound: state.cleanupQuestionIds && state.cleanupQuestionIds.length ? {
+        questionIds: state.cleanupQuestionIds,
+        durationSeconds: cleanupDurationSeconds(),
+        startedAt: state.cleanupStartedAt ? new Date(state.cleanupStartedAt).toISOString() : null,
+        timeUsedSeconds: state.cleanupTimeUsedSeconds,
+        used: !!state.cleanupStartedAt
+      } : null,
+      passMarkPct: EXAM.passMarkPct,
+      score: score.correct,
+      total: score.total,
+      pct: score.pct,
+      pass: score.pct >= EXAM.passMarkPct,
+      answers: EXAM.questions.map(function (q) {
+        var qMarkers = markersFor(q.id).map(function (m) {
+          return Object.assign({}, m, {
+            questionId: q.id,
+            chapter: q.chapter,
+            topic: q.topic,
+            question: q.question
+          });
+        });
+        Array.prototype.push.apply(allMarkers, qMarkers);
+        return {
+          id: q.id,
+          chapter: q.chapter,
+          topic: q.topic,
+          chosen: state.answers[q.id] || null,
+          correct: q.correct,
+          isCorrect: state.answers[q.id] === q.correct,
+          flagged: !!state.flags[q.id],
+          roughNote: noteFor(q.id) || null,
+          learningMarkers: qMarkers
+        };
+      }),
+      learningMarkers: allMarkers
+    };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = EXAM.examId + "-results.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    state.exported = true;
+    saveState();
+  }
+
+  // ---------------------------------------------------------------- solutions
+  function renderSolutionsScreen(score) {
+    root.innerHTML = "";
+    root.appendChild(topbar(false));
+    var wrap = el("div", { class: "solutions-wrap" });
+
+    wrap.appendChild(el("div", { class: "solutions-top-actions" }, [
+      el("button", {
+        class: "nav-action-btn", onclick: function () { render(); }
+      }, ["← Back to Results"]),
+      el("button", { class: "nav-action-btn", onclick: retakeExam }, ["Retake Exam"])
+    ]));
+
+    wrap.appendChild(el("h2", {}, ["Full Solutions"]));
+    wrap.appendChild(el("p", { class: "start-sub" }, [
+      "Score: " + score.correct + "/" + score.total + " (" + score.pct + "%). Your answer is marked when wrong; the correct answer is always highlighted green."
+    ]));
+
+    var jumpNav = el("div", { class: "jump-nav" });
+    EXAM.questions.forEach(function (q, i) {
+      var isCorrect = state.answers[q.id] === q.correct;
+      jumpNav.appendChild(el("a", { href: "#sol-" + q.id, class: isCorrect ? "correct" : "incorrect" }, [String(i + 1)]));
+    });
+    wrap.appendChild(jumpNav);
+
+    EXAM.questions.forEach(function (q, i) {
+      var chosen = state.answers[q.id] || null;
+      var isCorrect = chosen === q.correct;
+      var status = chosen === null ? "unanswered" : (isCorrect ? "correct" : "incorrect");
+
+      var item = el("div", { class: "sol-item " + status, id: "sol-" + q.id });
+      var head = el("div", { class: "sol-head" }, [
+        el("span", { class: "sol-badge " + status }, [status === "unanswered" ? "Unanswered" : (isCorrect ? "Correct" : "Incorrect")]),
+        el("span", { class: "sol-tag" }, ["Chapter " + q.chapter + " · " + q.topic])
+      ]);
+      item.appendChild(head);
+      item.appendChild(el("p", { class: "sol-q" }, ["Q" + (i + 1) + ". " + q.question]));
+      if (noteFor(q.id)) {
+        item.appendChild(el("div", { class: "sol-note" }, [
+          el("strong", {}, ["Your rough note"]),
+          el("p", {}, [noteFor(q.id)])
+        ]));
+      }
+      var qMarkers = markersFor(q.id);
+      if (qMarkers.length) {
+        var markerBox = el("div", { class: "sol-marker-box" }, [
+          el("strong", {}, ["Learning markers"])
+        ]);
+        qMarkers.forEach(function (m) {
+          markerBox.appendChild(el("div", { class: "sol-marker-item" }, [
+            el("span", { class: "sol-marker-term" }, [m.term || "Unnamed marker"]),
+            el("span", { class: "sol-marker-note" }, [m.note || (m.source || "Marked for later explanation")])
+          ]));
+        });
+        item.appendChild(markerBox);
+      }
+
+      ["A", "B", "C", "D"].forEach(function (letter) {
+        if (!q.options[letter]) return;
+        var cls = "sol-option";
+        var mark = "";
+        if (letter === q.correct) { cls += " is-correct"; mark = "✓"; }
+        else if (letter === chosen) { cls += " is-your-wrong"; mark = "✗"; }
+        var suffix = letter === chosen && letter !== q.correct ? " (your answer)" : (letter === q.correct ? " (correct answer)" : "");
+        item.appendChild(el("div", { class: cls }, [
+          el("span", { class: "sol-option-mark" }, [mark || "  "]),
+          el("span", {}, [letter + ". " + q.options[letter] + suffix])
+        ]));
+      });
+
+      var block = el("div", { class: "sol-block" });
+      block.appendChild(el("h5", {}, ["Why the correct answer is correct"]));
+      block.appendChild(el("p", {}, [q.why_correct]));
+      block.appendChild(el("h5", {}, ["Option-by-option"]));
+      ["A", "B", "C", "D"].forEach(function (letter) {
+        if (!q.option_notes || !q.option_notes[letter]) return;
+        block.appendChild(el("p", {}, [letter + ": " + q.option_notes[letter]]));
+      });
+      if (q.distractor_note) {
+        block.appendChild(el("h5", {}, ["Distractor analysis"]));
+        block.appendChild(el("p", {}, [q.distractor_note]));
+      }
+      if (q.alt_wording) {
+        block.appendChild(el("h5", {}, ["How this could be asked differently"]));
+        block.appendChild(el("p", {}, [q.alt_wording]));
+      }
+      item.appendChild(block);
+      wrap.appendChild(item);
+    });
+
+    root.appendChild(wrap);
+  }
+
+  // ---------------------------------------------------------------- boot
+  // If a deadline expired while the tab was closed, resume from the correct state:
+  // offer the remaining-question round after the main timer, or submit after the extra round.
+  if ((state.phase === "in_progress" || state.phase === "cleanup") && computeRemaining() <= 0) {
+    handleTimerExpired();
+  } else {
+    render();
+  }
+})();
+
+</script>
+</body>
+</html>
