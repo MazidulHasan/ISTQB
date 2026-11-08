@@ -1,0 +1,1051 @@
+{
+  "exam_id": "2026-11-05-hard-01",
+  "title": "ISTQB CTFL v4.0.1 - Hard Mock Exam",
+  "variant": "hard",
+  "generated": "2026-11-05",
+  "duration_minutes": 75,
+  "pass_mark_pct": 65,
+  "bank_version": 1,
+  "questions": [
+    {
+      "id": "Q628",
+      "chapter": "4.2",
+      "lo": "FL-4.2.1",
+      "topic": "Each Choice Coverage With Existing Tests",
+      "type": "H",
+      "difficulty": "red",
+      "question": "A form has two independent parameters:\n- Membership: Free, Silver, Gold\n- Region: EU, US, APAC, Other\n\nExisting tests: (Free, EU), (Silver, EU), (Gold, US).\n\nHow many ADDITIONAL test cases are needed, at minimum, to achieve 100% Each Choice coverage?",
+      "options": {
+        "A": "1",
+        "B": "2",
+        "C": "4",
+        "D": "9"
+      },
+      "correct": "B",
+      "why_correct": "Each Choice coverage requires each partition of each parameter to be exercised at least once. All three Membership partitions are covered. Region still needs APAC and Other. One test case can only use one Region value, so 2 more tests are needed.",
+      "option_notes": {
+        "A": "One test case cannot exercise both APAC and Other.",
+        "B": "Correct.",
+        "C": "This is the number of Region partitions; EU and US are already covered.",
+        "D": "12 full combinations minus 3 existing tests - that is not what Each Choice requires."
+      },
+      "distractor_note": "The largest number comes from counting all combinations. Each Choice never needs combinations.",
+      "alt_wording": "Which partitions remain uncovered, and how many tests are needed to reach them?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q648",
+      "chapter": "5.3",
+      "lo": "FL-5.3.1",
+      "topic": "Classifying Test Metrics",
+      "type": "C",
+      "difficulty": "red",
+      "question": "Which metric is correctly matched to its category?",
+      "options": {
+        "A": "Requirements coverage - product quality metric",
+        "B": "Defect density - risk metric",
+        "C": "Mean time to failure - product quality metric",
+        "D": "Task completion - test progress metric"
+      },
+      "correct": "C",
+      "why_correct": "CTFL 5.3.1: project progress metrics include task completion, resource usage and test effort. Product quality metrics include availability, response time and mean time to failure. Coverage metrics include requirements and code coverage. Defect metrics include defect density and defect detection percentage. Risk metrics include residual risk level.",
+      "option_notes": {
+        "A": "This is a coverage metric.",
+        "B": "This is a defect metric.",
+        "C": "Correct.",
+        "D": "Task completion is a PROJECT progress metric."
+      },
+      "distractor_note": "Project progress and test progress are close pairs. Task completion belongs to project progress.",
+      "alt_wording": "Which category does mean time to failure belong to?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q613",
+      "chapter": "1.2",
+      "lo": "FL-1.2.2",
+      "topic": "Testing vs Quality Assurance",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which statements about testing and quality assurance (QA) are correct?\ni. Testing is product-oriented and corrective.\nii. QA is the responsibility of a dedicated QA department rather than of everyone on the project.\niii. QA applies to both the development process and the test process.\niv. Test results are used in QA to fix defects, and in testing to give feedback on the processes.",
+      "options": {
+        "A": "ii and iii",
+        "B": "i and iii",
+        "C": "ii and iv",
+        "D": "i and iv"
+      },
+      "correct": "B",
+      "why_correct": "CTFL 1.2.2: testing is a product-oriented, corrective approach and a major form of quality control. QA is process-oriented and preventive, applies to both development and testing processes, and is the responsibility of everyone on a project. Test results are used in testing to fix defects, and in QA to give feedback on how well the processes are performing.",
+      "option_notes": {
+        "A": "ii is false: QA is everyone's responsibility.",
+        "B": "Correct.",
+        "C": "Both statements are false.",
+        "D": "iv swaps the two uses of test results."
+      },
+      "distractor_note": "Statement iv is true with its two halves reversed. Read which use goes with which discipline.",
+      "alt_wording": "How do the purposes of testing and QA differ, and how does each use test results?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q625",
+      "chapter": "3.2",
+      "lo": "FL-3.2.4",
+      "topic": "Identifying a Walkthrough",
+      "type": "B",
+      "difficulty": "red",
+      "question": "The author of an API design presents it to the team. The aims are to teach new joiners how it works, build agreement and collect new ideas. Attendees may read it beforehand, but this is not required. Which review type is this MOST likely to be?",
+      "options": {
+        "A": "Technical review",
+        "B": "Inspection",
+        "C": "Informal review",
+        "D": "Walkthrough"
+      },
+      "correct": "D",
+      "why_correct": "CTFL 3.2.4: a walkthrough is led by the author and can serve many objectives, including educating reviewers, gaining consensus and generating new ideas. Individual review beforehand is possible but not required. These features together identify it.",
+      "option_notes": {
+        "A": "A technical review is led by a moderator, with technically qualified reviewers, and aims at deciding on a technical problem.",
+        "B": "An inspection follows the complete process, aims to find the maximum number of anomalies, and the author cannot lead it.",
+        "C": "Informal reviews have no defined process, and their main objective is detecting anomalies.",
+        "D": "Correct."
+      },
+      "distractor_note": "Optional preparation makes this look informal, but the author-led presentation and the education goal point to a walkthrough.",
+      "alt_wording": "Which review type is led by the author and can educate reviewers?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q649",
+      "chapter": "5.3",
+      "lo": "FL-5.3.3",
+      "topic": "Communicating Test Status to Distributed Teams",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A team is spread across three time zones, with little chance of face-to-face contact. Its stakeholders include developers, a product owner and senior management. Which approach to communicating test status is BEST?",
+      "options": {
+        "A": "No reports at all, since a CI/CD dashboard replaces every other communication option",
+        "B": "One identical detailed report for everyone, so that all stakeholders see the same data",
+        "C": "Mainly verbal updates, because they are the fastest way to share information",
+        "D": "More formal communication, with the content tailored to each stakeholder group"
+      },
+      "correct": "D",
+      "why_correct": "CTFL 5.3.3: more formal communication may be more appropriate for distributed teams, where direct face-to-face communication is not always possible because of distance or time differences. Different stakeholders are interested in different information, so communication should be tailored. One or more options can be used.",
+      "option_notes": {
+        "A": "Dashboards are one option; several can be combined.",
+        "B": "Communication should be tailored, not identical.",
+        "C": "Verbal updates are hard across time zones.",
+        "D": "Correct."
+      },
+      "distractor_note": "The identical-report option sounds transparent, but ignores that stakeholders need different information.",
+      "alt_wording": "How should test status communication change for distributed teams?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q636",
+      "chapter": "4.3",
+      "lo": "FL-4.3.3",
+      "topic": "Value and Limits of White-Box Testing",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which statements about white-box testing are correct?\ni. Coverage measures give an objective measurement and information for generating extra tests.\nii. White-box techniques cannot be used in static testing, because the code must be executed.\niii. They can detect defects even when the specification is vague, outdated or incomplete.\niv. 100% branch coverage shows that all requirements have been implemented.",
+      "options": {
+        "A": "i and iv",
+        "B": "i and iii",
+        "C": "ii and iii",
+        "D": "ii and iv"
+      },
+      "correct": "B",
+      "why_correct": "CTFL 4.3.3: white-box testing considers the entire implementation, so it can detect defects when specifications are vague, outdated or incomplete, and its coverage measures provide an objective measurement and the information to create extra tests. White-box techniques can be used in static testing, for example dry runs of code. They may not detect defects of omission, so coverage says nothing about requirements that were never implemented.",
+      "option_notes": {
+        "A": "iv is false: defects of omission can be missed.",
+        "B": "Correct.",
+        "C": "ii is false: dry runs of code are an example of static use.",
+        "D": "Both statements are false."
+      },
+      "distractor_note": "Statement ii sounds right since coverage usually means execution, but dry runs are a static use of white-box techniques.",
+      "alt_wording": "What are the strengths and the weakness of white-box testing?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q638",
+      "chapter": "4.4",
+      "lo": "FL-4.4.3",
+      "topic": "What Belongs on a Checklist",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A team is drafting a checklist for checklist-based testing of a banking app. Which item is MOST appropriate to include?",
+      "options": {
+        "A": "All planned test cases have been executed before the release.",
+        "B": "Each error message tells the user how to recover from the problem.",
+        "C": "The source code has no violations reported by the static analysis tool.",
+        "D": "The application behaves correctly and is of high quality."
+      },
+      "correct": "B",
+      "why_correct": "CTFL 4.4.3: checklists should not contain items that can be checked automatically, items better suited as entry or exit criteria, or items that are too general. The error-message item is specific and needs human evaluation.",
+      "option_notes": {
+        "A": "Better suited as an exit criterion.",
+        "B": "Correct.",
+        "C": "Can be checked automatically.",
+        "D": "Too general."
+      },
+      "distractor_note": "Each wrong option matches one of the three exclusions the syllabus names.",
+      "alt_wording": "Which three kinds of item should a checklist leave out?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q632",
+      "chapter": "4.2",
+      "lo": "FL-4.2.3",
+      "topic": "Decision Table Coverage With Don't-Care Entries",
+      "type": "H",
+      "difficulty": "red",
+      "question": "A minimized decision table has these columns (- = does not matter):\n\nR1: LoggedIn=N, InStock=-, PaymentValid=-\nR2: LoggedIn=Y, InStock=N, PaymentValid=-\nR3: LoggedIn=Y, InStock=Y, PaymentValid=N\nR4: LoggedIn=Y, InStock=Y, PaymentValid=Y\n\nTests (LoggedIn, InStock, PaymentValid):\nT1: N, Y, Y\nT2: N, N, N\nT3: Y, N, Y\nT4: Y, Y, Y\n\nWhat decision table coverage is achieved?",
+      "options": {
+        "A": "25%",
+        "B": "50%",
+        "C": "75%",
+        "D": "100%"
+      },
+      "correct": "C",
+      "why_correct": "Match each test to a column: T1 and T2 both match R1 (LoggedIn = N); T3 matches R2; T4 matches R4. R3 (Y, Y, N) is not exercised. Coverage = 3 of 4 columns = 75%.",
+      "option_notes": {
+        "A": "Counts only one exercised column.",
+        "B": "Treats T1 and T2 as not matching any column because of the '-' entries.",
+        "C": "Correct.",
+        "D": "Four tests for four columns looks complete, but T1 and T2 hit the same column."
+      },
+      "distractor_note": "Four tests and four columns do not imply 100%. Map every test to its column first.",
+      "alt_wording": "How many distinct columns do these four tests exercise?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q651",
+      "chapter": "6.2",
+      "lo": "FL-6.2.1",
+      "topic": "Benefits of Test Automation",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Which of these is NOT a potential benefit of test automation according to CTFL?",
+      "options": {
+        "A": "Removing the need for script maintenance once the tool has been introduced",
+        "B": "Preventing simple human errors through greater consistency and repeatability",
+        "C": "Providing measures that are too complicated for humans to determine",
+        "D": "More time for testers to design new, deeper and more effective tests"
+      },
+      "correct": "A",
+      "why_correct": "CTFL 6.2: simply acquiring a tool does not guarantee success; each new tool needs effort for introduction, maintenance and training. Underestimating the effort to maintain test scripts is a listed risk. The other three options are listed benefits.",
+      "option_notes": {
+        "A": "NOT a benefit - this is the answer.",
+        "B": "A listed benefit.",
+        "C": "A listed benefit.",
+        "D": "A listed benefit."
+      },
+      "distractor_note": "This one sounds like the natural payoff of automating, but the syllabus treats maintenance as ongoing effort and underestimating it as a risk.",
+      "alt_wording": "What ongoing effort does test automation still require?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q645",
+      "chapter": "5.1",
+      "lo": "FL-5.1.6",
+      "topic": "Test Pyramid Statements",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which statements about the test pyramid are correct?\ni. The higher the layer, the higher the test isolation.\nii. Bottom-layer tests are small and fast, so usually a lot of them are needed for reasonable coverage.\niii. The model always has exactly three layers, with fixed names.\niv. Top-layer tests check a large piece of functionality, so usually just a few are needed.",
+      "options": {
+        "A": "iii and iv",
+        "B": "i and ii",
+        "C": "i and iii",
+        "D": "ii and iv"
+      },
+      "correct": "D",
+      "why_correct": "CTFL 5.1.6: the higher the layer, the lower the granularity, the lower the isolation and the higher the execution time. Bottom-layer tests are small, isolated and fast, so many are needed; top-layer end-to-end tests check large pieces of functionality, so few are needed. The number and naming of layers may differ.",
+      "option_notes": {
+        "A": "iii is false: layers may differ in number and name.",
+        "B": "i is false: isolation falls as you go up.",
+        "C": "Both statements are false.",
+        "D": "Correct."
+      },
+      "distractor_note": "Statement i reverses isolation: end-to-end tests depend on many other parts of the system.",
+      "alt_wording": "What changes as you move up the test pyramid?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q634",
+      "chapter": "4.2",
+      "lo": "FL-4.2.4",
+      "topic": "Transition Label Notation",
+      "type": "C",
+      "difficulty": "red",
+      "question": "A state diagram has a transition labelled 'withdraw [amount <= balance] / dispenseCash'. Which statement is correct?",
+      "options": {
+        "A": "'withdraw' is the event, 'dispenseCash' the guard, and the target state appears as the column of the state table.",
+        "B": "'withdraw' is the event, 'amount <= balance' the guard, and the transition lasts until 'dispenseCash' finishes.",
+        "C": "'withdraw' is the event, 'amount <= balance' the guard, and in a state table the guard goes with the event column.",
+        "D": "'withdraw' is the action, 'amount <= balance' the guard, and in a state table the guard goes with the state row."
+      },
+      "correct": "C",
+      "why_correct": "CTFL 4.2.4: the label syntax is 'event [guard condition] / action'. In a state table, rows are states, columns are events together with any guard conditions, and cells contain the target state plus any action. Transitions are assumed to be instantaneous.",
+      "option_notes": {
+        "A": "The bracketed part is the guard; the target state goes in the table cell.",
+        "B": "Transitions are assumed to be instantaneous.",
+        "C": "Correct.",
+        "D": "The name before the bracket is the event, and rows represent states only."
+      },
+      "distractor_note": "The instantaneous-transition option gets the notation right and fails only on timing, so read to the end.",
+      "alt_wording": "How do you read 'event [guard condition] / action'?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q626",
+      "chapter": "3.2",
+      "lo": "FL-3.2.5",
+      "topic": "Review Success Factors",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A team wants its reviews to succeed. Which practice is MOST likely to UNDERMINE that?",
+      "options": {
+        "A": "Reviewing a 300-page specification in one session, so reviewers keep the whole context",
+        "B": "Defining clear objectives and measurable exit criteria for each review",
+        "C": "Training all participants so that each person knows how to fulfil their role",
+        "D": "Giving feedback from the review to stakeholders and authors so they can improve"
+      },
+      "correct": "A",
+      "why_correct": "CTFL 3.2.5 lists reviewing small chunks so that reviewers do not lose concentration as a success factor, and 3.2.2 notes that large work products may need several reviews. The other three options are named success factors.",
+      "option_notes": {
+        "A": "Correct - this contradicts reviewing small chunks.",
+        "B": "A named success factor.",
+        "C": "A named success factor.",
+        "D": "A named success factor."
+      },
+      "distractor_note": "'Keep the whole context' sounds like a benefit, yet reviewers losing concentration is the risk the syllabus names.",
+      "alt_wording": "Why should work products be reviewed in small chunks?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q646",
+      "chapter": "5.2",
+      "lo": "FL-5.2.2",
+      "topic": "Technical-Sounding Project vs Product Risks",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which of these are PROJECT risks?\ni. Scope creep\nii. Poor architecture of the system\niii. Inefficient algorithms\niv. Poor tool support",
+      "options": {
+        "A": "iii and iv",
+        "B": "i and iv",
+        "C": "i and ii",
+        "D": "ii and iii"
+      },
+      "correct": "B",
+      "why_correct": "CTFL 5.2.2: project risks relate to the management and control of the project, including technical issues such as scope creep and poor tool support. Product risks relate to product quality characteristics, such as poor architecture and inefficient algorithms.",
+      "option_notes": {
+        "A": "Inefficient algorithms are a product risk.",
+        "B": "Correct.",
+        "C": "Poor architecture is a product risk.",
+        "D": "Both are product risks: they are qualities of what is being built."
+      },
+      "distractor_note": "The word 'technical' misleads here. Scope creep and tool support are technical PROJECT issues; ask whether the risk is about the project or the product.",
+      "alt_wording": "Does this risk threaten the project's management and control, or the product's quality?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q642",
+      "chapter": "5.1",
+      "lo": "FL-5.1.2",
+      "topic": "Release vs Iteration Planning",
+      "type": "C",
+      "difficulty": "red",
+      "question": "Which tester activity belongs to ITERATION planning rather than release planning?",
+      "options": {
+        "A": "Breaking down user stories into testing tasks and estimating effort for them",
+        "B": "Helping refine larger user stories into smaller ones in the product backlog",
+        "C": "Determining the test approach and planning the testing for the release",
+        "D": "Taking part in project and quality risk analyses for the whole product"
+      },
+      "correct": "A",
+      "why_correct": "CTFL 5.1.2: in iteration planning, testers participate in detailed risk analysis of user stories, determine their testability, break them down into tasks (particularly testing tasks), estimate test effort for all testing tasks, and refine functional and non-functional aspects. Release planning covers the product backlog, testable stories and acceptance criteria, project and quality risk analyses, and the test approach and plan for the release.",
+      "option_notes": {
+        "A": "Correct.",
+        "B": "Release planning.",
+        "C": "Release planning.",
+        "D": "Release planning."
+      },
+      "distractor_note": "Both kinds of planning involve estimating: release planning estimates for stories, iteration planning for tasks.",
+      "alt_wording": "Which planning level looks ahead to the end of a single iteration?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q637",
+      "chapter": "4.4",
+      "lo": "FL-4.4.2",
+      "topic": "Session-Based Exploratory Testing",
+      "type": "D",
+      "difficulty": "red",
+      "question": "Which statement about session-based exploratory testing is MOST accurate?",
+      "options": {
+        "A": "Coverage items must be fixed before the session, because the test charter serves as the test script.",
+        "B": "Sessions have no time limit, because the tester's learning cannot be scheduled in advance.",
+        "C": "Other test techniques, such as equivalence partitioning, cannot be used within a session.",
+        "D": "Test objectives may act as high-level test conditions, with coverage items identified during the session."
+      },
+      "correct": "D",
+      "why_correct": "CTFL 4.4.2: in a session-based approach, testing runs in a defined time box, guided by a test charter with test objectives. Objectives may be treated as high-level test conditions, and coverage items are identified and exercised during the session. Exploratory testing can incorporate other techniques such as equivalence partitioning, and a debriefing usually follows.",
+      "option_notes": {
+        "A": "Tests are designed, executed and evaluated simultaneously; a charter guides but is not a script.",
+        "B": "Sessions use a defined time box.",
+        "C": "Exploratory testing can incorporate other test techniques.",
+        "D": "Correct."
+      },
+      "distractor_note": "Calling a charter a script is the core misconception: it gives direction and objectives, not steps.",
+      "alt_wording": "How are coverage and objectives handled in session-based exploratory testing?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q614",
+      "chapter": "1.2",
+      "lo": "FL-1.2.3",
+      "topic": "Failures From Environmental Conditions",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A satellite's control unit starts to behave incorrectly after radiation alters its firmware. An audit shows the firmware was correct when delivered. Which statement is MOST accurate?",
+      "options": {
+        "A": "A human error must exist somewhere, because every failure ultimately comes from a person's mistake.",
+        "B": "Failures are not always caused by human errors; environmental conditions can cause defects in firmware.",
+        "C": "This is not a failure, because the delivered firmware contained no defect when it was tested.",
+        "D": "This shows that a defect always results in a failure when the defective code is executed."
+      },
+      "correct": "B",
+      "why_correct": "CTFL 1.2.3: errors and defects are not the only cause of failures. Failures can also be caused by environmental conditions, for example when radiation or electromagnetic fields cause defects in firmware. Separately, some defects always cause a failure when executed, some only in specific circumstances, and some never.",
+      "option_notes": {
+        "A": "The syllabus explicitly says human errors are not the only source.",
+        "B": "Correct.",
+        "C": "The unit does not do what it should, which is a failure regardless of when the cause arose.",
+        "D": "Some defects fail only in specific circumstances, and some never fail."
+      },
+      "distractor_note": "The tidy error-defect-failure chain is what makes the first option tempting, but the syllabus names environmental conditions as an exception.",
+      "alt_wording": "Can a failure occur without a human error being the cause?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q619",
+      "chapter": "2.1",
+      "lo": "FL-2.1.1",
+      "topic": "Impact of Moving to Agile on Testing",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A team moves from the V-model to Agile software development. Which change to its testing is MOST likely?",
+      "options": {
+        "A": "Documentation gets lighter, and manual testing leans on experience-based techniques.",
+        "B": "Manual tests need more extensive prior test analysis and design than before.",
+        "C": "Dynamic testing moves to the final iteration, once the product is complete.",
+        "D": "Regression testing becomes less important, because each increment is small."
+      },
+      "correct": "A",
+      "why_correct": "CTFL 2.1.1: Agile assumes change throughout the project, so lightweight work product documentation and extensive test automation are favored to make regression testing easier, and most manual testing tends to use experience-based techniques that do not need extensive prior analysis and design.",
+      "option_notes": {
+        "A": "Correct.",
+        "B": "The reverse: experience-based techniques need less prior analysis and design.",
+        "C": "Late dynamic testing describes sequential models; here each iteration can include all test levels.",
+        "D": "Frequent delivery requires fast feedback and EXTENSIVE regression testing."
+      },
+      "distractor_note": "The small-increment argument sounds logical but is backwards: frequent change raises the need for regression testing.",
+      "alt_wording": "How does Agile change test documentation, automation and manual test design?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q615",
+      "chapter": "1.3",
+      "lo": "FL-1.3.1",
+      "topic": "Applying Defect Clustering Correctly",
+      "type": "D",
+      "difficulty": "red",
+      "question": "Analysis of three releases shows that 78% of production failures came from 2 of 40 modules. A manager proposes to stop testing the other 38 modules, because the clustering principle shows they are fine. What is the BEST response?",
+      "options": {
+        "A": "Use the data to focus test effort, but remember that testing cannot prove the other modules are defect-free.",
+        "B": "Agree for this release only, because exhaustive testing is impossible anyway.",
+        "C": "Reject the data, because defects are normally spread evenly across modules.",
+        "D": "Agree, because the principle shows that the remaining modules contain no significant defects."
+      },
+      "correct": "A",
+      "why_correct": "Defect clustering (a Pareto-type effect) helps predict where defects are likely and is used as input to risk-based testing, so focusing effort on the two modules is sensible. It does not show the others are clean: testing can show the presence of defects, not their absence. Combining the two principles gives the best response.",
+      "option_notes": {
+        "A": "Correct.",
+        "B": "'Exhaustive testing is impossible' justifies prioritizing, not removing testing from 38 modules.",
+        "C": "The data actually supports clustering; even spread is the opposite of the principle.",
+        "D": "Clustering says where MOST defects tend to be, not that everything else is clean."
+      },
+      "distractor_note": "Options that agree with the manager misuse a true principle by pushing it to an extreme it does not support.",
+      "alt_wording": "What can defect clustering justify, and what can it not justify?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q643",
+      "chapter": "5.1",
+      "lo": "FL-5.1.3",
+      "topic": "Running Out of Time as an Exit Criterion",
+      "type": "D",
+      "difficulty": "red",
+      "question": "The test budget is used up, and two of the five exit criteria are not met. According to CTFL, under what condition is it acceptable to end testing?",
+      "options": {
+        "A": "When the unmet criteria are moved to the entry criteria of the next test level instead",
+        "B": "Never, because all defined exit criteria must always be met before testing can end",
+        "C": "When stakeholders have reviewed and accepted the risk of going live without further testing",
+        "D": "Always, because running out of budget automatically overrides any unmet exit criteria"
+      },
+      "correct": "C",
+      "why_correct": "CTFL 5.1.3: running out of time or budget can be viewed as valid exit criteria. Even without other exit criteria being satisfied, ending testing can be acceptable under those circumstances, if the stakeholders have reviewed and accepted the risk to go live without further testing.",
+      "option_notes": {
+        "A": "Moving criteria around does nothing to address the risk of going live.",
+        "B": "The syllabus explicitly allows this exception.",
+        "C": "Correct.",
+        "D": "It is not automatic: the stakeholders' acceptance of the risk is the key condition."
+      },
+      "distractor_note": "The 'always' and 'never' options each capture half of the rule. Stakeholder risk acceptance decides it.",
+      "alt_wording": "Can testing end when exit criteria are unmet because the budget has run out?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q616",
+      "chapter": "1.4",
+      "lo": "FL-1.4.2",
+      "topic": "Contextual Factors vs What They Influence",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Contextual factors influence the test process, and they in turn have an impact on many test-related issues. Which of these is a contextual FACTOR, rather than an issue impacted by the context?",
+      "options": {
+        "A": "The level of detail of testware",
+        "B": "The required level of coverage",
+        "C": "The organization's existing policies and practices",
+        "D": "The degree of test automation"
+      },
+      "correct": "C",
+      "why_correct": "CTFL 1.4.2: contextual factors include stakeholders, team members, business domain, technical factors, project constraints, organizational factors (structure, existing policies, practices used), SDLC and tools. They impact test strategy, test techniques, degree of test automation, required coverage, level of detail of testware and test reporting.",
+      "option_notes": {
+        "A": "Impacted by the context.",
+        "B": "Impacted by the context.",
+        "C": "Correct - an organizational factor.",
+        "D": "Impacted by the context."
+      },
+      "distractor_note": "All four look like 'things that vary between projects'. The question asks which one is the cause rather than the effect.",
+      "alt_wording": "Which is an input that shapes testing rather than a testing decision it shapes?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q620",
+      "chapter": "2.1",
+      "lo": "FL-2.1.3",
+      "topic": "TDD vs ATDD vs BDD",
+      "type": "C",
+      "difficulty": "red",
+      "question": "Which pairing of a test-first approach with its description is CORRECT?",
+      "options": {
+        "A": "TDD - derives tests from acceptance criteria as part of the system design process",
+        "B": "All three - tests are discarded once the code that satisfies them has been written",
+        "C": "BDD - expresses behavior in simple natural language, to be translated into executable tests",
+        "D": "ATDD - directs the coding through test cases instead of extensive software design"
+      },
+      "correct": "C",
+      "why_correct": "CTFL 2.1.3: TDD directs coding through test cases instead of extensive design, with tests first, then code, then refactoring. ATDD derives tests from acceptance criteria during system design. BDD expresses behavior in natural language, usually Given/When/Then, translated automatically into executable tests. For all three, tests may persist as automated tests.",
+      "option_notes": {
+        "A": "This describes ATDD.",
+        "B": "Tests may persist as automated tests for future adaptation and refactoring.",
+        "C": "Correct.",
+        "D": "This describes TDD."
+      },
+      "distractor_note": "The first two options simply swap the TDD and ATDD descriptions.",
+      "alt_wording": "Match each test-first approach to its defining characteristic.",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q635",
+      "chapter": "4.3",
+      "lo": "FL-4.3.2",
+      "topic": "Branch Coverage With a Loop",
+      "type": "H",
+      "difficulty": "red",
+      "question": "Consider this pseudocode:\n\n1  read n\n2  total = 0\n3  while n > 0 do\n4      if n mod 2 = 0 then\n5          total = total + n\n6      endif\n7      n = n - 1\n8  endwhile\n9  print total\n\nWhich SINGLE test case achieves 100% branch coverage?",
+      "options": {
+        "A": "n = 0",
+        "B": "n = 1",
+        "C": "n = 2",
+        "D": "No single test case can do this"
+      },
+      "correct": "C",
+      "why_correct": "With n = 2: the loop is entered (while TRUE); 2 is even (if TRUE); n becomes 1, the loop continues, 1 is odd (if FALSE); n becomes 0 and the loop exits (while FALSE). All four decision outcomes are taken in one test. n = 0 never enters the loop, and n = 1 never takes the if-TRUE outcome.",
+      "option_notes": {
+        "A": "The loop body is never entered.",
+        "B": "1 is odd, so the if-TRUE outcome is never taken.",
+        "C": "Correct.",
+        "D": "A loop lets one test take several outcomes of the same decision."
+      },
+      "distractor_note": "Two decisions suggest needing at least two tests, but a loop revisits the same decision with different values.",
+      "alt_wording": "How can one execution cover both outcomes of a decision inside a loop?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q624",
+      "chapter": "3.1",
+      "lo": "FL-3.1.1",
+      "topic": "Reviews vs Static Analysis Applicability",
+      "type": "D",
+      "difficulty": "red",
+      "question": "Which statement about work products and static testing is MOST accurate?",
+      "options": {
+        "A": "A test charter is unsuitable for static testing, since testware is checked only by being used.",
+        "B": "A contract in free-form prose can be reviewed, but lacks the structure static analysis needs.",
+        "C": "Source code suits static analysis but not reviews, since reviews are meant for documents.",
+        "D": "Third-party executable code suits reviews, because anything can be reviewed by people."
+      },
+      "correct": "B",
+      "why_correct": "CTFL 3.1.1: any work product that can be read and understood can be reviewed, but static analysis needs a structure to check against (models, code, or text with a formal syntax). Examinable products include source code, test charters, contracts and test plans. Inappropriate ones are hard for humans to interpret and should not be analyzed by tools, such as third-party executable code for legal reasons.",
+      "option_notes": {
+        "A": "Test charters are explicitly listed as examinable by static testing.",
+        "B": "Correct.",
+        "C": "Source code can be both reviewed and statically analyzed.",
+        "D": "Executable code is hard for people to interpret, so it is not reviewable in practice, and legal reasons rule out tools."
+      },
+      "distractor_note": "The third-party option misuses 'anything can be reviewed'. The actual condition is 'can be read and understood'.",
+      "alt_wording": "What must a work product have before it can be statically analyzed?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q639",
+      "chapter": "4.5",
+      "lo": "FL-4.5.1",
+      "topic": "INVEST and Testable Stories",
+      "type": "B",
+      "difficulty": "red",
+      "question": "User story: 'As a shopper, I want pages to load quickly so that I do not abandon my cart.' When asked, the product owner cannot say how anyone would check that this story is done. Which INVEST characteristic does this MOST directly challenge?",
+      "options": {
+        "A": "Small",
+        "B": "Valuable",
+        "C": "Independent",
+        "D": "Testable"
+      },
+      "correct": "D",
+      "why_correct": "CTFL 4.5.1: good stories are Independent, Negotiable, Valuable, Estimable, Small and Testable. If a stakeholder does not know how to test a story, it may not be clear enough, may not reflect something valuable to them, or they may just need help with testing. 'Quickly' has no measurable meaning, so agreeing a measurable criterion would fix it.",
+      "option_notes": {
+        "A": "The problem is vagueness rather than size.",
+        "B": "The 'so that' clause gives a clear business value.",
+        "C": "Nothing suggests a dependency on another story.",
+        "D": "Correct."
+      },
+      "distractor_note": "The syllabus mentions value as one possible reason, but this story states its value clearly. The missing part is how to check it.",
+      "alt_wording": "What does it suggest if nobody knows how to test a user story?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q627",
+      "chapter": "4.1",
+      "lo": "FL-4.1.1",
+      "topic": "Consequences of Technique Categories",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A team is planning how to derive tests for a new feature whose design is not finished. Which statement about the test technique categories is MOST accurate?",
+      "options": {
+        "A": "White-box test cases can only be created after the test object's design or implementation.",
+        "B": "Black-box test cases must be rewritten whenever the implementation of the test object changes.",
+        "C": "Experience-based techniques become unnecessary once black-box and white-box tests are complete.",
+        "D": "White-box techniques cannot be used above the component test level."
+      },
+      "correct": "A",
+      "why_correct": "CTFL 4.1: white-box test cases depend on how the software is designed, so they can only be created after its design or implementation. Black-box test cases remain useful if the implementation changes but behavior stays the same. Experience-based techniques can detect defects that black-box and white-box techniques miss, so they are complementary. All test types can be applied at all test levels.",
+      "option_notes": {
+        "A": "Correct.",
+        "B": "The reverse: independence from implementation is a key property of black-box tests.",
+        "C": "They complement the other categories, and can find what those miss.",
+        "D": "White-box testing can be applied at all test levels, with a different focus."
+      },
+      "distractor_note": "Each wrong option turns a true property of the category into its opposite.",
+      "alt_wording": "When can white-box test cases first be created?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q644",
+      "chapter": "5.1",
+      "lo": "FL-5.1.4",
+      "topic": "Working Backwards From a Three-Point Estimate",
+      "type": "H",
+      "difficulty": "red",
+      "question": "A test lead recorded an estimate as 15 +/- 3 person-days, with a most likely value of m = 14, using the CTFL three-point formula. What was the most PESSIMISTIC estimate (b)?",
+      "options": {
+        "A": "18",
+        "B": "20",
+        "C": "26",
+        "D": "34"
+      },
+      "correct": "C",
+      "why_correct": "From E = (a + 4m + b) / 6: a + b = (15 x 6) - (4 x 14) = 90 - 56 = 34. From SD = (b - a) / 6: b - a = 3 x 6 = 18. Adding the equations gives 2b = 52, so b = 26 and a = 8. Check: (8 + 56 + 26) / 6 = 15, and (26 - 8) / 6 = 3.",
+      "option_notes": {
+        "A": "This is b - a, not b.",
+        "B": "A guess that ignores the formula; it fails the check on E or SD.",
+        "C": "Correct.",
+        "D": "This is a + b, not b."
+      },
+      "distractor_note": "Both wrong extremes are genuine intermediate results (a + b and b - a), so stop only when you have isolated b.",
+      "alt_wording": "Given E, SD and m, how can you recover a and b?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q650",
+      "chapter": "5.5",
+      "lo": "FL-5.5.1",
+      "topic": "False Positives in Defect Management",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A tester logs an anomaly. Analysis shows that the test script's expected result was wrong and the product behaves correctly. Which statement is MOST accurate?",
+      "options": {
+        "A": "It is handled through the workflow, classified as a false positive and then closed.",
+        "B": "It proves that the test object has no defects in this area, so testing there can stop.",
+        "C": "The report should be deleted, because only real defects may enter the defect management process.",
+        "D": "It is a failure of the test object, because actual and expected results differed."
+      },
+      "correct": "A",
+      "why_correct": "CTFL 5.5: reported anomalies may turn out to be real defects or something else (e.g., a false positive or a change request), and this is resolved while dealing with the reports. The workflow logs, analyzes, classifies, decides a response and closes them. Note that the wrong expected result is itself a defect in a work product - the test script.",
+      "option_notes": {
+        "A": "Correct.",
+        "B": "Testing cannot show the absence of defects.",
+        "C": "Anomalies are reported first, and their nature is resolved within the process.",
+        "D": "The product behaves correctly, so there is no failure of the test object."
+      },
+      "distractor_note": "'Defect management' suggests only real defects qualify, but the syllabus says the reports cover anomalies, which may turn out to be something else.",
+      "alt_wording": "What happens to a reported anomaly that turns out not to be a defect in the product?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q640",
+      "chapter": "4.5",
+      "lo": "FL-4.5.2",
+      "topic": "Acceptance Criteria Formats",
+      "type": "B",
+      "difficulty": "red",
+      "question": "A user story's acceptance criteria are written as a table that maps order value and membership type to the discount percentage. Which statement is correct?",
+      "options": {
+        "A": "They are scenario-oriented, because each row describes a situation and its outcome.",
+        "B": "They are invalid, because a team must write criteria in Given/When/Then format.",
+        "C": "They are test cases, not acceptance criteria, because they contain concrete values.",
+        "D": "They are rule-oriented, because a tabulated input-output mapping is a rule-oriented format."
+      },
+      "correct": "D",
+      "why_correct": "CTFL 4.5.2: the two most common formats are scenario-oriented (e.g., Given/When/Then) and rule-oriented (e.g., a bullet point verification list, or a tabulated form of input-output mapping). Teams may also use another, custom format, as long as criteria are well-defined and unambiguous.",
+      "option_notes": {
+        "A": "Scenario-oriented means the Given/When/Then style, not any description of a situation.",
+        "B": "Other formats are allowed.",
+        "C": "Acceptance criteria can include specific values and act as test conditions.",
+        "D": "Correct."
+      },
+      "distractor_note": "'Scenario' is also an everyday word. Here it is tied to the Given/When/Then format.",
+      "alt_wording": "Which format does an input-output table belong to?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q612",
+      "chapter": "1.1",
+      "lo": "FL-1.1.1",
+      "topic": "Verification vs Validation Objectives",
+      "type": "B",
+      "difficulty": "red",
+      "question": "A hospital's medication app passes every test derived from its specified requirements. Nurses then use it for a week on a pilot ward and report that the dosage workflow cannot be completed during a shift handover.\n\nWhich test objective does the pilot serve MOST directly?",
+      "options": {
+        "A": "Verifying compliance with contractual, legal and regulatory requirements",
+        "B": "Verifying whether the specified requirements have been fulfilled",
+        "C": "Ensuring the required coverage of the test object",
+        "D": "Validating whether the test object is complete and works as stakeholders expect"
+      },
+      "correct": "D",
+      "why_correct": "CTFL 1.1.1 separates verifying that specified requirements are fulfilled from validating that the test object is complete and works as expected by the stakeholders. The requirements-based tests already verified the specification; the pilot checks whether the product works for its real users in their real situation.",
+      "option_notes": {
+        "A": "Nothing in the scenario concerns contracts, laws or regulations, even though the domain is healthcare.",
+        "B": "This was already done by the requirements-based tests, and the app passed them.",
+        "C": "Coverage measures how much was exercised; the nurses' finding is about fitness for use.",
+        "D": "Correct."
+      },
+      "distractor_note": "The healthcare setting tempts you towards the regulatory objective, but the finding is about real-world use, not regulation.",
+      "alt_wording": "Which objective checks that the product works as its stakeholders expect, rather than as it was specified?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q633",
+      "chapter": "4.2",
+      "lo": "FL-4.2.4",
+      "topic": "All States vs Valid Transitions Percentages",
+      "type": "H",
+      "difficulty": "red",
+      "question": "An order has states New, Paid, Shipped, Delivered, Cancelled and Refunded. The valid transitions are:\n- New --pay--> Paid\n- New --cancel--> Cancelled\n- Paid --ship--> Shipped\n- Paid --refund--> Refunded\n- Shipped --deliver--> Delivered\n- Shipped --lost--> Refunded\n- Delivered --refund--> Refunded\n\nTests:\nT1: New -pay-> Paid -ship-> Shipped -deliver-> Delivered\nT2: New -pay-> Paid -refund-> Refunded\n\nWhat coverage is achieved?",
+      "options": {
+        "A": "All states 83.3%; valid transitions 66.7%",
+        "B": "All states 83.3%; valid transitions 57.1%",
+        "C": "All states 66.7%; valid transitions 57.1%",
+        "D": "All states 100%; valid transitions 57.1%"
+      },
+      "correct": "B",
+      "why_correct": "States visited: New, Paid, Shipped, Delivered, Refunded = 5 of 6 (Cancelled is missing) = 83.3%. Distinct transitions exercised: New-Paid, Paid-Shipped, Shipped-Delivered, Paid-Refunded = 4 of 7 = 57.1%. New-pay-Paid runs twice but counts once.",
+      "option_notes": {
+        "A": "Divides 4 transitions by the 6 states rather than the 7 transitions.",
+        "B": "Correct.",
+        "C": "Miscounts states; 5 are visited.",
+        "D": "Cancelled is never visited."
+      },
+      "distractor_note": "Using the wrong denominator is the trap here, as is counting a repeated transition twice.",
+      "alt_wording": "How many distinct states and valid transitions do these two test cases exercise?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q629",
+      "chapter": "4.2",
+      "lo": "FL-4.2.2",
+      "topic": "Counting 2-Value BVA Items Across Partitions",
+      "type": "H",
+      "difficulty": "red",
+      "question": "Whole-number annual income is processed as follows: negative values rejected; 0-999 no tax; 1000-4999 low rate; 5000-9999 medium rate; 10000 and above high rate, with no upper limit.\n\nHow many coverage items are there for 2-value BVA?",
+      "options": {
+        "A": "6",
+        "B": "8",
+        "C": "10",
+        "D": "16"
+      },
+      "correct": "B",
+      "why_correct": "There are 4 boundaries between adjacent partitions: -1|0, 999|1000, 4999|5000 and 9999|10000. Each contributes 2 boundary values: -1, 0, 999, 1000, 4999, 5000, 9999, 10000 = 8 coverage items. The last partition has no upper limit, so it gives no further boundary.",
+      "option_notes": {
+        "A": "Ignores the boundary between the rejected negative values and 0.",
+        "B": "Correct.",
+        "C": "Invents an upper boundary for a partition that has no limit.",
+        "D": "This is the 3-value BVA count (4 per boundary)."
+      },
+      "distractor_note": "Watch both ends: the negative partition adds a boundary, and the open-ended partition does not.",
+      "alt_wording": "How many boundary values exist when one partition is open-ended?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q622",
+      "chapter": "2.2",
+      "lo": "FL-2.2.1",
+      "topic": "Distinguishing Test Levels",
+      "type": "C",
+      "difficulty": "red",
+      "question": "Which statement correctly distinguishes the test levels?",
+      "options": {
+        "A": "Component testing checks components in isolation and often needs test harnesses or frameworks.",
+        "B": "Acceptance testing should ideally be run by an independent team to find as many defects as possible.",
+        "C": "Component integration testing depends mainly on an environment similar to the operational one.",
+        "D": "System integration testing is heavily dependent on a strategy like bottom-up or top-down."
+      },
+      "correct": "A",
+      "why_correct": "CTFL 2.2.1: component testing focuses on components in isolation and often needs test harnesses or unit test frameworks. Component integration testing depends heavily on the integration strategy (bottom-up, top-down, big-bang). System integration testing needs environments preferably similar to the operational one. Acceptance testing focuses on validation and readiness for deployment, ideally performed by the intended users.",
+      "option_notes": {
+        "A": "Correct.",
+        "B": "Acceptance testing should ideally be performed by the intended users, and focuses on validation.",
+        "C": "That dependency belongs to system integration testing.",
+        "D": "That dependency belongs to component integration testing."
+      },
+      "distractor_note": "The two integration levels have swapped characteristics in the two middle statements. Each is true of the other level.",
+      "alt_wording": "Which level relies on an integration strategy, and which on a realistic environment?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q621",
+      "chapter": "2.1",
+      "lo": "FL-2.1.6",
+      "topic": "Retrospective Misconceptions",
+      "type": "E",
+      "difficulty": "red",
+      "question": "Which statement about retrospectives is NOT correct?",
+      "options": {
+        "A": "As a test activity, they are best limited to the test team, so that issues get raised freely.",
+        "B": "They can be held when needed, and not only at the end of an iteration or project.",
+        "C": "Recommended improvements should be followed up for continuous improvement to succeed.",
+        "D": "Their results should be recorded and are normally part of the test completion report."
+      },
+      "correct": "A",
+      "why_correct": "CTFL 2.1.6: participants are not only testers but also, for example, developers, architects, product owner and business analysts. Results are recorded and normally form part of the test completion report, retrospectives can be held when needed, and following up improvements is important.",
+      "option_notes": {
+        "A": "NOT correct - this is the answer.",
+        "B": "Correct statement.",
+        "C": "Correct statement.",
+        "D": "Correct statement."
+      },
+      "distractor_note": "The 'raise issues freely' reason sounds considerate, but better cooperation between development and testing is one of the stated benefits, so limiting attendance works against it.",
+      "alt_wording": "Who takes part in retrospectives?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q641",
+      "chapter": "5.1",
+      "lo": "FL-5.1.1",
+      "topic": "Test Plan and Test Strategy Deviations",
+      "type": "D",
+      "difficulty": "red",
+      "question": "A project's context makes part of the organization's test strategy impractical. What does CTFL say about the test plan in this situation?",
+      "options": {
+        "A": "The strategy should be rewritten first, because a plan cannot be approved until they match.",
+        "B": "The plan should say nothing about it, and the deviation goes into the completion report.",
+        "C": "The plan must keep to the strategy, because a test plan cannot deviate from it.",
+        "D": "The plan should explain why the testing deviates from the policy and strategy."
+      },
+      "correct": "D",
+      "why_correct": "CTFL 5.1.1: a test plan demonstrates that testing will adhere to the existing test policy and test strategy, or explains why the testing will deviate from them. The test approach section also lists deviations from the test policy and test strategy.",
+      "option_notes": {
+        "A": "The syllabus requires no such rewrite.",
+        "B": "Completion reports record deviations from the PLAN, while this deviation belongs in the plan itself.",
+        "C": "Deviation is allowed if it is explained.",
+        "D": "Correct."
+      },
+      "distractor_note": "The completion report does cover 'deviations', but those are deviations from the test plan, not from the strategy.",
+      "alt_wording": "How does a test plan relate to the organization's test policy and test strategy?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q647",
+      "chapter": "5.2",
+      "lo": "FL-5.2.3",
+      "topic": "Risk Assessment vs Other Risk Activities",
+      "type": "B",
+      "difficulty": "red",
+      "question": "After a workshop has produced a list of risks, a team groups them into categories, determines each one's likelihood, impact and level, ranks them, and proposes ways to handle them. Which activity is this?",
+      "options": {
+        "A": "Risk assessment",
+        "B": "Risk identification",
+        "C": "Risk monitoring",
+        "D": "Risk mitigation"
+      },
+      "correct": "A",
+      "why_correct": "CTFL 5.2.3: risk identification generates the list (brainstorming, workshops, interviews). Risk assessment involves categorizing, determining likelihood, impact and level, prioritizing, and proposing ways to handle the risks. Risk mitigation (5.2.4) IMPLEMENTS those proposed actions, and risk monitoring checks that the actions are effective.",
+      "option_notes": {
+        "A": "Correct.",
+        "B": "That was the earlier workshop that produced the list.",
+        "C": "Monitoring checks that actions are effective and spots emerging risks.",
+        "D": "Mitigation implements the actions; here they are only proposed."
+      },
+      "distractor_note": "'Proposes ways to handle them' pulls you towards mitigation, but proposing is assessment and implementing is mitigation.",
+      "alt_wording": "Which activity proposes responses without yet implementing them?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q618",
+      "chapter": "1.5",
+      "lo": "FL-1.5.3",
+      "topic": "Independence of Testing Claims",
+      "type": "F",
+      "difficulty": "red",
+      "question": "Which statements about independence of testing are correct?\ni. Independent testers are likely to recognize different kinds of failures than developers do.\nii. Independent testing may lead developers to lose a sense of responsibility for quality.\niii. Independence replaces familiarity, so developers should not test their own code.\niv. Testers from another team within the same organization provide very high independence.",
+      "options": {
+        "A": "ii and iv",
+        "B": "iii and iv",
+        "C": "i and iii",
+        "D": "i and ii"
+      },
+      "correct": "D",
+      "why_correct": "CTFL 1.5.3: independent testers bring different backgrounds, perspectives and biases (i), and a drawback is that developers may lose a sense of responsibility for quality (ii). Independence is not a replacement for familiarity, because developers can efficiently find many defects in their own code (iii is false). Testers outside the team but inside the organization give HIGH independence; VERY high means outside the organization (iv is false).",
+      "option_notes": {
+        "A": "iv is false: this is high, not very high.",
+        "B": "Both statements are false.",
+        "C": "iii is false: the syllabus says the opposite.",
+        "D": "Correct."
+      },
+      "distractor_note": "Statement iv is one word away from true. The scale is: author (none), peers (some), other team (high), outside organization (very high).",
+      "alt_wording": "Which benefits and drawbacks of independence does CTFL actually state?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q623",
+      "chapter": "2.2",
+      "lo": "FL-2.2.2",
+      "topic": "Non-Functional Tests Derived From Functional Tests",
+      "type": "B",
+      "difficulty": "red",
+      "question": "A tester takes the existing 'transfer funds' test case and reuses the same steps, adding a check that the transfer completes within 2 seconds. How is the added check BEST classified?",
+      "options": {
+        "A": "Regression testing, because an existing test case has been reused",
+        "B": "Non-functional testing, because it checks a constraint while the function is performed",
+        "C": "White-box testing, because timing is measured inside the running system",
+        "D": "Functional testing, because it uses the same steps as the functional test case"
+      },
+      "correct": "B",
+      "why_correct": "CTFL 2.2.2: many non-functional tests are derived from functional tests. They use the same functional tests but check that a non-functional constraint is satisfied while performing the function, such as finishing within a specified time. Functional testing is about WHAT the system does; non-functional testing about HOW WELL it behaves.",
+      "option_notes": {
+        "A": "Reuse does not make it regression testing, whose purpose is to detect adverse effects of a change.",
+        "B": "Correct.",
+        "C": "White-box testing derives tests from internal structure; nothing here is based on structure.",
+        "D": "The steps are shared, but the check is about how well, not what."
+      },
+      "distractor_note": "Classify by what is being checked, not by where the steps came from.",
+      "alt_wording": "What test type is a timing check added to a functional test?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q631",
+      "chapter": "4.2",
+      "lo": "FL-4.2.3",
+      "topic": "Feasible Columns With Non-Boolean Conditions",
+      "type": "H",
+      "difficulty": "red",
+      "question": "A decision table has three conditions:\n- Payment method: Card, Wallet, Cash\n- Express delivery: Yes, No\n- Insured: Yes, No\n\nCash cannot be combined with express delivery. How many FEASIBLE columns does the full table have?",
+      "options": {
+        "A": "8",
+        "B": "9",
+        "C": "10",
+        "D": "12"
+      },
+      "correct": "C",
+      "why_correct": "Total combinations = 3 x 2 x 2 = 12. Infeasible ones are Cash with Express = Yes, for both Insured values: 1 x 1 x 2 = 2. Feasible columns = 12 - 2 = 10.",
+      "option_notes": {
+        "A": "This is 2^3: it treats all three conditions as Boolean.",
+        "B": "Removes the wrong count of columns; Insured can take two values with Cash + Express.",
+        "C": "Correct.",
+        "D": "This is the total before removing infeasible combinations."
+      },
+      "distractor_note": "Check whether every condition is Boolean first, and remember that the 'don't combine' rule removes one column per value of the unrelated condition.",
+      "alt_wording": "How many combinations remain when one pair of condition values cannot occur together?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q630",
+      "chapter": "4.2",
+      "lo": "FL-4.2.2",
+      "topic": "Defect Only 3-Value BVA Reveals",
+      "type": "H",
+      "difficulty": "red",
+      "question": "The specification says a user is eligible when x >= 20 (x is an integer). A developer has implemented this as 'if x = 20'.\n\nWhich value from the 3-value BVA set reveals this defect?",
+      "options": {
+        "A": "18",
+        "B": "19",
+        "C": "20",
+        "D": "21"
+      },
+      "correct": "D",
+      "why_correct": "The boundary values are 19 and 20, so the 3-value set is 18, 19, 20, 21. Against the code: x = 18 and 19 give not eligible (as specified); x = 20 gives eligible (as specified); x = 21 gives not eligible, but the specification requires eligible. Only 21 reveals the defect. The 2-value set (19, 20) passes completely.",
+      "option_notes": {
+        "A": "Not eligible in both specification and code.",
+        "B": "Not eligible in both specification and code.",
+        "C": "Eligible in both specification and code.",
+        "D": "Correct."
+      },
+      "distractor_note": "Testing exactly the boundary is the instinct, yet the boundary is the one eligible value the faulty code handles correctly.",
+      "alt_wording": "Why can 3-value BVA detect a defect that 2-value BVA misses?",
+      "created": "2026-11-05"
+    },
+    {
+      "id": "Q617",
+      "chapter": "1.4",
+      "lo": "FL-1.4.4",
+      "topic": "Traceability for Residual Risk",
+      "type": "B",
+      "difficulty": "red",
+      "question": "The evening before go-live, the release manager asks: 'If we ship tomorrow, how much product risk is still left?' Which traceability is MOST directly useful for answering this?",
+      "options": {
+        "A": "Defect reports to the test environment",
+        "B": "Test procedures to the test execution schedule",
+        "C": "Test results to risks",
+        "D": "Test cases to requirements"
+      },
+      "correct": "C",
+      "why_correct": "CTFL 1.4.4: traceability of test results to risks can be used to evaluate the level of residual risk in a test object. Traceability of test cases to requirements verifies that the requirements are covered by test cases, which is a different question.",
+      "option_notes": {
+        "A": "This helps reproduce defects, and does not measure remaining risk.",
+        "B": "This concerns execution order rather than remaining risk.",
+        "C": "Correct.",
+        "D": "This shows requirements coverage, and not what the results say about risk."
+      },
+      "distractor_note": "Requirements traceability is the one most people remember, but it answers a coverage question, not a residual-risk question.",
+      "alt_wording": "Which traceability link supports evaluating residual risk?",
+      "created": "2026-11-05"
+    }
+  ]
+}
